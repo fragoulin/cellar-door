@@ -1,0 +1,77 @@
+{
+  "name": "cellar-door",
+  "version": "0.1.0",
+  "description": "Versatile frontend for multiple arcade machine/console/computer emulators.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fragoulin/cellar-door"
+  },
+  "author": "Fabrice Morin <fabrice.morin@live.com>",
+  "bugs": {
+    "url": "https://github.com/fragoulin/cellar-door/issues"
+  },
+  "keywords": [
+    "Frontend",
+    "Emulator",
+    "MAME",
+    "Arcade",
+    "Pinball",
+    "NeoGeo",
+    "ZiNc"
+  ],
+  "license": "MIT",
+  "private": true,
+  "main": "dist/main.js",
+  "scripts": {
+    "build-ts": "tsc",
+    "build-sass": "node-sass src/public/css/main.scss dist/public/css/main.css",
+    "build-react": "webpack --mode production --config webpack.react.config.js",
+    "build": "yarn build-sass && yarn build-react && webpack --mode production",
+    "lint": "eslint \"src/**/*.{js,jsx,ts,tsx}\" --quiet --fix",
+    "start": "electron ./dist/main.js",
+    "package-mac": "yarn build && electron-packager . cellar-door --overwrite --platform=darwin --arch=x64 --icon=src/public/icons/mac/door-2_icon-icons.com_63568.icns --prune=true --out=release-builds --ignore=\".babelrc|.eslintignore|.eslintrc.json|.gitignore|tsconfig.json|webpack.config.js|webpack.react.config.js|yarn.lock|src|test|views\"",
+    "package-win32": "yarn build && electron-packager . cellar-door --overwrite --asar --platform=win32 --arch=ia32 --icon=src/public/icons/win/cellar.ico --prune=true --out=release-builds --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName=\"Cellar door\" --ignore=\".babelrc|.eslintignore|.eslintrc.json|.gitignore|tsconfig.json|webpack.config.js|webpack.react.config.js|yarn.lock|src|test|views\"",
+    "package-win64": "yarn build && electron-packager . cellar-door --overwrite --asar --platform=win32 --arch=x64 --icon=src/public/icons/win/cellar.ico --prune=true --out=release-builds --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName=\"Cellar door\" --ignore=\".babelrc|.eslintignore|.eslintrc.json|.gitignore|tsconfig.json|webpack.config.js|webpack.react.config.js|yarn.lock|src|test|views\"",
+    "package-linux": "yarn build && electron-packager . cellar-door --overwrite --asar --platform=linux --arch=x64 --icon=src/public/icons/png/apple-icon.png --prune=true --out=release-builds --ignore=\".babelrc|.eslintignore|.eslintrc.json|.gitignore|tsconfig.json|webpack.config.js|webpack.react.config.js|yarn.lock|src|test|views\""
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.9.0",
+    "@babel/plugin-proposal-class-properties": "^7.8.3",
+    "@babel/plugin-transform-arrow-functions": "^7.8.3",
+    "@babel/preset-env": "^7.9.5",
+    "@babel/preset-react": "^7.9.4",
+    "@babel/preset-typescript": "^7.9.0",
+    "@types/react": "^16.9.34",
+    "@types/react-dom": "^16.9.6",
+    "@typescript-eslint/eslint-plugin": "^2.29.0",
+    "@typescript-eslint/parser": "^2.29.0",
+    "babel-loader": "^8.1.0",
+    "electron": "^8.2.3",
+    "electron-packager": "^14.2.1",
+    "eslint": "^6.8.0",
+    "eslint-config-standard": "^14.1.1",
+    "eslint-plugin-import": "^2.20.2",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-react": "^7.19.0",
+    "eslint-plugin-standard": "^4.0.1",
+    "html-webpack-plugin": "^4.2.0",
+    "node-sass": "^4.14.0",
+    "prettier": "^2.0.5",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "ts-loader": "^7.0.1",
+    "tslint": "^6.1.1",
+    "typescript": "^3.8.3",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.11"
+  },
+  "dependencies": {
+    "immutable": "^4.0.0-rc.12",
+    "metro4": "^4.3.6",
+    "metro4-react": "^0.1.3",
+    "react-redux": "^7.2.0",
+    "redux": "^4.0.5"
+  }
+}
