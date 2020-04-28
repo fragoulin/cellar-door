@@ -1,5 +1,6 @@
 {
   "name": "cellar-door",
+  "productName": "cellar-door",
   "version": "0.1.0",
   "description": "Versatile frontend for multiple arcade machine/console/computer emulators.",
   "repository": {
@@ -23,36 +24,71 @@
   "private": true,
   "main": ".webpack/main",
   "scripts": {
-    "build-sass": "node-sass public/css/main.scss dist/public/css/main.css",
-    "webpack": "webpack --mode development",
-    "webpack-prod": "webpack --mode production",
-    "build-react-prod": "webpack --mode production --config webpack.react.config.js",
-    "build-prod": "yarn build-sass && yarn && yarn webpack-prod && yarn build-react-prod",
-    "build-react": "webpack --mode development --config webpack.react.config.js",
-    "build": "yarn build-sass && yarn webpack && yarn build-react",
-    "lint": "eslint \"src/**/*.{js,jsx,ts,tsx}\" --quiet --fix",
-    "start": "electron ./dist/main.js",
-    "package-mac": "yarn build-prod && electron-packager . cellar-door --overwrite --platform=darwin --arch=x64 --icon=public/icons/mac/door-2_icon-icons.com_63568.icns --prune=true --out=release-builds --ignore=\".babelrc|.eslintignore|.eslintrc.json|.gitignore|tsconfig.json|webpack.config.js|webpack.react.config.js|yarn.lock|src|test|views\"",
-    "package-win32": "yarn build-prod && electron-packager . cellar-door --overwrite --asar --platform=win32 --arch=ia32 --icon=public/icons/win/cellar.ico --prune=true --out=release-builds --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName=\"Cellar door\" --ignore=\".babelrc|.eslintignore|.eslintrc.json|.gitignore|tsconfig.json|webpack.config.js|webpack.react.config.js|yarn.lock|src|test|views\"",
-    "package-win64": "yarn build-prod && electron-packager . cellar-door --overwrite --asar --platform=win32 --arch=x64 --icon=public/icons/win/cellar.ico --prune=true --out=release-builds --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName=\"Cellar door\" --ignore=\".babelrc|.eslintignore|.eslintrc.json|.gitignore|tsconfig.json|webpack.config.js|webpack.react.config.js|yarn.lock|src|test|views\"",
-    "package-linux": "yarn build-prod && electron-packager . cellar-door --overwrite --asar --platform=linux --arch=x64 --icon=public/icons/png/apple-icon.png --prune=true --out=release-builds --ignore=\".babelrc|.eslintignore|.eslintrc.json|.gitignore|tsconfig.json|webpack.config.js|webpack.react.config.js|yarn.lock|src|test|views\""
+    "start": "electron-forge start",
+    "package": "electron-forge package",
+    "make": "electron-forge make",
+    "publish": "electron-forge publish",
+    "lint": "eslint --ext .ts ."
+  },
+  "config": {
+    "forge": {
+      "packagerConfig": {},
+      "makers": [
+        {
+          "name": "@electron-forge/maker-squirrel",
+          "config": {
+            "name": "cellar_door"
+          }
+        },
+        {
+          "name": "@electron-forge/maker-zip",
+          "platforms": [
+            "darwin"
+          ]
+        },
+        {
+          "name": "@electron-forge/maker-deb",
+          "config": {}
+        },
+        {
+          "name": "@electron-forge/maker-rpm",
+          "config": {}
+        }
+      ],
+      "plugins": [
+        [
+          "@electron-forge/plugin-webpack",
+          {
+            "mainConfig": "./webpack.main.config.js",
+            "renderer": {
+              "config": "./webpack.renderer.config.js",
+              "entryPoints": [
+                {
+                  "html": "./src/index.html",
+                  "js": "./src/renderer.ts",
+                  "name": "main_window"
+                }
+              ]
+            }
+          }
+        ]
+      ]
+    }
   },
   "devDependencies": {
-    "@babel/cli": "^7.8.4",
-    "@babel/core": "^7.9.0",
-    "@babel/plugin-proposal-class-properties": "^7.8.3",
-    "@babel/plugin-transform-arrow-functions": "^7.8.3",
-    "@babel/preset-env": "^7.9.5",
-    "@babel/preset-react": "^7.9.4",
-    "@babel/preset-typescript": "^7.9.0",
-    "@types/pug": "^2.0.4",
+    "@electron-forge/cli": "^6.0.0-beta.51",
+    "@electron-forge/maker-deb": "^6.0.0-beta.51",
+    "@electron-forge/maker-rpm": "^6.0.0-beta.51",
+    "@electron-forge/maker-squirrel": "^6.0.0-beta.51",
+    "@electron-forge/maker-zip": "^6.0.0-beta.51",
+    "@electron-forge/plugin-webpack": "^6.0.0-beta.51",
+    "@marshallofsound/webpack-asset-relocator-loader": "^0.5.0",
     "@types/react": "^16.9.34",
     "@types/react-dom": "^16.9.6",
     "@typescript-eslint/eslint-plugin": "^2.29.0",
     "@typescript-eslint/parser": "^2.29.0",
-    "babel-loader": "^8.1.0",
-    "electron": "^8.2.3",
-    "electron-packager": "^14.2.1",
+    "css-loader": "^3.5.3",
+    "electron": "8.2.4",
     "eslint": "^6.8.0",
     "eslint-config-standard": "^14.1.1",
     "eslint-plugin-import": "^2.20.2",
@@ -60,22 +96,20 @@
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-react": "^7.19.0",
     "eslint-plugin-standard": "^4.0.1",
-    "html-webpack-plugin": "^4.2.0",
-    "node-sass": "^4.14.0",
+    "fork-ts-checker-webpack-plugin": "^4.1.3",
+    "html-loader": "^1.1.0",
+    "node-loader": "^0.6.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "style-loader": "^1.2.0",
     "ts-loader": "^7.0.1",
-    "tslint": "^6.1.1",
     "typescript": "^3.8.3",
-    "webpack": "^4.43.0",
-    "webpack-cli": "^3.3.11"
+    "webpack": "^4.43.0"
   },
   "dependencies": {
+    "electron-squirrel-startup": "^1.0.0",
     "immutable": "^4.0.0-rc.12",
     "metro4": "^4.3.6",
-    "metro4-react": "^0.1.3",
-    "pug": "^2.0.4",
-    "pug-as-jsx-loader": "^1.0.84",
     "react-redux": "^7.2.0",
     "redux": "^4.0.5"
   }

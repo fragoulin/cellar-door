@@ -1,9 +1,31 @@
 import { app, BrowserWindow, Menu, session } from 'electron'
-import * as url from 'url'
-import * as path from 'path'
+declare const MAIN_WINDOW_WEBPACK_ENTRY: any
+declare const MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY: any
 
 function createWindow () {
-  // Add CSP HTTP header if application is packaged
+  setCspHeaders()
+
+  // Create the browser window.
+  const win = new BrowserWindow({
+    width: 800,
+    height: 600,
+    webPreferences: {
+      preload: MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY
+    }
+  })
+
+  // and load the index.html of the app.
+  win.loadURL(MAIN_WINDOW_WEBPACK_ENTRY)
+
+  // Open the DevTools.
+  win.webContents.openDevTools()
+
+  // Initialize menu.
+  Menu.setApplicationMenu(createMenu())
+}
+
+function setCspHeaders () {
+  // Add CSP HTTP header if application is packaged.
   if (app.isPackaged) {
     session.defaultSession.webRequest.onHeadersReceived((details, callbackHeaders) => {
       callbackHeaders({
@@ -14,29 +36,10 @@ function createWindow () {
       })
     })
   }
+}
 
-  // Create the browser window.
-  const win = new BrowserWindow({
-    width: 800,
-    height: 600,
-    webPreferences: {
-      contextIsolation: true
-    }
-  })
-
-  // and load the index.html of the app.
-  win.loadURL(
-    url.format({
-      pathname: path.join(__dirname, 'public/index.html'),
-      protocol: 'file:',
-      slashes: true
-    })
-  )
-  
-  // Open the DevTools.
-  win.webContents.openDevTools()
-
-  var menu = Menu.buildFromTemplate([
+function createMenu (): Menu {
+  return Menu.buildFromTemplate([
     {
       label: 'Cellar',
       submenu: [
@@ -64,7 +67,6 @@ function createWindow () {
       ]
     }
   ])
-  Menu.setApplicationMenu(menu)
 }
 
 // This method will be called when Electron has finished

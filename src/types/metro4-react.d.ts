@@ -1,1 +1,1 @@
-declare module 'metro4-react';
+declare module 'metro4-react'
