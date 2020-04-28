@@ -2,15 +2,17 @@ const path = require("path");
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 
 const htmlPlugin = new HtmlWebPackPlugin({
-  template: "./src/public/index.html",
+  template: "./public/index.html",
   filename: "./public/index.html"
 });
 
 const config = {
   target: "electron-renderer",
-  entry: "./src/app/renderer.tsx",
+  entry: {
+    welcome: "./src/app/welcome.tsx"
+  },
   output: {
-    filename: "renderer.js",
+    filename: "[name].js",
     path: path.resolve(__dirname, "dist")
   },
   module: {
@@ -21,6 +23,11 @@ const config = {
         use: {
           loader: "babel-loader"
         }
+      },
+      {
+        test: /.pug?$/,
+        exclude: /node_modules/,
+        loaders: ['babel-loader', 'pug-as-jsx-loader'],
       }
     ]
   },

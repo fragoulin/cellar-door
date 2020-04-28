@@ -1,8 +1,20 @@
-import { app, BrowserWindow, Menu } from 'electron'
+import { app, BrowserWindow, Menu, session } from 'electron'
 import * as url from 'url'
 import * as path from 'path'
 
 function createWindow () {
+  // Add CSP HTTP header if application is packaged
+  if (app.isPackaged) {
+    session.defaultSession.webRequest.onHeadersReceived((details, callbackHeaders) => {
+      callbackHeaders({
+        responseHeaders: {
+          ...details.responseHeaders,
+          'Content-Security-Policy': ['script-src \'self\' \'unsafe-inline\' https://cdn.metroui.org.ua/v4/js/metro.min.js;']
+        }
+      })
+    })
+  }
+
   // Create the browser window.
   const win = new BrowserWindow({
     width: 800,
@@ -20,7 +32,7 @@ function createWindow () {
       slashes: true
     })
   )
-
+  
   // Open the DevTools.
   win.webContents.openDevTools()
 
@@ -31,6 +43,9 @@ function createWindow () {
         { label: 'New' },
         { type: 'separator' },
         { label: 'Open' },
+        { type: 'separator' },
+        { label: 'Save' },
+        { label: 'Save As' },
         { type: 'separator' },
         { label: 'Close' },
         { type: 'separator' },
@@ -43,7 +58,10 @@ function createWindow () {
       ]
     },
     {
-      label: 'Help'
+      label: 'Help',
+      submenu: [
+        { label: 'About' }
+      ]
     }
   ])
   Menu.setApplicationMenu(menu)
