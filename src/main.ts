@@ -1,37 +1,15 @@
 import { app, BrowserWindow, Menu, session } from 'electron'
-declare const MAIN_WINDOW_WEBPACK_ENTRY: any
-declare const MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY: any
+declare const MAIN_WINDOW_WEBPACK_ENTRY: string
+declare const MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY: string
 
-function createWindow () {
-  setCspHeaders()
-
-  // Create the browser window.
-  const win = new BrowserWindow({
-    width: 800,
-    height: 600,
-    webPreferences: {
-      preload: MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY
-    }
-  })
-
-  // and load the index.html of the app.
-  win.loadURL(MAIN_WINDOW_WEBPACK_ENTRY)
-
-  // Open the DevTools.
-  win.webContents.openDevTools()
-
-  // Initialize menu.
-  Menu.setApplicationMenu(createMenu())
-}
-
-function setCspHeaders () {
+function setCspHeaders (): void {
   // Add CSP HTTP header if application is packaged.
   if (app.isPackaged) {
     session.defaultSession.webRequest.onHeadersReceived((details, callbackHeaders) => {
       callbackHeaders({
         responseHeaders: {
           ...details.responseHeaders,
-          'Content-Security-Policy': ['script-src \'self\' \'unsafe-inline\' https://cdn.metroui.org.ua/v4/js/metro.min.js;']
+          'Content-Security-Policy': [`script-src 'self' 'unsafe-inline'`]
         }
       })
     })
@@ -54,7 +32,7 @@ function createMenu (): Menu {
         { type: 'separator' },
         {
           label: 'Exit',
-          click () {
+          click (): void {
             app.quit()
           }
         }
@@ -67,6 +45,28 @@ function createMenu (): Menu {
       ]
     }
   ])
+}
+
+function createWindow (): void {
+  setCspHeaders()
+
+  // Create the browser window.
+  const win = new BrowserWindow({
+    width: 800,
+    height: 600,
+    webPreferences: {
+      preload: MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY
+    }
+  })
+
+  // and load the index.html of the app.
+  win.loadURL(MAIN_WINDOW_WEBPACK_ENTRY)
+
+  // Open the DevTools.
+  win.webContents.openDevTools()
+
+  // Initialize menu.
+  Menu.setApplicationMenu(createMenu())
 }
 
 // This method will be called when Electron has finished

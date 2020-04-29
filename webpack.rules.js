@@ -1,3 +1,5 @@
+const tsImportPluginFactory = require('ts-import-plugin')
+
 module.exports = [
   // Add support for native node modules
   {
@@ -23,5 +25,23 @@ module.exports = [
         transpileOnly: true
       }
     }
+  },
+  {
+    test: /\.(jsx|tsx|js|ts)$/,
+    loader: 'ts-loader',
+    options: {
+      transpileOnly: true,
+      getCustomTransformers: () => ({
+        before: [ tsImportPluginFactory({
+          libraryName: 'antd',
+          libraryDirectory: 'lib',
+          style: 'css'
+        }) ]
+      }),
+      compilerOptions: {
+        module: 'es2015'
+      }
+    },
+    exclude: /node_modules/
   }
 ];

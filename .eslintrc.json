@@ -6,8 +6,10 @@
         "node": true
     },
     "extends": [
+        "standard",
         "plugin:react/recommended",
-        "standard"
+        "plugin:@typescript-eslint/eslint-recommended",
+        "plugin:@typescript-eslint/recommended"
     ],
     "settings":{
         "react": {
