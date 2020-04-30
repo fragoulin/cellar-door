@@ -27,21 +27,14 @@ module.exports = [
     }
   },
   {
-    test: /\.(jsx|tsx|js|ts)$/,
-    loader: 'ts-loader',
-    options: {
-      transpileOnly: true,
-      getCustomTransformers: () => ({
-        before: [ tsImportPluginFactory({
-          libraryName: 'antd',
-          libraryDirectory: 'lib',
-          style: 'css'
-        }) ]
-      }),
-      compilerOptions: {
-        module: 'es2015'
+    test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
+    use: [
+      {
+        loader: 'file-loader',
+        options: {
+          name: '[name].[ext]'
+        }
       }
-    },
-    exclude: /node_modules/
+    ]
   }
 ];

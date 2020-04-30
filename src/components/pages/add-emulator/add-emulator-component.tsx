@@ -1,15 +1,16 @@
 import * as React from 'react'
 import { SignalDispatcher, ISignal } from 'strongly-typed-events'
+import { Button } from '@material-ui/core'
 
-export class AddEmulator extends React.Component {
+export class AddEmulator extends React.PureComponent {
   private _back = new SignalDispatcher()
   private _next = new SignalDispatcher()
 
   render (): React.ReactNode {
     return (
-      <div>
-        <h1>Add an emulator</h1>
-        <p>Choose an emulator from the following list</p>
+      <div className="AddEmulator">
+        <h1 className="Heading">Add an emulator</h1>
+        <p className="body1">Choose an emulator from the following list</p>
         <select>
           <option>Hyperspin</option>
           <option>MAME</option>
@@ -17,8 +18,8 @@ export class AddEmulator extends React.Component {
           <option>NeoRageX</option>
           <option>ZiNc</option>
         </select>
-        <button onClick={this.back}>Back</button>
-        <button onClick={this.next}>Next</button>
+        <Button onClick={this.back}>Back</Button>
+        <Button color="primary" onClick={this.next}>Next</Button>
       </div>
     )
   }
