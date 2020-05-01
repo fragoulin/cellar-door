@@ -1,9 +1,19 @@
 import ReactDOM from 'react-dom'
-import React from 'react'
-import { Root } from './components/root/root-component'
+import React, { ReactElement } from 'react'
 import 'typeface-roboto'
+import CssBaseline from '@material-ui/core/CssBaseline'
+import { Router } from './components/molecules/router/router-component'
 
 const main = document.createElement('main')
 document.body.appendChild(main)
 
-ReactDOM.render(<Root/>, main)
+const root: ReactElement = (
+  <section id="root">
+    <CssBaseline/>
+    <header></header>
+    <Router/>
+    <footer></footer>
+  </section>
+)
+
+ReactDOM.render(root, main)
