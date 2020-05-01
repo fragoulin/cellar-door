@@ -14,7 +14,7 @@ export class Router extends React.PureComponent {
     return (
       <BrowserRouter>
         <Switch>
-          <Route path="/add-emulator/" component={AddEmulator}/>
+          <Route path="/add-emulator/:emulator?" component={AddEmulator}/>
           <Route path="/configure-emulator/:emulator" component={ConfigureEmulator}/>
           <Route path="/" component={Welcome}/>
         </Switch>

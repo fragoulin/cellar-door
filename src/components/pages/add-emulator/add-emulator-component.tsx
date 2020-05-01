@@ -1,21 +1,25 @@
 import './add-emulator.css'
 import * as React from 'react'
 import { Button } from '@material-ui/core'
-import { Link } from 'react-router-dom'
+import { Link, RouteComponentProps } from 'react-router-dom'
 import { EmulatorsSelect } from '../../organisms/emulators-select/emulators-select-component'
 import { EmulatorId } from '../../../models/emulator'
 
+// Interface for component init
 interface Emulator {
-  emulator: EmulatorId;
+  emulator: EmulatorId; // Default emulator
 }
 
+// Custom type to access to route parameters
+type EmulatorProps = RouteComponentProps<{ emulator?: string }>
+
 // Add emulator (step1) page
-export class AddEmulator extends React.PureComponent<{}, Emulator> {
-  constructor (props: {}) {
+export class AddEmulator extends React.PureComponent<{} & EmulatorProps, Emulator> {
+  constructor (props: {} & EmulatorProps) {
     super(props)
 
     this.state = {
-      emulator: EmulatorId.MAME
+      emulator: this.props.match.params.emulator as EmulatorId || EmulatorId.MAME
     }
   }
 

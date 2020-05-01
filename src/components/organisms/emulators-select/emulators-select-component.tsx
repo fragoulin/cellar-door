@@ -10,7 +10,7 @@ interface Emulator {
 }
 
 // Emulators select
-export class EmulatorsSelect extends React.PureComponent<{} & Emulator, Emulator> {
+export class EmulatorsSelect extends React.PureComponent<{} & Emulator> {
   private handleChange = (event: React.ChangeEvent<{ value: unknown }>): void => {
     this.props.setEmulator(event.target.value as EmulatorId)
   }
@@ -19,7 +19,8 @@ export class EmulatorsSelect extends React.PureComponent<{} & Emulator, Emulator
     return (
       <FormControl required>
         <InputLabel>Emulator</InputLabel>
-        <Select className="EmulatorsList"
+        <Select
+          className="EmulatorsList"
           value={this.props.emulator}
           onChange={this.handleChange}
         >
