@@ -62,7 +62,6 @@ function createWindow (): void {
     width: 800,
     height: 600,
     webPreferences: {
-      preload: MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY,
       nodeIntegration: true // TODO remove nodeIntegration and use preload
     }
   })
@@ -101,14 +100,3 @@ app.on('activate', () => {
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
-// app.allowRendererProcessReuse = true
-/*
-ipcMain.on('toMain', () => {
-  fs.readdir('resources/emulators', (err: NodeJS.ErrnoException | null, files: string[]) => {
-    // Do something with file contents
-
-    // Send result back to renderer process
-    win.webContents.send('fromMain', files);
-  });
-});
-*/
