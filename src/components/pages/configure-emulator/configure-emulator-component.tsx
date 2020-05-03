@@ -15,7 +15,7 @@ interface ComponentState {
 export class ConfigureEmulator extends React.PureComponent<ComponentProperties, ComponentState> {
   constructor (props: ComponentProperties) {
     super(props)
-    
+
     this.state = {
       emulatorId: this.props.match.params.emulatorId as string || 'mame'
     }
