@@ -1,30 +1,31 @@
 import './add-emulator.css'
 import * as React from 'react'
 import { Button } from '@material-ui/core'
-import { Link, RouteComponentProps } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { EmulatorsSelect } from '../../organisms/emulators-select/emulators-select-component'
-import { EmulatorId } from '../../../models/emulator'
 
-// Interface for component init
-interface Emulator {
-  emulator: EmulatorId; // Default emulator
+// Interface for component state
+interface ComponentState {
+  selectedEmulatorId: string;
+  nextButtonDisabled: boolean;
 }
 
-// Custom type to access to route parameters
-type EmulatorProps = RouteComponentProps<{ emulator?: string }>
-
 // Add emulator (step1) page
-export class AddEmulator extends React.PureComponent<{} & EmulatorProps, Emulator> {
-  constructor (props: {} & EmulatorProps) {
+export class AddEmulator extends React.PureComponent<{}, ComponentState> {
+  constructor (props: {}) {
     super(props)
 
     this.state = {
-      emulator: this.props.match.params.emulator as EmulatorId || EmulatorId.MAME
+      selectedEmulatorId: '',
+      nextButtonDisabled: true
     }
   }
 
-  setEmulator = (emulator: EmulatorId): void => {
-    this.setState({ emulator: emulator })
+  setEmulator = (emulatorId: string): void => {
+    this.setState({
+      nextButtonDisabled: false
+    })
+    this.setState({ selectedEmulatorId: emulatorId })
   }
 
   public render (): React.ReactNode {
@@ -33,10 +34,10 @@ export class AddEmulator extends React.PureComponent<{} & EmulatorProps, Emulato
         <h1>Add an emulator</h1>
         <p>Choose an emulator from the following list</p>
         <div>
-          <EmulatorsSelect emulator={this.state.emulator} setEmulator={this.setEmulator}/>
+          <EmulatorsSelect setEmulator={this.setEmulator}/>
         </div>
         <Button color="secondary" component={Link} to="/">Back</Button>
-        <Button color="primary" component={Link} to={{ pathname: `/configure-emulator/${this.state.emulator}` }}>Next</Button>
+        <Button color="primary" disabled={this.state.nextButtonDisabled} component={Link} to={{ pathname: `/configure-emulator/${this.state.selectedEmulatorId}` }}>Next</Button>
       </div>
     )
   }

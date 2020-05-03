@@ -1,18 +1,46 @@
 import './emulators-select.css'
 import * as React from 'react'
 import { Select, MenuItem, InputLabel, FormControl } from '@material-ui/core'
-import { EmulatorId } from '../../../models/emulator'
+import { Emulator } from '../../../models/emulator'
+import { EmulatorsService } from '../../../services/emulators-service'
+import { List } from 'immutable'
 
-// Interface for component init
-interface Emulator {
-  emulator: EmulatorId; // The default emulator
+// Interface for component properties
+interface ComponentProperties {
   setEmulator: Function; // The callback to set selected emulator
 }
 
+// Interface for component state
+interface ComponentState {
+  emulatorsService: EmulatorsService;
+  selectedEmulatorId: string;
+  emulators: List<Emulator>;
+}
+
 // Emulators select
-export class EmulatorsSelect extends React.PureComponent<{} & Emulator> {
+export class EmulatorsSelect extends React.PureComponent<ComponentProperties, ComponentState> {
+  constructor (props: ComponentProperties) {
+    super(props)
+
+    const service = EmulatorsService.getInstance()
+
+    this.state = {
+      emulatorsService: service,
+      emulators: service.getEmulators(),
+      selectedEmulatorId: ''
+    }
+  }
+
   private handleChange = (event: React.ChangeEvent<{ value: unknown }>): void => {
-    this.props.setEmulator(event.target.value as EmulatorId)
+    const emulatorId = event.target.value as string
+
+    // Update component state
+    this.setState({
+      selectedEmulatorId: emulatorId
+    })
+
+    // Update selected emulator via callback
+    this.props.setEmulator(emulatorId)
   }
 
   public render (): React.ReactNode {
@@ -21,15 +49,10 @@ export class EmulatorsSelect extends React.PureComponent<{} & Emulator> {
         <InputLabel>Emulator</InputLabel>
         <Select
           className="EmulatorsList"
-          value={this.props.emulator}
+          value={this.state.selectedEmulatorId}
           onChange={this.handleChange}
         >
-          <MenuItem value={EmulatorId.HyperSpin}>{EmulatorId.HyperSpin}</MenuItem>
-          <MenuItem value={EmulatorId.MAME}>{EmulatorId.MAME}</MenuItem>
-          <MenuItem value={EmulatorId.Nebula}>{EmulatorId.Nebula}</MenuItem>
-          <MenuItem value={EmulatorId.NeoRageX}>{EmulatorId.NeoRageX}</MenuItem>
-          <MenuItem value={EmulatorId.ScummVM}>{EmulatorId.ScummVM}</MenuItem>
-          <MenuItem value={EmulatorId.ZiNc}>{EmulatorId.ZiNc}</MenuItem>
+          {this.state.emulators.map((e: Emulator) => <MenuItem key={e.Id} value={e.Id}>{e.shortName}</MenuItem>)}
         </Select>
       </FormControl>
     )

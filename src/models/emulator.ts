@@ -1,27 +1,12 @@
-export enum EmulatorId {
-  HyperSpin = 'HyperSpin',
-  MAME = 'MAME',
-  Nebula = 'Nebula',
-  NeoRageX = 'NeoRageX',
-  ScummVM = 'ScummVM',
-  ZiNc = 'ZiNc'
-}
-
-export interface Emulator {
-  readonly id: EmulatorId;
-  readonly name: string;
-  description?: string;
-  url?: string;
-}
-
-export class EmulatorImpl implements Emulator {
-  public id: EmulatorId
-  public name: string
+export class Emulator {
+  public Id: string
+  public shortName: string
+  public fullName?: string
   public description?: string
-  public url?: string
+  public URL?: string
 
-  constructor (id: EmulatorId, name: string) {
-    this.id = id
-    this.name = name
+  constructor (Id: string, shortName: string) {
+    this.Id = Id
+    this.shortName = shortName
   }
 }

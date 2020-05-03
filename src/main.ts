@@ -3,6 +3,10 @@ import { app, BrowserWindow, Menu, session } from 'electron'
 declare const MAIN_WINDOW_WEBPACK_ENTRY: string
 declare const MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY: string
 
+// Keep a global reference of the window object, if you don't, the window will
+// be closed automatically when the JavaScript object is garbage collected.
+let win: BrowserWindow
+
 function setCspHeaders (): void {
   // Add CSP HTTP header if application is packaged.
   if (app.isPackaged) {
@@ -22,9 +26,11 @@ function createMenu (): Menu {
     {
       label: 'Cellar',
       submenu: [
-        { label: 'New' },
+        { label: 'New cellar' },
+        { label: 'New emulator' },
         { type: 'separator' },
         { label: 'Open' },
+        { label: 'Open recent' },
         { type: 'separator' },
         { label: 'Save' },
         { label: 'Save As' },
@@ -52,11 +58,12 @@ function createWindow (): void {
   setCspHeaders()
 
   // Create the browser window.
-  const win = new BrowserWindow({
+  win = new BrowserWindow({
     width: 800,
     height: 600,
     webPreferences: {
-      preload: MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY
+      preload: MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY,
+      nodeIntegration: true // TODO remove nodeIntegration and use preload
     }
   })
 
@@ -94,3 +101,14 @@ app.on('activate', () => {
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
+// app.allowRendererProcessReuse = true
+/*
+ipcMain.on('toMain', () => {
+  fs.readdir('resources/emulators', (err: NodeJS.ErrnoException | null, files: string[]) => {
+    // Do something with file contents
+
+    // Send result back to renderer process
+    win.webContents.send('fromMain', files);
+  });
+});
+*/
