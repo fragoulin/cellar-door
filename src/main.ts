@@ -1,7 +1,6 @@
 import { app, BrowserWindow, Menu, session } from 'electron'
 
 declare const MAIN_WINDOW_WEBPACK_ENTRY: string
-declare const MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY: string
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
