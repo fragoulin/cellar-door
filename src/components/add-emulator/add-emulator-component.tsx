@@ -8,6 +8,7 @@ import { EmulatorsSelect } from '../emulators-select/emulators-select-component'
 interface ComponentState {
   selectedEmulatorId?: string;
   hasError: boolean;
+  redirect: boolean;
 }
 
 // Add emulator (step1) page
@@ -16,7 +17,8 @@ export class AddEmulator extends React.PureComponent<{}, ComponentState> {
     super(props)
 
     this.state = {
-      hasError: false
+      hasError: false,
+      redirect: false
     }
   }
 
@@ -26,12 +28,15 @@ export class AddEmulator extends React.PureComponent<{}, ComponentState> {
 
   private handleSubmit = (e: React.SyntheticEvent): void => {
     e.preventDefault()
-    this.setState(state => ({ hasError: !state.selectedEmulatorId }))
+    this.setState(state => ({
+      hasError: !state.selectedEmulatorId,
+      redirect: state.selectedEmulatorId !== undefined
+    }))
   }
 
   public render (): React.ReactNode {
     return (
-      this.state.hasError || !this.state.selectedEmulatorId
+      !this.state.redirect
         ? <form className="AddEmulator" onSubmit={this.handleSubmit}>
           <h1>Add an emulator</h1>
           <p>Choose an emulator from the following list</p>

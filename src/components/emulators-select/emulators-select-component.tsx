@@ -1,13 +1,14 @@
 import './emulators-select.css'
 import * as React from 'react'
-import { Select, MenuItem, InputLabel, FormControl } from '@material-ui/core'
-import { Emulator } from '../../../models/emulator'
-import { EmulatorsService } from '../../../services/emulators-service'
+import { Select, MenuItem, InputLabel, FormControl, FormHelperText } from '@material-ui/core'
+import { Emulator } from '../../models/emulator/emulator'
+import { EmulatorsService } from '../../services/emulators-service'
 import { List } from 'immutable'
 
 // Interface for component properties
 interface ComponentProperties {
   setEmulator: Function; // The callback to set selected emulator
+  hasError: boolean;
 }
 
 // Interface for component state
@@ -45,16 +46,18 @@ export class EmulatorsSelect extends React.PureComponent<ComponentProperties, Co
 
   public render (): React.ReactNode {
     return (
-      <FormControl required>
-        <InputLabel>Emulator</InputLabel>
+      <div>
+        <InputLabel htmlFor="emulator">Emulator</InputLabel>
         <Select
+          name="emulator"
           className="EmulatorsList"
           value={this.state.selectedEmulatorId}
           onChange={this.handleChange}
         >
           {this.state.emulators.map((e: Emulator) => <MenuItem key={e.Id} value={e.Id}>{e.shortName}</MenuItem>)}
         </Select>
-      </FormControl>
+        {this.props.hasError && <FormHelperText>Emulator is required</FormHelperText>}
+      </div>
     )
   }
 }

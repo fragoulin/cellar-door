@@ -1,9 +1,6 @@
-import { Emulator } from '../models/emulator'
-import { plainToClass } from 'class-transformer'
+import { Emulator, EmulatorId } from '../models/emulator/emulator'
 import { List } from 'immutable'
-import mame from '../../resources/emulators/mame.json'
-import scummvm from '../../resources/emulators/scummvm.json'
-import zinc from '../../resources/emulators/zinc.json'
+import emulators from '../emulators'
 
 export class EmulatorsService {
   private static _instance: EmulatorsService | undefined
@@ -13,11 +10,10 @@ export class EmulatorsService {
   }
 
   public getEmulators (): List<Emulator> {
-    return List(plainToClass(Emulator, [mame, scummvm, zinc]))
+    return List(emulators.map(E => new E()))
   }
 
-  public getEmulator (emulatorId: string): Emulator | undefined {
-    const emulators = this.getEmulators()
-    return emulators.find(emulator => emulatorId === emulator.Id)
+  public getEmulator (emulatorId: EmulatorId): Emulator | undefined {
+    return this.getEmulators().find(emulator => emulatorId === emulator.Id)
   }
 }

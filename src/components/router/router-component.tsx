@@ -4,9 +4,9 @@ import {
   Route,
   Switch
 } from 'react-router-dom'
-import { Welcome } from '../../pages/welcome/welcome-component'
-import { AddEmulator } from '../../pages/add-emulator/add-emulator-component'
-import { ConfigureEmulator } from '../../pages/configure-emulator/configure-emulator-component'
+import { Welcome } from '../welcome/welcome-component'
+import { AddEmulator } from '../add-emulator/add-emulator-component'
+import { ConfigureEmulator } from '../configure-emulator/configure-emulator-component'
 
 // Router component
 export class Router extends React.PureComponent {
