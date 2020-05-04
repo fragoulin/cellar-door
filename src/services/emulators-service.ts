@@ -1,6 +1,6 @@
 import { Emulator, EmulatorId } from '../models/emulator/emulator'
 import { List } from 'immutable'
-import emulators from '../emulators'
+import emulators from '../models/emulator/emulators'
 
 export class EmulatorsService {
   private static _instance: EmulatorsService | undefined

@@ -1,7 +1,7 @@
-import { EmulatorId, EmulatorImpl } from '../models/emulator/emulator'
-import { EmulatorConfiguration } from '../models/emulator/emulator-configuration'
+import { EmulatorId, EmulatorImpl } from '../emulator'
+import { EmulatorConfiguration } from '../emulator-configuration'
 import { List } from 'immutable'
-import { EmulatorLicence } from '../models/emulator/emulator-licence'
+import { EmulatorLicence } from '../emulator-licence'
 
 export class ScummVm extends EmulatorImpl {
   constructor () {
