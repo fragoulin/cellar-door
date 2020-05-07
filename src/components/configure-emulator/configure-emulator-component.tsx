@@ -1,43 +1,116 @@
 import './configure-emulator.css'
 import React from 'react'
-import { RouteComponentProps, Link } from 'react-router-dom'
-import { Button } from '@material-ui/core'
-import { Emulator, EmulatorId } from 'src/models/emulator/emulator'
-import { EmulatorsService } from '../../services/emulators-service'
+import { Link, Redirect } from 'react-router-dom'
+import { Button, FormControl } from '@material-ui/core'
+import { Emulator } from '../../models/emulator/emulator'
+import { SelectDirectory } from '../select-directory/select-directory-component'
+import { EmulatorConfiguration } from '../../models/emulator/emulator-configuration'
+import { List } from 'immutable'
 
-// Custom type to access to route parameters
-type ComponentProperties = RouteComponentProps<{ emulatorId?: string }>
+// Interface for component state properties
+export interface ConfigureEmulatorComponentStateProperties {
+  emulator: Emulator | undefined;
+  hasError: boolean;
+}
+
+// Interface for component dispatch properties
+export interface ConfigureEmulatorComponentDispatchProperties {
+  setWizardStatus: Function;
+  updateEmulatorConfiguration: Function;
+  addEmulatorToCellar: Function;
+}
 
 // Interface for component state
 interface ComponentState {
-  emulator?: Emulator; // Selected emulator
-  nextButtonDisabled: boolean;
+  redirect: boolean;
+  configurations: EmulatorConfiguration[];
 }
 
 // Configure emulator component
-export class ConfigureEmulator extends React.PureComponent<ComponentProperties, ComponentState> {
-  constructor (props: ComponentProperties) {
+export class ConfigureEmulator extends React.PureComponent<ConfigureEmulatorComponentStateProperties & ConfigureEmulatorComponentDispatchProperties, ComponentState> {
+  constructor (props: ConfigureEmulatorComponentStateProperties & ConfigureEmulatorComponentDispatchProperties) {
     super(props)
 
-    const service = EmulatorsService.getInstance()
-    const emulatorId = this.props.match.params.emulatorId || ''
-    console.log(emulatorId, 'id')
     this.state = {
-      emulator: service.getEmulator(emulatorId as unknown as EmulatorId),
-      nextButtonDisabled: true
+      redirect: false,
+      configurations: []
     }
+  }
+
+  private setConfiguration = (name: string, value: string, mandatory: boolean): void => {
+    // Remove existing configuration
+    for (let i = 0; i < this.state.configurations.length; i++) {
+      if (name === this.state.configurations[i].name) {
+        this.state.configurations.splice(i, 1)
+        break
+      }
+    }
+
+    // Add new configuration
+    this.state.configurations.push(new EmulatorConfiguration(name, mandatory, value))
+  }
+
+  private isConfigurationValueSet (name: string): boolean {
+    let valueSet = false
+
+    this.state.configurations.map(configuration => {
+      if (name === configuration.name && configuration.value) {
+        valueSet = true
+      }
+    })
+
+    return valueSet
+  }
+
+  private isConfigurationMissing (): boolean {
+    let missing = false
+
+    if (this.props.emulator) {
+      this.props.emulator.configurations.map(configuration => {
+        if (configuration.mandatory && !this.isConfigurationValueSet(configuration.name)) {
+          missing = true
+        }
+      })
+    }
+
+    return missing
+  }
+
+  private handleSubmit = (e: React.SyntheticEvent): void => {
+    e.preventDefault()
+
+    const validConfiguration = !this.isConfigurationMissing()
+    this.props.setWizardStatus(!validConfiguration)
+
+    if (this.props.emulator && validConfiguration) {
+      this.props.updateEmulatorConfiguration(List(this.state.configurations))
+      this.props.addEmulatorToCellar(this.props.emulator)
+    }
+
+    this.setState({
+      redirect: validConfiguration
+    })
   }
 
   public render (): React.ReactNode {
     return (
-      this.state.emulator ? (
-        <div className="ConfigureEmulator">
-          <h1>Configure {this.state.emulator.shortName} emulator</h1>
-          <Button color="secondary" component={Link} to="/add-emulator/">Back</Button>
-          <Button color="primary" disabled={this.state.nextButtonDisabled} component={Link} to="/create-emulator/">Confirm</Button>
-        </div>
-      )
-        : <div>Emulator not found</div>
+      !this.state.redirect
+        ? this.props.emulator ? (
+          <form className="ConfigureEmulator" onSubmit={this.handleSubmit}>
+            <h1>Configure {this.props.emulator.shortName} emulator</h1>
+            <div>
+              <FormControl required error={this.props.hasError}>
+                {this.props.emulator.configurations.map(configuration => {
+                  return <SelectDirectory hasError={this.props.hasError} key={configuration.name} name={configuration.name} mandatory={configuration.mandatory} onDirectorySelected={this.setConfiguration}/>
+                })}
+              </FormControl>
+            </div>
+            <Button color="secondary" component={Link} to="/add-emulator/">Back</Button>
+            <Button color="primary" type="submit">Confirm</Button>
+          </form>
+        )
+          : <div>Emulator not found</div>
+        : <Redirect to="/create-emulator/"/>
     )
   }
 }

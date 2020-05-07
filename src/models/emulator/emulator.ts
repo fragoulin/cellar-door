@@ -19,7 +19,7 @@ export interface Emulator {
   licences: List<EmulatorLicence>;
 }
 
-export class EmulatorImpl implements Emulator {
+export abstract class EmulatorImpl implements Emulator {
   private _Id: EmulatorId
   private _shortName: string
   private _fullName?: string

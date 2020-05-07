@@ -1,47 +1,42 @@
 import './emulators-select.css'
 import * as React from 'react'
 import { Select, MenuItem, InputLabel, FormControl, FormHelperText } from '@material-ui/core'
-import { Emulator } from '../../models/emulator/emulator'
-import { EmulatorsService } from '../../services/emulators-service'
+import { EmulatorId } from '../../models/emulator/emulator'
 import { List } from 'immutable'
+import { EmulatorIdsToName } from '../../store/emulators/types'
 
 // Interface for component properties
-interface ComponentProperties {
-  setEmulator: Function; // The callback to set selected emulator
+export interface EmulatorsSelectComponentStateProperties {
+  availableEmulatorNames: List<EmulatorIdsToName>;
   hasError: boolean;
 }
 
-// Interface for component state
-interface ComponentState {
-  emulatorsService: EmulatorsService;
-  selectedEmulatorId: string;
-  emulators: List<Emulator>;
+export interface EmulatorSelectComponentDispatchProperties {
+  setSelectedEmulatorId: Function;
+}
+
+interface EmulatorSelectComponentState {
+  selectedEmulatorId: EmulatorId | '';
 }
 
 // Emulators select
-export class EmulatorsSelect extends React.PureComponent<ComponentProperties, ComponentState> {
-  constructor (props: ComponentProperties) {
+export class EmulatorsSelect extends React.PureComponent<EmulatorsSelectComponentStateProperties & EmulatorSelectComponentDispatchProperties, EmulatorSelectComponentState> {
+  constructor (props: EmulatorsSelectComponentStateProperties & EmulatorSelectComponentDispatchProperties) {
     super(props)
 
-    const service = EmulatorsService.getInstance()
-
     this.state = {
-      emulatorsService: service,
-      emulators: service.getEmulators(),
       selectedEmulatorId: ''
     }
   }
 
   private handleChange = (event: React.ChangeEvent<{ value: unknown }>): void => {
-    const emulatorId = event.target.value as string
-
-    // Update component state
+    const emulatorId = event.target.value as EmulatorId
     this.setState({
       selectedEmulatorId: emulatorId
     })
 
-    // Update selected emulator via callback
-    this.props.setEmulator(emulatorId)
+    // Update selected emulator in store
+    this.props.setSelectedEmulatorId(emulatorId)
   }
 
   public render (): React.ReactNode {
@@ -54,7 +49,7 @@ export class EmulatorsSelect extends React.PureComponent<ComponentProperties, Co
           value={this.state.selectedEmulatorId}
           onChange={this.handleChange}
         >
-          {this.state.emulators.map((e: Emulator) => <MenuItem key={e.Id} value={e.Id}>{e.shortName}</MenuItem>)}
+          {this.props.availableEmulatorNames.map(e => <MenuItem key={e.id} value={e.id}>{e.name}</MenuItem>)}
         </Select>
         {this.props.hasError && <FormHelperText>Emulator is required</FormHelperText>}
       </div>

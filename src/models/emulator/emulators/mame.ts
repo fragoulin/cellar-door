@@ -1,7 +1,7 @@
 import { EmulatorId, EmulatorImpl } from '../emulator'
 import { EmulatorConfiguration } from '../emulator-configuration'
 import { List } from 'immutable'
-import { EmulatorLicence } from 'src/models/emulator/emulator-licence'
+import { EmulatorLicence } from '../../../models/emulator/emulator-licence'
 
 export class Mame extends EmulatorImpl {
   constructor () {

@@ -4,7 +4,6 @@ import 'typeface-roboto'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import { Router } from './components/router/router-component'
 import 'reflect-metadata'
-
 const main = document.createElement('main')
 document.body.appendChild(main)
 
