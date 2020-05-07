@@ -15,9 +15,11 @@ document.body.appendChild(main)
 const root: ReactElement = (
   <section id="root">
     <CssBaseline/>
-    <header></header>
-    <Router/>
-    <footer></footer>
+    <React.StrictMode>
+      <header></header>
+      <Router/>
+      <footer></footer>
+    </React.StrictMode>
   </section>
 )
 

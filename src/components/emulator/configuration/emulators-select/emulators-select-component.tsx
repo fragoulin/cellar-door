@@ -44,12 +44,14 @@ export class EmulatorsSelect extends React.PureComponent<EmulatorsSelectComponen
       <div>
         <InputLabel htmlFor="emulator">Emulator</InputLabel>
         <Select
+          native
           name="emulator"
           className="EmulatorsList"
           value={this.state.selectedEmulatorId}
           onChange={this.handleChange}
         >
-          {this.props.availableEmulatorNames.map(e => <MenuItem key={e.id} value={e.id}>{e.name}</MenuItem>)}
+          <option aria-label="None" value="" />
+          {this.props.availableEmulatorNames.map(e => <option key={e.id} value={e.id}>{e.name}</option>)}
         </Select>
         {this.props.hasError && <FormHelperText>Emulator is required</FormHelperText>}
       </div>
