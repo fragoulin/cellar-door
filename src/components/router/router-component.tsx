@@ -5,9 +5,9 @@ import {
   Switch
 } from 'react-router-dom'
 import Welcome from '../../container/welcome'
-import AddEmulator from '../../container/add-emulator'
-import ConfigureEmulator from '../../container/configure-emulator'
-import CreateEmulator from '../../container/create-emulator'
+import AddEmulator from '../../container/emulators/add-emulator'
+import ConfigureEmulator from '../../container/emulators/configure-emulator'
+import CreateEmulator from '../../container/emulators/create-emulator'
 import { Provider } from 'react-redux'
 import store from '../../store/store'
 

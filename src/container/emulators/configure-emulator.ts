@@ -1,11 +1,11 @@
 import { connect } from 'react-redux'
-import { RootState } from '../store/store'
-import { ConfigureEmulator, ConfigureEmulatorComponentStateProperties, ConfigureEmulatorComponentDispatchProperties } from '../components/configure-emulator/configure-emulator-component'
-import { EmulatorsActionTypes } from '../store/emulators/types'
-import { setWizardStatus, updateEmulatorConfiguration, addEmulatorToCellar } from '../store/emulators/actions'
-import { EmulatorConfiguration } from '../models/emulator/emulator-configuration'
+import { RootState } from '../../store/store'
+import { ConfigureEmulator, ConfigureEmulatorComponentStateProperties, ConfigureEmulatorComponentDispatchProperties } from '../../components/emulator/configuration/configure-emulator/configure-emulator-component'
+import { EmulatorsActionTypes } from '../../store/emulators/types'
+import { setWizardStatus, updateEmulatorConfiguration, addEmulatorToCellar } from '../../store/emulators/actions'
+import { EmulatorConfiguration } from '../../models/emulator/emulator-configuration'
 import { List } from 'immutable'
-import { Emulator } from '../models/emulator/emulator'
+import { Emulator } from '../../models/emulator/emulator'
 
 const mapStateToProps = (state: RootState): ConfigureEmulatorComponentStateProperties => {
   return {

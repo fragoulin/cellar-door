@@ -1,9 +1,9 @@
 import { connect } from 'react-redux'
-import { AddEmulator, AddEmulatorComponentStateProperties, AddEmulatorComponentDispatchProperties } from '../components/add-emulator/add-emulator-component'
-import { buildAvailableEmulatorNamesList, setWizardStatus, createEmulator } from '../store/emulators/actions'
-import { EmulatorsActionTypes } from '../store/emulators/types'
-import { RootState } from '../store/store'
-import { EmulatorId } from '../models/emulator/emulator'
+import { AddEmulator, AddEmulatorComponentStateProperties, AddEmulatorComponentDispatchProperties } from '../../components/emulator/creation/add-emulator/add-emulator-component'
+import { buildAvailableEmulatorNamesList, setWizardStatus, createEmulator } from '../../store/emulators/actions'
+import { EmulatorsActionTypes } from '../../store/emulators/types'
+import { RootState } from '../../store/store'
+import { EmulatorId } from '../../models/emulator/emulator'
 
 const mapStateToProps = (state: RootState): AddEmulatorComponentStateProperties => {
   return {

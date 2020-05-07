@@ -1,9 +1,9 @@
 import { connect } from 'react-redux'
-import { RootState } from '../store/store'
-import { EmulatorsSelect, EmulatorsSelectComponentStateProperties, EmulatorSelectComponentDispatchProperties } from '../components/emulators-select/emulators-select-component'
-import { EmulatorsActionTypes } from '../store/emulators/types'
-import { setSelectedEmulatorId } from '../store/emulators/actions'
-import { EmulatorId } from '../models/emulator/emulator'
+import { RootState } from '../../store/store'
+import { EmulatorsSelect, EmulatorsSelectComponentStateProperties, EmulatorSelectComponentDispatchProperties } from '../../components/emulator/configuration/emulators-select/emulators-select-component'
+import { EmulatorsActionTypes } from '../../store/emulators/types'
+import { setSelectedEmulatorId } from '../../store/emulators/actions'
+import { EmulatorId } from '../../models/emulator/emulator'
 
 const mapStateToProps = (state: RootState): EmulatorsSelectComponentStateProperties => {
   return {

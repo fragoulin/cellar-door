@@ -2,9 +2,9 @@ import './configure-emulator.css'
 import React from 'react'
 import { Link, Redirect } from 'react-router-dom'
 import { Button, FormControl } from '@material-ui/core'
-import { Emulator } from '../../models/emulator/emulator'
+import { Emulator } from '../../../../models/emulator/emulator'
 import { SelectDirectory } from '../select-directory/select-directory-component'
-import { EmulatorConfiguration } from '../../models/emulator/emulator-configuration'
+import { EmulatorConfiguration } from '../../../../models/emulator/emulator-configuration'
 import { List } from 'immutable'
 
 // Interface for component state properties

@@ -1,9 +1,9 @@
 import './emulators-select.css'
 import * as React from 'react'
 import { Select, MenuItem, InputLabel, FormControl, FormHelperText } from '@material-ui/core'
-import { EmulatorId } from '../../models/emulator/emulator'
+import { EmulatorId } from '../../../../models/emulator/emulator'
 import { List } from 'immutable'
-import { EmulatorIdsToName } from '../../store/emulators/types'
+import { EmulatorIdsToName } from '../../../../store/emulators/types'
 
 // Interface for component properties
 export interface EmulatorsSelectComponentStateProperties {

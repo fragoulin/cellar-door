@@ -1,6 +1,6 @@
 import React from 'react'
-import { Emulator } from '../../models/emulator/emulator'
-import { EmulatorConfigurationSummary } from '../emulator-configuration-summary/emulator-configuration-summary'
+import { Emulator } from '../../../../models/emulator/emulator'
+import { EmulatorConfigurationSummary } from '../../configuration/emulator-configuration-summary/emulator-configuration-summary'
 import HelpIcon from '@material-ui/icons/Help'
 import { Tooltip, Zoom } from '@material-ui/core'
 
