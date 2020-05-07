@@ -4,7 +4,7 @@ import {
   Route,
   Switch
 } from 'react-router-dom'
-import Welcome from '../../container/welcome'
+import Welcome from '../../container/cellar/welcome'
 import AddEmulator from '../../container/emulators/add-emulator'
 import ConfigureEmulator from '../../container/emulators/configure-emulator'
 import CreateEmulator from '../../container/emulators/create-emulator'

@@ -2,7 +2,7 @@ import * as React from 'react'
 import './welcome.css'
 import { Cellar } from '../../../models/cellar'
 import { EmulatorsList } from '../emulators-list/emulators-list-component'
-import { FreshInstallation } from '../fresh-installation/fresh-installation-component'
+import FreshInstallation from '../../../container/cellar/fresh-installation'
 import { List } from 'immutable'
 import { Emulator } from '../../../models/emulator/emulator'
 
