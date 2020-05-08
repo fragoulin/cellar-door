@@ -1,4 +1,4 @@
-import { CellarActionTypes, CREATE_CELLAR, CLOSE_CELLAR } from './types'
+import { CellarActionTypes, CREATE_CELLAR, CLOSE_CELLAR, SET_CURRENT_LOCALE } from './types'
 
 export function createCellar (): CellarActionTypes {
   return {
@@ -9,5 +9,12 @@ export function createCellar (): CellarActionTypes {
 export function closeCellar (): CellarActionTypes {
   return {
     type: CLOSE_CELLAR
+  }
+}
+
+export function setCurrentLocale (locale: string): CellarActionTypes {
+  return {
+    type: SET_CURRENT_LOCALE,
+    locale: locale
   }
 }

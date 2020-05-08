@@ -4,6 +4,7 @@ import { Button, FormControl } from '@material-ui/core'
 import { Link, Redirect } from 'react-router-dom'
 import EmulatorsSelect from '../../../../container/emulators/emulators-select'
 import { EmulatorId } from '../../../../models/emulator/emulator'
+import { FormattedMessage } from 'react-intl'
 
 // Interface for component state properties
 export interface AddEmulatorComponentStateProperties {
@@ -57,15 +58,15 @@ export class AddEmulator extends React.PureComponent<AddEmulatorComponentStatePr
     return (
       !this.state.redirect
         ? <form className="AddEmulator" onSubmit={this.handleSubmit}>
-          <h1>Add an emulator</h1>
-          <p>Choose an emulator from the following list</p>
+          <h1><FormattedMessage id="add-emulator.title"/></h1>
+          <p><FormattedMessage id="add-emulator.text"/></p>
           <div>
             <FormControl required error={this.props.hasError}>
               <EmulatorsSelect/>
             </FormControl>
           </div>
-          <Button color="secondary" component={Link} to="/">Back</Button>
-          <Button color="primary" type="submit">Next</Button>
+          <Button color="secondary" component={Link} to="/"><FormattedMessage id="common.back"/></Button>
+          <Button color="primary" type="submit"><FormattedMessage id="common.confirm"/></Button>
         </form>
         : <Redirect to="/configure-emulator/" />
     )

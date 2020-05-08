@@ -1,0 +1,18 @@
+{
+  "welcome.title": "Bienvenue à \"Cellar door!\"",
+  "fresh-installation.text": "Nouvelle installation détectée. Vous pouvez configurer un premier émulateur en cliquant sur le bouton ci-dessous:",
+  "fresh-installation.button-text": "Ajouter un émulateur",
+  "configure-emulator.title": "Configurer l'émulateur {name}",
+  "configure-emulator.not-found": "Emulator not found",
+  "emulators-list.title": "Liste des émulateurs",
+  "emulator-select.label": "Emulateur",
+  "emulator-select.error-required": "L'émulateur est requis",
+  "select-directory.error-required": "Le répertoire est requis",
+  "add-emulator.title": "Ajouter un émulateur",
+  "add-emulator.text": "Choisissez un émulateur",
+  "create-emulator.title": "Emulateur créé avec succès",
+  "create-emulator.add-another": "Ajouter un autre émulateur",
+  "common.confirm": "Confirmer",
+  "common.back": "Retour",
+  "common.back-to-cellar": "Retour au cellier"
+}

@@ -6,6 +6,7 @@ import { Emulator } from '../../../../models/emulator/emulator'
 import { SelectDirectory } from '../select-directory/select-directory-component'
 import { EmulatorConfiguration } from '../../../../models/emulator/emulator-configuration'
 import { List } from 'immutable'
+import { FormattedMessage } from 'react-intl'
 
 // Interface for component state properties
 export interface ConfigureEmulatorComponentStateProperties {
@@ -97,7 +98,7 @@ export class ConfigureEmulator extends React.PureComponent<ConfigureEmulatorComp
       !this.state.redirect
         ? this.props.emulator ? (
           <form className="ConfigureEmulator" onSubmit={this.handleSubmit}>
-            <h1>Configure {this.props.emulator.shortName} emulator</h1>
+            <h1><FormattedMessage id="configure-emulator.title" values={{ name: this.props.emulator.shortName }}/></h1>
             <div>
               <FormControl required error={this.props.hasError}>
                 {this.props.emulator.configurations.map(configuration => {
@@ -105,11 +106,11 @@ export class ConfigureEmulator extends React.PureComponent<ConfigureEmulatorComp
                 })}
               </FormControl>
             </div>
-            <Button color="secondary" component={Link} to="/add-emulator/">Back</Button>
-            <Button color="primary" type="submit">Confirm</Button>
+            <Button color="secondary" component={Link} to="/add-emulator/"><FormattedMessage id="common.back"/></Button>
+            <Button color="primary" type="submit"><FormattedMessage id="common.confirm"/></Button>
           </form>
         )
-          : <div>Emulator not found</div>
+          : <div><FormattedMessage id="configure-emulator.not-found"/></div>
         : <Redirect to="/create-emulator/"/>
     )
   }

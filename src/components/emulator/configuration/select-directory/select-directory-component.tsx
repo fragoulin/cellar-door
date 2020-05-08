@@ -2,6 +2,7 @@ import './select-directory.css'
 import React from 'react'
 import { IconButton, TextField, FormHelperText } from '@material-ui/core'
 import FolderIcon from '@material-ui/icons/Folder'
+import { FormattedMessage } from 'react-intl'
 
 interface ComponentProperties {
   name: string;
@@ -72,7 +73,7 @@ export class SelectDirectory extends React.PureComponent<ComponentProperties, Co
             <FolderIcon/>
           </IconButton>
         </label>
-        {this.props.mandatory && this.props.hasError && <FormHelperText>Directory is required</FormHelperText>}
+        {this.props.mandatory && this.props.hasError && <FormHelperText><FormattedMessage id="select-directory.error-required"/></FormHelperText>}
       </div>
     )
   }

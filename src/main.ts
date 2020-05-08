@@ -45,6 +45,18 @@ function createMenu (): Menu {
       ]
     },
     {
+      label: 'Preferences',
+      submenu: [
+        {
+          label: 'Locale',
+          submenu: [
+            { label: 'English' },
+            { label: 'French' }
+          ]
+        }
+      ]
+    },
+    {
       label: 'Help',
       submenu: [
         { label: 'About' }

@@ -1,9 +1,10 @@
 import './emulators-select.css'
 import * as React from 'react'
-import { Select, MenuItem, InputLabel, FormControl, FormHelperText } from '@material-ui/core'
+import { Select, InputLabel, FormHelperText } from '@material-ui/core'
 import { EmulatorId } from '../../../../models/emulator/emulator'
 import { List } from 'immutable'
 import { EmulatorIdsToName } from '../../../../store/emulators/types'
+import { FormattedMessage } from 'react-intl'
 
 // Interface for component properties
 export interface EmulatorsSelectComponentStateProperties {
@@ -42,7 +43,7 @@ export class EmulatorsSelect extends React.PureComponent<EmulatorsSelectComponen
   public render (): React.ReactNode {
     return (
       <div>
-        <InputLabel htmlFor="emulator">Emulator</InputLabel>
+        <InputLabel htmlFor="emulator"><FormattedMessage id="emulator-select.label"/></InputLabel>
         <Select
           native
           name="emulator"
@@ -53,7 +54,7 @@ export class EmulatorsSelect extends React.PureComponent<EmulatorsSelectComponen
           <option aria-label="None" value="" />
           {this.props.availableEmulatorNames.map(e => <option key={e.id} value={e.id}>{e.name}</option>)}
         </Select>
-        {this.props.hasError && <FormHelperText>Emulator is required</FormHelperText>}
+        {this.props.hasError && <FormHelperText><FormattedMessage id="emulator-select.error-required"/></FormHelperText>}
       </div>
     )
   }

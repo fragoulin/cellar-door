@@ -3,38 +3,24 @@ import { List } from 'immutable'
 import EmulatorClasses from '../models/emulator/emulators'
 import { EmulatorIdsToName } from '../store/emulators/types'
 
-export class EmulatorsService {
-  private static _instance: EmulatorsService | undefined
+export function buildAvailableEmulatorNamesList (): List<EmulatorIdsToName> {
+  const data: EmulatorIdsToName[] = []
 
-  private emulators: List<Emulator> | undefined
-
-  public static getInstance (): EmulatorsService {
-    return this._instance || (this._instance = new this())
-  }
-
-  public buildAvailableEmulatorNamesList (): List<EmulatorIdsToName> {
-    const data: EmulatorIdsToName[] = []
-
-    EmulatorClasses.map(EmulatorClass => {
-      const e = new EmulatorClass()
-      data.push({
-        id: e.Id,
-        name: e.shortName
-      })
+  EmulatorClasses.map(EmulatorClass => {
+    const e = new EmulatorClass()
+    data.push({
+      id: e.Id,
+      name: e.shortName
     })
+  })
 
-    return List(data)
-  }
+  return List(data)
+}
 
-  public getEmulator (emulatorId: EmulatorId): Emulator | undefined {
-    return this.getEmulatorsModels().find(emulatorModel => emulatorId === emulatorModel.Id)
-  }
+export function getEmulatorsModels (): List<Emulator> {
+  return List(EmulatorClasses.map(E => new E()))
+}
 
-  private getEmulatorsModels (): List<Emulator> {
-    if (!this.emulators) {
-      this.emulators = List(EmulatorClasses.map(E => new E()))
-    }
-
-    return this.emulators
-  }
+export function getEmulator (emulatorId: EmulatorId): Emulator | undefined {
+  return getEmulatorsModels().find(emulatorModel => emulatorId === emulatorModel.Id)
 }

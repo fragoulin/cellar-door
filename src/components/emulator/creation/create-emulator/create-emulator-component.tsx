@@ -4,6 +4,7 @@ import { Emulator } from '../../../../models/emulator/emulator'
 import { Button } from '@material-ui/core'
 import { Link } from 'react-router-dom'
 import { EmulatorSummary } from '../emulator-summary/emulator-summary-component'
+import { FormattedMessage } from 'react-intl'
 
 // Interface for component state
 export interface CreateEmulatorComponentStateProperties {
@@ -19,11 +20,11 @@ export class CreateEmulator extends React.PureComponent<CreateEmulatorComponentS
     return (
       <div className="CreateEmulator">
         <div>
-          <h1>Emulator successfully created</h1>
+          <h1><FormattedMessage id="create-emulator.title"/></h1>
           <EmulatorSummary emulator={this.props.emulator}/>
         </div>
-        <Button color="secondary" component={Link} to="/">Back to cellar</Button>
-        <Button color="primary" component={Link} to="/add-emulator/">Add another emulator</Button>
+        <Button color="secondary" component={Link} to="/"><FormattedMessage id="common.back-to-cellar"/></Button>
+        <Button color="primary" component={Link} to="/add-emulator/"><FormattedMessage id="create-emulator.add-another"/></Button>
       </div>
     )
   }
