@@ -1,4 +1,4 @@
-import { app, BrowserWindow, ipcMain, Menu, session } from 'electron'
+import { app, BrowserWindow, ipcMain, Menu, session, dialog } from 'electron'
 
 // Electron forge constants (automatically set by electron forge)
 declare const MAIN_WINDOW_WEBPACK_ENTRY: string
@@ -117,6 +117,7 @@ app.on('activate', () => {
 // code. You can also put them in separate files and require them here.
 app.allowRendererProcessReuse = true
 
-ipcMain.on('toMain', () => {
-  win.webContents.send('fromMain', 'test')
+ipcMain.on('dialogSync', async (_event, ...args: unknown[]) => {
+  const files = dialog.showOpenDialogSync(args[1] as Electron.OpenDialogSyncOptions)
+  win.webContents.send('dialogSyncResult', args[0] as string, files)
 })
