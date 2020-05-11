@@ -1,6 +1,8 @@
-import { app, BrowserWindow, Menu, session } from 'electron'
+import { app, BrowserWindow, ipcMain, Menu, session } from 'electron'
 
+// Electron forge constants (automatically set by electron forge)
 declare const MAIN_WINDOW_WEBPACK_ENTRY: string
+declare const MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY: string
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -73,7 +75,9 @@ function createWindow (): void {
     width: 800,
     height: 600,
     webPreferences: {
-      nodeIntegration: true // TODO remove nodeIntegration and use preload
+      contextIsolation: true,
+      enableRemoteModule: false,
+      preload: MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY
     }
   })
 
@@ -112,3 +116,7 @@ app.on('activate', () => {
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
 app.allowRendererProcessReuse = true
+
+ipcMain.on('toMain', () => {
+  win.webContents.send('fromMain', 'test')
+})

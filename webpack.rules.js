@@ -1,5 +1,3 @@
-const tsImportPluginFactory = require('ts-import-plugin')
-
 module.exports = [
   // Add support for native node modules
   {

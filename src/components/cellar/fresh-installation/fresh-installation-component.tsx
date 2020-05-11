@@ -1,7 +1,6 @@
 import React from 'react'
 import { Button } from '@material-ui/core'
 import { Link } from 'react-router-dom'
-import { logger } from '../../../services/logger-service'
 import { FormattedMessage } from 'react-intl'
 
 export interface FreshInstallationComponentDispatchProperties {
@@ -11,8 +10,6 @@ export interface FreshInstallationComponentDispatchProperties {
 export class FreshInstallation extends React.PureComponent<FreshInstallationComponentDispatchProperties> {
   constructor (props: FreshInstallationComponentDispatchProperties) {
     super(props)
-
-    logger.info('Fresh installation detected. Create default cellar')
 
     // Automatically create default cellar
     props.createCellar()

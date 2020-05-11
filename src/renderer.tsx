@@ -7,11 +7,8 @@ import 'reflect-metadata'
 import { IntlProvider } from 'react-intl'
 import store from './store/store'
 import { setCurrentLocale } from './store/cellar/actions'
-import { logger } from './services/logger-service'
 import * as LocaleService from './services/locale-service'
-
-// Logger
-require('./services/logger-service')
+// import { logger } from './services/logger-service'
 
 // Main rendering
 const main = document.createElement('main')
@@ -20,7 +17,7 @@ document.body.appendChild(main)
 // Locales
 const locale = navigator.language.split(/[-_]/)[0] // locale without region code
 store.dispatch(setCurrentLocale(locale))
-logger.info(locale, 'locale from navigator')
+// logger.info(locale, 'locale from navigator')
 const messages = LocaleService.getMessagesForLocale(locale)
 
 const root: ReactElement = (
