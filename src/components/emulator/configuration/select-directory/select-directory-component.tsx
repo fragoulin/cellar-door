@@ -38,7 +38,7 @@ export class SelectDirectory extends React.PureComponent<ComponentProperties, Co
   }
 
   componentDidMount (): void {
-    // Set properties unsupported by React in order to be able to select a directory
+    // Set callback for dialog select directory result
     win.api.receive('dialogSyncResult', this.dialogResult)
   }
 
