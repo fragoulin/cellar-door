@@ -1,6 +1,7 @@
 import { EmulatorsState, EmulatorsActionTypes, CREATE_EMULATOR, ADD_EMULATOR_TO_CELLAR, BUILD_AVAILABLE_EMULATOR_NAMES_LIST, REMOVE_EMULATOR_FROM_CELLAR, SET_WIZARD_STATUS, SET_SELECTED_EMULATOR_ID, UPDATE_EMULATOR_CONFIGURATION } from './types'
 import { List } from 'immutable'
 import * as EmulatorsService from '../../services/emulators-service'
+import { Emulator } from '../../models/emulator/emulator'
 
 const initialState: EmulatorsState = {
   availableEmulatorNames: List(),
@@ -58,8 +59,15 @@ export function emulatorsReducer (
         emulatorsInCellar: state.emulatorsInCellar
       }
     case UPDATE_EMULATOR_CONFIGURATION:
+      let newEmulator: Emulator | undefined
       if (state.wizard.emulatorCurrentlyConfigured) {
-        state.wizard.emulatorCurrentlyConfigured.configurations = action.configurations
+        newEmulator = EmulatorsService.getEmulator(state.wizard.emulatorCurrentlyConfigured.Id)
+        if (newEmulator) {
+          newEmulator.configurations = action.configurations
+        }
+      }
+      else {
+        // TODO exception
       }
 
       return {
@@ -67,7 +75,7 @@ export function emulatorsReducer (
         wizard: {
           hasError: state.wizard.hasError,
           selectedEmulatorId: state.wizard.selectedEmulatorId,
-          emulatorCurrentlyConfigured: state.wizard.emulatorCurrentlyConfigured
+          emulatorCurrentlyConfigured: newEmulator ? newEmulator : state.wizard.emulatorCurrentlyConfigured
         },
         emulatorsInCellar: state.emulatorsInCellar
       }

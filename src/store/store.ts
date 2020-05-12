@@ -1,6 +1,7 @@
-import { createStore, combineReducers } from 'redux'
+import { createStore, combineReducers, applyMiddleware } from 'redux'
 import { cellarReducer } from './cellar/reducers'
 import { emulatorsReducer } from './emulators/reducers'
+import thunk from 'redux-thunk'
 
 const rootReducer = combineReducers({
   cellar: cellarReducer,
@@ -9,4 +10,11 @@ const rootReducer = combineReducers({
 
 export type RootState = ReturnType<typeof rootReducer>
 
-export default createStore(rootReducer)
+const middleware = process.env.NODE_ENV !== 'production'
+  ? [require('redux-immutable-state-invariant').default(), thunk]
+  : [thunk]
+
+export default createStore(
+  rootReducer,
+  applyMiddleware(...middleware)
+)
