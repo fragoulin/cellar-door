@@ -30,10 +30,11 @@ export function createEmulator (emulatorId: EmulatorId): EmulatorsActionTypes {
   }
 }
 
-export function updateEmulatorConfiguration (configurations: List<EmulatorConfiguration>): EmulatorsActionTypes {
+export function updateEmulatorConfiguration (emulatorId: EmulatorId, configurations: List<EmulatorConfiguration>): EmulatorsActionTypes {
   return {
     type: UPDATE_EMULATOR_CONFIGURATION,
-    configurations: configurations
+    configurations: configurations,
+    emulatorId: emulatorId
   }
 }
 

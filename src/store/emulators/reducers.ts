@@ -59,15 +59,9 @@ export function emulatorsReducer (
         emulatorsInCellar: state.emulatorsInCellar
       }
     case UPDATE_EMULATOR_CONFIGURATION:
-      let newEmulator: Emulator | undefined
-      if (state.wizard.emulatorCurrentlyConfigured) {
-        newEmulator = EmulatorsService.getEmulator(state.wizard.emulatorCurrentlyConfigured.Id)
-        if (newEmulator) {
-          newEmulator.configurations = action.configurations
-        }
-      }
-      else {
-        // TODO exception
+      let newEmulator = EmulatorsService.getEmulator(action.emulatorId)
+      if (newEmulator) {
+        newEmulator.configurations = action.configurations
       }
 
       return {
@@ -75,7 +69,7 @@ export function emulatorsReducer (
         wizard: {
           hasError: state.wizard.hasError,
           selectedEmulatorId: state.wizard.selectedEmulatorId,
-          emulatorCurrentlyConfigured: newEmulator ? newEmulator : state.wizard.emulatorCurrentlyConfigured
+          emulatorCurrentlyConfigured: newEmulator || state.wizard.emulatorCurrentlyConfigured
         },
         emulatorsInCellar: state.emulatorsInCellar
       }

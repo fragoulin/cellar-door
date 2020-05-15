@@ -84,7 +84,7 @@ export class ConfigureEmulator extends React.PureComponent<ConfigureEmulatorComp
     this.props.setWizardStatus(!validConfiguration)
 
     if (this.props.emulator && validConfiguration) {
-      this.props.updateEmulatorConfiguration(List(this.state.configurations))
+      this.props.updateEmulatorConfiguration(this.props.emulator.Id, List(this.state.configurations))
       this.props.addEmulatorToCellar(this.props.emulator)
     }
 

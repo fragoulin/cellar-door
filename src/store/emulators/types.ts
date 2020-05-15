@@ -46,6 +46,7 @@ interface CreateEmulator {
 
 interface UpdateEmulatorConfiguration {
   type: typeof UPDATE_EMULATOR_CONFIGURATION;
+  emulatorId: EmulatorId;
   configurations: List<EmulatorConfiguration>;
 }
 
