@@ -32,7 +32,9 @@
   },
   "config": {
     "forge": {
-      "packagerConfig": {},
+      "packagerConfig": {
+        "icon": "public/icons/cellar-door"
+      },
       "makers": [
         {
           "name": "@electron-forge/maker-squirrel",
@@ -97,7 +99,7 @@
     "acorn": "^7.2.0",
     "acorn-jsx": "^5.2.0",
     "css-loader": "^3.5.3",
-    "electron": "8.2.5",
+    "electron": "8.3.0",
     "eslint": "^6.8.0",
     "eslint-config-standard": "^14.1.1",
     "eslint-plugin-import": "^2.20.2",
