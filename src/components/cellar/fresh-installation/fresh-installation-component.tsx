@@ -8,7 +8,7 @@ export interface FreshInstallationComponentDispatchProperties {
 }
 
 export class FreshInstallation extends React.PureComponent<FreshInstallationComponentDispatchProperties> {
-  componentDidMount() {
+  componentDidMount (): void {
     // Automatically create default cellar
     this.props.createCellar()
   }

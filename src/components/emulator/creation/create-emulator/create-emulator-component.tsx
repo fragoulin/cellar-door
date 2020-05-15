@@ -11,7 +11,16 @@ export interface CreateEmulatorComponentStateProperties {
   emulator: Emulator | undefined;
 }
 
-export class CreateEmulator extends React.PureComponent<CreateEmulatorComponentStateProperties> {
+// Interface for component dispatch properties
+export interface CreateEmulatorComponentDispatchProperties {
+  addEmulatorToCellar: Function;
+}
+
+export class CreateEmulator extends React.PureComponent<CreateEmulatorComponentStateProperties & CreateEmulatorComponentDispatchProperties> {
+  componentDidMount (): void {
+    this.props.addEmulatorToCellar(this.props.emulator)
+  }
+
   public render (): React.ReactNode {
     if (!this.props.emulator) {
       return null

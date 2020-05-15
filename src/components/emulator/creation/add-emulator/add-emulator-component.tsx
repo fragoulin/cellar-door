@@ -34,7 +34,7 @@ export class AddEmulator extends React.PureComponent<AddEmulatorComponentStatePr
     }
   }
 
-  componentDidMount() {
+  componentDidMount (): void {
     this.props.buildAvailableEmulatorNamesList()
   }
 
