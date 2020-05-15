@@ -132,7 +132,6 @@
     "reflect-metadata": "^0.1.13",
     "strongly-typed-events": "^1.6.11",
     "typeface-roboto": "^0.0.75",
-    "uuid": "^8.0.0",
-    "winston": "^3.2.1"
+    "uuid": "^8.0.0"
   }
 }
