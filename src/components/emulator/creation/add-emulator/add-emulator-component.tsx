@@ -29,11 +29,13 @@ export class AddEmulator extends React.PureComponent<AddEmulatorComponentStatePr
   constructor (props: AddEmulatorComponentStateProperties & AddEmulatorComponentDispatchProperties) {
     super(props)
 
-    props.buildAvailableEmulatorNamesList()
-
     this.state = {
       redirect: false
     }
+  }
+
+  componentDidMount() {
+    this.props.buildAvailableEmulatorNamesList()
   }
 
   private handleSubmit = (e: React.SyntheticEvent): void => {

@@ -8,11 +8,9 @@ export interface FreshInstallationComponentDispatchProperties {
 }
 
 export class FreshInstallation extends React.PureComponent<FreshInstallationComponentDispatchProperties> {
-  constructor (props: FreshInstallationComponentDispatchProperties) {
-    super(props)
-
+  componentDidMount() {
     // Automatically create default cellar
-    props.createCellar()
+    this.props.createCellar()
   }
 
   public render (): React.ReactNode {
