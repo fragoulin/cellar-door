@@ -2,7 +2,7 @@ import './configure-emulator.css'
 import React from 'react'
 import { Link, Redirect } from 'react-router-dom'
 import { Button, FormControl } from '@material-ui/core'
-import { Emulator } from '../../../../models/emulator/emulator'
+import { Emulator, EmulatorId } from '../../../../models/emulator/emulator'
 import { SelectDirectory } from '../select-directory/select-directory-component'
 import { EmulatorConfiguration } from '../../../../models/emulator/emulator-configuration'
 import { List } from 'immutable'
@@ -16,9 +16,8 @@ export interface ConfigureEmulatorComponentStateProperties {
 
 // Interface for component dispatch properties
 export interface ConfigureEmulatorComponentDispatchProperties {
-  setWizardStatus: Function;
-  updateEmulatorConfiguration: Function;
-  addEmulatorToCellar: Function;
+  setWizardStatus(status: boolean): void;
+  updateEmulatorConfiguration(emulatorId: EmulatorId, configurations: List<EmulatorConfiguration>): void;
 }
 
 // Interface for component state

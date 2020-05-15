@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import { FormattedMessage } from 'react-intl'
 
 export interface FreshInstallationComponentDispatchProperties {
-  createCellar: Function;
+  createCellar(): void;
 }
 
 export class FreshInstallation extends React.PureComponent<FreshInstallationComponentDispatchProperties> {

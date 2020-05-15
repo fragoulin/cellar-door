@@ -76,11 +76,7 @@ export function emulatorsReducer (
     case ADD_EMULATOR_TO_CELLAR:
       return {
         availableEmulatorNames: state.availableEmulatorNames,
-        wizard: {
-          hasError: false,
-          emulatorCurrentlyConfigured: undefined,
-          selectedEmulatorId: undefined
-        },
+        wizard: state.wizard,
         emulatorsInCellar: state.emulatorsInCellar.push(action.emulator)
       }
     case REMOVE_EMULATOR_FROM_CELLAR:

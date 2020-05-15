@@ -14,9 +14,9 @@ export interface AddEmulatorComponentStateProperties {
 
 // Interface for component dispatch properties
 export interface AddEmulatorComponentDispatchProperties {
-  buildAvailableEmulatorNamesList: Function;
-  setWizardStatus: Function;
-  createEmulator: Function;
+  buildAvailableEmulatorNamesList(): void;
+  setWizardStatus(status: boolean): void;
+  createEmulator(emulatorId: EmulatorId): void;
 }
 
 // Interface for component state
@@ -46,7 +46,7 @@ export class AddEmulator extends React.PureComponent<AddEmulatorComponentStatePr
     // Set wizard state
     this.props.setWizardStatus(!emulatorIdDefined)
 
-    if (emulatorIdDefined) {
+    if (this.props.selectedEmulatorId) {
       // Create emulator
       this.props.createEmulator(this.props.selectedEmulatorId)
     }

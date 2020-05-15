@@ -13,7 +13,7 @@ export interface EmulatorsSelectComponentStateProperties {
 }
 
 export interface EmulatorSelectComponentDispatchProperties {
-  setSelectedEmulatorId: Function;
+  setSelectedEmulatorId(emulatorId: EmulatorId): void;
 }
 
 interface EmulatorSelectComponentState {

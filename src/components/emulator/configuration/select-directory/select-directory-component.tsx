@@ -4,12 +4,12 @@ import { IconButton, TextField, FormHelperText } from '@material-ui/core'
 import FolderIcon from '@material-ui/icons/Folder'
 import { FormattedMessage } from 'react-intl'
 import { v4 as uuidv4 } from 'uuid'
-import { CellarWin } from 'src/preload'
+import { CellarWin } from '../../../../preload'
 
 interface ComponentProperties {
   name: string;
   mandatory: boolean;
-  onDirectorySelected: Function;
+  onDirectorySelected(name: string, directoryName: string, mandatory: boolean): void;
   hasError: boolean;
 }
 

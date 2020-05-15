@@ -2,8 +2,8 @@ import { contextBridge, ipcRenderer } from 'electron'
 
 interface Api {
   api: {
-    receive: Function;
-    send: Function;
+    receive(name: string, ...args: unknown[]): void;
+    send(name: string, ...args: unknown[]): void;
   };
 }
 
