@@ -1,8 +1,8 @@
-import { createStore, combineReducers, applyMiddleware } from 'redux'
-import { cellarReducer } from './cellar/reducers'
-import { emulatorsReducer } from './emulators/reducers'
+import { createStore, combineReducers, applyMiddleware, Store } from 'redux'
 import thunk from 'redux-thunk'
 import logger from 'redux-logger'
+import { cellarReducer } from './modules/cellar'
+import { emulatorsReducer } from './modules/emulators'
 
 const rootReducer = combineReducers({
   cellar: cellarReducer,
@@ -18,4 +18,4 @@ const middleware = process.env.NODE_ENV !== 'production'
 export default createStore(
   rootReducer,
   applyMiddleware(...middleware, logger)
-)
+) as Store

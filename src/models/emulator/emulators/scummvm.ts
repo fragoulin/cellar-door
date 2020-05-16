@@ -1,9 +1,8 @@
-import { EmulatorId, EmulatorImpl } from '../emulator'
+import { EmulatorId, EmulatorImpl, EmulatorLicence } from '../emulator'
 import { EmulatorConfiguration } from '../emulator-configuration'
 import { List } from 'immutable'
-import { EmulatorLicence } from '../emulator-licence'
 
-export class ScummVm extends EmulatorImpl {
+export default class ScummVm extends EmulatorImpl {
   constructor () {
     super()
     this.Id = EmulatorId.ScummVM

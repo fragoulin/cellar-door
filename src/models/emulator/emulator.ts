@@ -1,12 +1,17 @@
 import { EmulatorConfiguration } from './emulator-configuration'
 import { List } from 'immutable'
-import { EmulatorLicence } from './emulator-licence'
 
 export enum EmulatorId {
   Unknown = '',
   MAME = 'mame',
   ScummVM = 'scummvm',
   ZiNc = 'zinc'
+}
+
+export interface EmulatorLicence {
+  spdx: string;
+  name: string;
+  URL: URL;
 }
 
 export interface Emulator {

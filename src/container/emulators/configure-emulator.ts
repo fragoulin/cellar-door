@@ -1,11 +1,10 @@
 import { connect } from 'react-redux'
-import { RootState } from '../../store/store'
+import { RootState } from '../../redux/store'
 import { ConfigureEmulator, ConfigureEmulatorComponentStateProperties, ConfigureEmulatorComponentDispatchProperties } from '../../components/emulator/configuration/configure-emulator/configure-emulator-component'
-import { EmulatorsActionTypes } from '../../store/emulators/types'
-import { setWizardStatus, updateEmulatorConfiguration } from '../../store/emulators/actions'
 import { EmulatorConfiguration } from '../../models/emulator/emulator-configuration'
 import { List } from 'immutable'
-import { EmulatorId } from '../../models/emulator/emulator'
+import { ActionsWithPayload } from '../../redux'
+import { SET_WIZARD_STATUS, EmulatorsActions, UPDATE_EMULATOR_CONFIGURATION } from '../../redux/modules/emulators'
 
 const mapStateToProps = (state: RootState): ConfigureEmulatorComponentStateProperties => {
   return {
@@ -15,8 +14,8 @@ const mapStateToProps = (state: RootState): ConfigureEmulatorComponentStatePrope
 }
 
 const mapDispatchToProps: ConfigureEmulatorComponentDispatchProperties = {
-  setWizardStatus: (error: boolean): EmulatorsActionTypes => setWizardStatus(error),
-  updateEmulatorConfiguration: (emulatorId: EmulatorId, configurations: List<EmulatorConfiguration>): EmulatorsActionTypes => updateEmulatorConfiguration(emulatorId, configurations)
+  setWizardStatus: (error: boolean): ActionsWithPayload<typeof SET_WIZARD_STATUS, boolean> => EmulatorsActions.setWizardStatus(error),
+  updateEmulatorConfiguration: (configurations: List<EmulatorConfiguration>): ActionsWithPayload<typeof UPDATE_EMULATOR_CONFIGURATION, List<EmulatorConfiguration>> => EmulatorsActions.updateEmulatorConfiguration(configurations)
 }
 
 export default connect(

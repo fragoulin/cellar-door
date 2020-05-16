@@ -2,7 +2,7 @@ import './configure-emulator.css'
 import React from 'react'
 import { Link, Redirect } from 'react-router-dom'
 import { Button, FormControl } from '@material-ui/core'
-import { Emulator, EmulatorId } from '../../../../models/emulator/emulator'
+import { Emulator } from '../../../../models/emulator/emulator'
 import { SelectDirectory } from '../select-directory/select-directory-component'
 import { EmulatorConfiguration } from '../../../../models/emulator/emulator-configuration'
 import { List } from 'immutable'
@@ -17,7 +17,7 @@ export interface ConfigureEmulatorComponentStateProperties {
 // Interface for component dispatch properties
 export interface ConfigureEmulatorComponentDispatchProperties {
   setWizardStatus(status: boolean): void;
-  updateEmulatorConfiguration(emulatorId: EmulatorId, configurations: List<EmulatorConfiguration>): void;
+  updateEmulatorConfiguration(configurations: List<EmulatorConfiguration>): void;
 }
 
 // Interface for component state
@@ -82,8 +82,8 @@ export class ConfigureEmulator extends React.PureComponent<ConfigureEmulatorComp
     const validConfiguration = !this.isConfigurationMissing()
     this.props.setWizardStatus(!validConfiguration)
 
-    if (this.props.emulator && validConfiguration) {
-      this.props.updateEmulatorConfiguration(this.props.emulator.Id, List(this.state.configurations))
+    if (validConfiguration) {
+      this.props.updateEmulatorConfiguration(List(this.state.configurations))
     }
 
     this.setState({

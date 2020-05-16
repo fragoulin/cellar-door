@@ -2,7 +2,7 @@ import { EmulatorId, EmulatorImpl } from '../emulator'
 import { EmulatorConfiguration } from '../emulator-configuration'
 import { List } from 'immutable'
 
-export class Zinc extends EmulatorImpl {
+export default class Zinc extends EmulatorImpl {
   constructor () {
     super()
     this.Id = EmulatorId.ZiNc

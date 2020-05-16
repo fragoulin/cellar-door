@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { RootState } from '../../store/store'
+import { RootState } from '../../redux/store'
 import { Welcome, WelcomeComponentStateProperties } from '../../components/cellar/welcome/welcome-component'
 
 const mapStateToProps = (state: RootState): WelcomeComponentStateProperties => {

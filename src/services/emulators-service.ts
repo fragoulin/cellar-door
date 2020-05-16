@@ -1,7 +1,7 @@
 import { Emulator, EmulatorId } from '../models/emulator/emulator'
 import { List } from 'immutable'
 import EmulatorClasses from '../models/emulator/emulators'
-import { EmulatorIdsToName } from '../store/emulators/types'
+import { EmulatorIdsToName } from '../redux/modules/emulators'
 
 export function buildAvailableEmulatorNamesList (): List<EmulatorIdsToName> {
   const data: EmulatorIdsToName[] = []

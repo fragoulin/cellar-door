@@ -26,7 +26,7 @@ export class EmulatorConfiguration {
   }
 
   set mandatory (mandatory: boolean) {
-    this._mandatory = name
+    this._mandatory = mandatory
   }
 
   get mandatory (): boolean {

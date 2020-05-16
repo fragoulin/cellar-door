@@ -1,9 +1,8 @@
-import { EmulatorId, EmulatorImpl } from '../emulator'
+import { EmulatorId, EmulatorImpl, EmulatorLicence } from '../emulator'
 import { EmulatorConfiguration } from '../emulator-configuration'
 import { List } from 'immutable'
-import { EmulatorLicence } from '../../../models/emulator/emulator-licence'
 
-export class Mame extends EmulatorImpl {
+export default class Mame extends EmulatorImpl {
   constructor () {
     super()
     this.Id = EmulatorId.MAME
