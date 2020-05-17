@@ -23,17 +23,17 @@ const cellarSlice = createSlice({
   name: 'cellar',
   initialState: initialState,
   reducers: {
-    createCellar (state): void {
+    cellarCreated (state): void {
       state.currentCellar = {}
     },
-    closeCellar (state): void {
+    cellarClosed (state): void {
       state.currentCellar = undefined
     },
-    setCurrentLocale (state, action): void {
+    currentLocaleSet (state, action): void {
       state.i18n = action.payload
     }
   }
 })
 
-export const { createCellar, closeCellar, setCurrentLocale } = cellarSlice.actions
+export const { cellarCreated, cellarClosed, currentLocaleSet } = cellarSlice.actions
 export default cellarSlice.reducer

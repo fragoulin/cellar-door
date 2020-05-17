@@ -2,7 +2,7 @@ import { connect } from 'react-redux'
 import { RootState } from '../../redux/store'
 import { ConfigureEmulator, ConfigureEmulatorComponentStateProperties, ConfigureEmulatorComponentDispatchProperties } from '../../components/emulator/configuration/configure-emulator/configure-emulator-component'
 import { EmulatorConfiguration } from '../../models/emulator/emulator'
-import { setWizardStatus, updateEmulatorConfiguration } from '../../redux/modules/emulators'
+import { wizardStatusSet, emulatorConfigurationUpdated } from '../../redux/modules/emulators'
 
 const mapStateToProps = (state: RootState): ConfigureEmulatorComponentStateProperties => {
   return {
@@ -12,8 +12,8 @@ const mapStateToProps = (state: RootState): ConfigureEmulatorComponentStatePrope
 }
 
 const mapDispatchToProps: ConfigureEmulatorComponentDispatchProperties = {
-  setWizardStatus: (error: boolean) => setWizardStatus(error),
-  updateEmulatorConfiguration: (configurations: EmulatorConfiguration[]) => updateEmulatorConfiguration(configurations)
+  setWizardStatus: (error: boolean) => wizardStatusSet(error),
+  updateEmulatorConfiguration: (configurations: EmulatorConfiguration[]) => emulatorConfigurationUpdated(configurations)
 }
 
 export default connect(
