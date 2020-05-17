@@ -1,25 +1,13 @@
 import { Cellar } from '../../models/cellar'
-import { List } from 'immutable'
 import * as LocaleService from '../../services/locale-service'
-import { createActionPayload, createAction, ActionsUnion } from '..'
-
-// Actions
-export const CREATE = 'cellar/CREATE'
-export const CLOSE = 'cellar/CLOSE'
-export const SET_CURRENT_LOCALE = 'cellar/SET_CURRENT_LOCALE'
-
-export const CellarActions = {
-  create: createAction<typeof CREATE>(CREATE),
-  close: createAction<typeof CLOSE>(CLOSE),
-  setCurrentLocale: createActionPayload<typeof SET_CURRENT_LOCALE, string>(SET_CURRENT_LOCALE)
-}
+import { createSlice } from '@reduxjs/toolkit'
 
 // State
 interface CellarState {
   currentCellar: Cellar | undefined;
   i18n: {
     currentLocale: string;
-    availableLocales: List<string>;
+    availableLocales: string[];
   };
 }
 
@@ -27,35 +15,25 @@ const initialState: CellarState = {
   currentCellar: undefined,
   i18n: {
     currentLocale: LocaleService.DEFAULT_LOCALE,
-    availableLocales: List()
+    availableLocales: []
   }
 }
 
-// Reducer
-export function cellarReducer (
-  state: CellarState = initialState,
-  action: ActionsUnion<typeof CellarActions>): CellarState {
-  switch (action.type) {
-    case CREATE:
-      return {
-        currentCellar: new Cellar(),
-        i18n: state.i18n
-      }
-    case CLOSE:
-      return {
-        currentCellar: undefined,
-        i18n: state.i18n
-      }
-    case SET_CURRENT_LOCALE: {
-      return {
-        currentCellar: state.currentCellar,
-        i18n: {
-          currentLocale: action.payload,
-          availableLocales: state.i18n.availableLocales
-        }
-      }
+const cellarSlice = createSlice({
+  name: 'cellar',
+  initialState: initialState,
+  reducers: {
+    createCellar (state): void {
+      state.currentCellar = {}
+    },
+    closeCellar (state): void {
+      state.currentCellar = undefined
+    },
+    setCurrentLocale (state, action): void {
+      state.i18n = action.payload
     }
-    default:
-      return state
   }
-}
+})
+
+export const { createCellar, closeCellar, setCurrentLocale } = cellarSlice.actions
+export default cellarSlice.reducer

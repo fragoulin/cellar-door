@@ -1,10 +1,9 @@
 import { connect } from 'react-redux'
 import { FreshInstallation, FreshInstallationComponentDispatchProperties } from '../../components/cellar/fresh-installation/fresh-installation-component'
-import { CellarActions, CREATE } from '../../redux/modules/cellar'
-import { ActionsWithoutPayload } from '../../redux'
+import { createCellar } from '../../redux/modules/cellar'
 
 const mapDispatchToProps: FreshInstallationComponentDispatchProperties = {
-  createCellar: (): ActionsWithoutPayload<typeof CREATE> => CellarActions.create()
+  createCellar: () => createCellar()
 }
 
 export default connect(

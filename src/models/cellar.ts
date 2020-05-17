@@ -1,2 +1,2 @@
-export class Cellar {
+export type Cellar = {
 }

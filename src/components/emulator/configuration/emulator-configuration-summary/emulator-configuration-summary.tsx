@@ -1,10 +1,9 @@
 import './emulator-configuration-summary.css'
 import React from 'react'
-import { EmulatorConfiguration } from '../../../../models/emulator/emulator-configuration'
-import { List } from 'immutable'
+import { EmulatorConfiguration } from '../../../../models/emulator/emulator'
 
 interface EmulatorConfigurationSummaryProperties {
-  configurations: List<EmulatorConfiguration>;
+  configurations: EmulatorConfiguration[];
 }
 
 export class EmulatorConfigurationSummary extends React.Component<EmulatorConfigurationSummaryProperties> {
@@ -12,7 +11,7 @@ export class EmulatorConfigurationSummary extends React.Component<EmulatorConfig
     return (
       <table>
         <tbody>
-          {this.props.configurations.map(configuration => {
+          {this.props.configurations.map((configuration: EmulatorConfiguration) => {
             return <tr key={configuration.name}><td>{configuration.name}</td><td>{configuration.value}</td></tr>
           })}
         </tbody>

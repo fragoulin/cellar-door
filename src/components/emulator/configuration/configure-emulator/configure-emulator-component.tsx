@@ -2,10 +2,8 @@ import './configure-emulator.css'
 import React from 'react'
 import { Link, Redirect } from 'react-router-dom'
 import { Button, FormControl } from '@material-ui/core'
-import { Emulator } from '../../../../models/emulator/emulator'
+import { Emulator, EmulatorConfiguration } from '../../../../models/emulator/emulator'
 import { SelectDirectory } from '../select-directory/select-directory-component'
-import { EmulatorConfiguration } from '../../../../models/emulator/emulator-configuration'
-import { List } from 'immutable'
 import { FormattedMessage } from 'react-intl'
 
 // Interface for component state properties
@@ -17,7 +15,7 @@ export interface ConfigureEmulatorComponentStateProperties {
 // Interface for component dispatch properties
 export interface ConfigureEmulatorComponentDispatchProperties {
   setWizardStatus(status: boolean): void;
-  updateEmulatorConfiguration(configurations: List<EmulatorConfiguration>): void;
+  updateEmulatorConfiguration(configurations: EmulatorConfiguration[]): void;
 }
 
 // Interface for component state
@@ -47,7 +45,7 @@ export class ConfigureEmulator extends React.PureComponent<ConfigureEmulatorComp
     }
 
     // Add new configuration
-    this.state.configurations.push(new EmulatorConfiguration(name, mandatory, value))
+    this.state.configurations.push({ name, mandatory, value })
   }
 
   private isConfigurationValueSet (name: string): boolean {
@@ -66,7 +64,7 @@ export class ConfigureEmulator extends React.PureComponent<ConfigureEmulatorComp
     let missing = false
 
     if (this.props.emulator) {
-      this.props.emulator.configurations.map(configuration => {
+      this.props.emulator.configurations.map((configuration: EmulatorConfiguration) => {
         if (configuration.mandatory && !this.isConfigurationValueSet(configuration.name)) {
           missing = true
         }
@@ -83,7 +81,7 @@ export class ConfigureEmulator extends React.PureComponent<ConfigureEmulatorComp
     this.props.setWizardStatus(!validConfiguration)
 
     if (validConfiguration) {
-      this.props.updateEmulatorConfiguration(List(this.state.configurations))
+      this.props.updateEmulatorConfiguration(this.state.configurations)
     }
 
     this.setState({
@@ -99,7 +97,7 @@ export class ConfigureEmulator extends React.PureComponent<ConfigureEmulatorComp
             <h1><FormattedMessage id="configure-emulator.title" values={{ name: this.props.emulator.shortName }}/></h1>
             <div>
               <FormControl required error={this.props.hasError}>
-                {this.props.emulator.configurations.map(configuration => {
+                {this.props.emulator.configurations.map((configuration: EmulatorConfiguration) => {
                   return <SelectDirectory hasError={this.props.hasError} key={configuration.name} name={configuration.name} mandatory={configuration.mandatory} onDirectorySelected={this.setConfiguration}/>
                 })}
               </FormControl>

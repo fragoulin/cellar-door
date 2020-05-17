@@ -6,8 +6,8 @@ import { Router } from './components/router/router-component'
 import 'reflect-metadata'
 import { IntlProvider } from 'react-intl'
 import * as LocaleService from './services/locale-service'
-import { CellarActions } from './redux/modules/cellar'
 import store from './redux/store'
+import { setCurrentLocale } from './redux/modules/cellar'
 
 // Main rendering
 const main = document.createElement('main')
@@ -15,7 +15,7 @@ document.body.appendChild(main)
 
 // Locales
 const locale = navigator.language.split(/[-_]/)[0] // locale without region code
-store.dispatch(CellarActions.setCurrentLocale(locale))
+store.dispatch(setCurrentLocale(locale))
 
 const messages = LocaleService.getMessagesForLocale(locale)
 

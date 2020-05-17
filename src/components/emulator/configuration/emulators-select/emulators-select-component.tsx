@@ -2,13 +2,12 @@ import './emulators-select.css'
 import * as React from 'react'
 import { Select, InputLabel, FormHelperText } from '@material-ui/core'
 import { EmulatorId } from '../../../../models/emulator/emulator'
-import { List } from 'immutable'
 import { FormattedMessage } from 'react-intl'
 import { EmulatorIdsToName } from '../../../../redux/modules/emulators'
 
 // Interface for component properties
 export interface EmulatorsSelectComponentStateProperties {
-  availableEmulatorNames: List<EmulatorIdsToName>;
+  availableEmulatorNames: EmulatorIdsToName[];
   hasError: boolean;
 }
 

@@ -1,26 +1,30 @@
 import { Emulator, EmulatorId } from '../models/emulator/emulator'
-import { List } from 'immutable'
-import EmulatorClasses from '../models/emulator/emulators'
+import Emulators from '../models/emulator/emulators'
 import { EmulatorIdsToName } from '../redux/modules/emulators'
+import { cloneDeep } from 'lodash'
 
-export function buildAvailableEmulatorNamesList (): List<EmulatorIdsToName> {
+export function buildAvailableEmulatorNamesList (): EmulatorIdsToName[] {
   const data: EmulatorIdsToName[] = []
 
-  EmulatorClasses.map(EmulatorClass => {
-    const e = new EmulatorClass()
+  Emulators.map(emulator => {
     data.push({
-      id: e.Id,
-      name: e.shortName
+      id: emulator.Id,
+      name: emulator.shortName
     })
   })
 
-  return List(data)
+  return data
 }
 
-export function getEmulatorsModels (): List<Emulator> {
-  return List(EmulatorClasses.map(E => new E()))
+export function getEmulators (): Emulator[] {
+  return cloneDeep(Emulators)
 }
 
 export function getEmulator (emulatorId: EmulatorId): Emulator | undefined {
-  return getEmulatorsModels().find(emulatorModel => emulatorId === emulatorModel.Id)
+  const emulator = getEmulators().find(emulator => emulatorId === emulator.Id)
+  if (!emulator) {
+    return undefined
+  } else {
+    return cloneDeep(emulator)
+  }
 }
