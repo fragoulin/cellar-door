@@ -29,7 +29,7 @@ const initialState: EmulatorsState = {
 }
 
 const emulatorsSlice = createSlice({
-  name: 'cellar',
+  name: 'emulators',
   initialState: initialState,
   reducers: {
     availableEmulatorNamesListBuilt (state): void {
