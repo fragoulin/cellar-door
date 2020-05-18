@@ -86,4 +86,7 @@ typings/
 .webpack/
 
 # Electron-Forge
-out/ 
+out/
+
+# Db files
+*.db

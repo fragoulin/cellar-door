@@ -15,13 +15,13 @@ contextBridge.exposeInMainWorld(
   'api', {
     send: (channel: string, ...args: unknown[]) => {
       // whitelist channels
-      const validChannels = ['dialogSync']
+      const validChannels = ['dialogSync', 'saveState', 'loadState']
       if (validChannels.includes(channel)) {
         ipcRenderer.send(channel, ...args)
       }
     },
     receive: (channel: string, func: Function) => {
-      const validChannels = ['dialogSyncResult']
+      const validChannels = ['dialogSyncResult', 'stateSaved', 'stateLoaded']
       if (validChannels.includes(channel)) {
         // Deliberately strip event as it includes `sender`
         ipcRenderer.on(channel, (event, ...args) => func(...args))
