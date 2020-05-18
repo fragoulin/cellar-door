@@ -1,4 +1,4 @@
-import { EmulatorId, Emulator, EmulatorConfiguration } from '../emulator'
+import { EmulatorId, Emulator, EmulatorConfiguration } from '../types'
 
 const zincDirectory: EmulatorConfiguration = {
   name: 'zincDirectory',

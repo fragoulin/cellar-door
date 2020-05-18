@@ -3,7 +3,7 @@ import './welcome.css'
 import { Cellar } from '../../../models/cellar'
 import { EmulatorsList } from '../emulators-list/emulators-list-component'
 import FreshInstallation from '../../../container/cellar/fresh-installation'
-import { Emulator } from '../../../models/emulator/emulator'
+import { Emulator } from '../../../models/emulator/types'
 import { FormattedMessage } from 'react-intl'
 
 export interface WelcomeComponentStateProperties {

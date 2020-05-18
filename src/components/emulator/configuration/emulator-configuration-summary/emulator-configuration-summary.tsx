@@ -1,6 +1,6 @@
 import './emulator-configuration-summary.css'
 import React from 'react'
-import { EmulatorConfiguration } from '../../../../models/emulator/emulator'
+import { EmulatorConfiguration } from '../../../../models/emulator/types'
 
 interface EmulatorConfigurationSummaryProperties {
   configurations: EmulatorConfiguration[];

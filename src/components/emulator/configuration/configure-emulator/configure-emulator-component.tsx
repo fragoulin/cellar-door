@@ -2,7 +2,7 @@ import './configure-emulator.css'
 import React from 'react'
 import { Link, Redirect } from 'react-router-dom'
 import { Button, FormControl } from '@material-ui/core'
-import { Emulator, EmulatorConfiguration } from '../../../../models/emulator/emulator'
+import { Emulator, EmulatorConfiguration } from '../../../../models/emulator/types'
 import { SelectDirectory } from '../select-directory/select-directory-component'
 import { FormattedMessage } from 'react-intl'
 

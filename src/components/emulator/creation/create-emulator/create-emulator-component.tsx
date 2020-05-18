@@ -1,6 +1,6 @@
 import './create-emulator.css'
 import React from 'react'
-import { Emulator } from '../../../../models/emulator/emulator'
+import { Emulator } from '../../../../models/emulator/types'
 import { Button } from '@material-ui/core'
 import { Link } from 'react-router-dom'
 import { EmulatorSummary } from '../emulator-summary/emulator-summary-component'

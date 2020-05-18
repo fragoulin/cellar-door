@@ -1,4 +1,4 @@
-import { EmulatorId, EmulatorLicence, Emulator, EmulatorConfiguration } from '../emulator'
+import { EmulatorId, EmulatorLicence, Emulator, EmulatorConfiguration } from '../types'
 
 const scummvmDirectory: EmulatorConfiguration = {
   name: 'scummvmDirectory',

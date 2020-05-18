@@ -1,5 +1,5 @@
 import React from 'react'
-import { Emulator } from '../../../models/emulator/emulator'
+import { Emulator } from '../../../models/emulator/types'
 import { EmulatorConfigurationSummary } from '../../emulator/configuration/emulator-configuration-summary/emulator-configuration-summary'
 
 export interface EmulatorSummaryComponentProperties {

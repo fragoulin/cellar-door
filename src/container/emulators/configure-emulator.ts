@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 import { RootState } from '../../redux/store'
 import { ConfigureEmulator, ConfigureEmulatorComponentStateProperties, ConfigureEmulatorComponentDispatchProperties } from '../../components/emulator/configuration/configure-emulator/configure-emulator-component'
-import { EmulatorConfiguration } from '../../models/emulator/emulator'
+import { EmulatorConfiguration } from '../../models/emulator/types'
 import { wizardStatusSet, emulatorConfigurationUpdated } from '../../redux/modules/emulators'
 
 const mapStateToProps = (state: RootState): ConfigureEmulatorComponentStateProperties => {

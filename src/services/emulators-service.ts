@@ -1,4 +1,4 @@
-import { Emulator, EmulatorId } from '../models/emulator/emulator'
+import { Emulator, EmulatorId } from '../models/emulator/types'
 import Emulators from '../models/emulator/emulators'
 import { EmulatorIdsToName } from '../redux/modules/emulators'
 import { cloneDeep } from 'lodash'

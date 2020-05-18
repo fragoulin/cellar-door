@@ -3,7 +3,7 @@ import * as React from 'react'
 import { Button, FormControl } from '@material-ui/core'
 import { Link, Redirect } from 'react-router-dom'
 import EmulatorsSelect from '../../../../container/emulators/emulators-select'
-import { EmulatorId } from '../../../../models/emulator/emulator'
+import { EmulatorId } from '../../../../models/emulator/types'
 import { FormattedMessage } from 'react-intl'
 
 // Interface for component state properties

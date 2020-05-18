@@ -1,4 +1,4 @@
-import { EmulatorId, Emulator } from '../../models/emulator/emulator'
+import { EmulatorId, Emulator } from '../../models/emulator/types'
 import * as EmulatorsService from '../../services/emulators-service'
 import { createSlice } from '@reduxjs/toolkit'
 

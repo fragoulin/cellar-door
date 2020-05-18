@@ -1,4 +1,4 @@
-import { EmulatorId, EmulatorLicence, Emulator, EmulatorConfiguration } from '../emulator'
+import { EmulatorId, EmulatorLicence, Emulator, EmulatorConfiguration } from '../types'
 
 const mameDirectory: EmulatorConfiguration = {
   name: 'mameDirectory',
