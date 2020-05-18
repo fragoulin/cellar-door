@@ -13,9 +13,11 @@ interface RootStateFromDatabase extends RootState {
 }
 
 // Load redux state from database
-export const loadState = (callback: (err: Error, state: RootStateFromDatabase) => void): void => {
+export const loadState = (callback: (err: Error, state: RootStateFromDatabase | null) => void): void => {
   stateDb.findOne({}, (err, state) => {
-    delete state._id
+    if (state) {
+      delete state._id
+    }
     callback(err, state)
   })
 }
