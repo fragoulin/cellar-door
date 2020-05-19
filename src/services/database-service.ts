@@ -8,12 +8,8 @@ const stateDb = new NeDB({
   corruptAlertThreshold: 0
 })
 
-interface RootStateFromDatabase extends RootState {
-  _id: string;
-}
-
 // Load redux state from database
-export const loadState = (callback: (err: Error, state: RootStateFromDatabase | null) => void): void => {
+export const loadState = (callback: (err: Error, state: RootState | null) => void): void => {
   stateDb.findOne({}, (err, state) => {
     if (state) {
       delete state._id
