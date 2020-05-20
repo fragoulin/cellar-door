@@ -1,6 +1,6 @@
 import { Cellar } from '../../models/cellar'
-import * as LocaleService from '../../services/locale-service'
 import { createSlice } from '@reduxjs/toolkit'
+import { localeService } from '../../rendererDependencies'
 
 // State
 interface CellarState {
@@ -14,7 +14,7 @@ interface CellarState {
 const initialState: CellarState = {
   currentCellar: undefined,
   i18n: {
-    currentLocale: LocaleService.DEFAULT_LOCALE,
+    currentLocale: localeService.getDefaultLocale(),
     availableLocales: []
   }
 }

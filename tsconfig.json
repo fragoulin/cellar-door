@@ -30,11 +30,12 @@
       "dom.iterable",
       "esnext"
     ],
+    "types": ["reflect-metadata", "jest", "node"],
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
     "noEmit": true
   },
   "include": [
-    "src/**/*"
+    "src/**/*", "test/**/*"
   ]
 }

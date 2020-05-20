@@ -1,6 +1,6 @@
 import { EmulatorId, Emulator } from '../../models/emulator/types'
-import * as EmulatorsService from '../../services/emulators-service'
 import { createSlice } from '@reduxjs/toolkit'
+import { emulatorsService } from '../../rendererDependencies'
 
 // State
 export interface EmulatorIdsToName {
@@ -33,7 +33,7 @@ const emulatorsSlice = createSlice({
   initialState: initialState,
   reducers: {
     availableEmulatorNamesListBuilt (state): void {
-      state.availableEmulatorNames = EmulatorsService.buildAvailableEmulatorNamesList()
+      state.availableEmulatorNames = emulatorsService.buildAvailableEmulatorNamesList()
     },
     selectedEmulatorIdSet (state, action): void {
       state.wizard.selectedEmulatorId = action.payload
@@ -42,11 +42,11 @@ const emulatorsSlice = createSlice({
       state.wizard.hasError = action.payload
     },
     emulatorCreated (state, action): void {
-      state.wizard.emulatorCurrentlyConfigured = EmulatorsService.getEmulator(action.payload)
+      state.wizard.emulatorCurrentlyConfigured = emulatorsService.getEmulator(action.payload)
     },
     emulatorConfigurationUpdated (state, action): void {
       if (state.wizard.emulatorCurrentlyConfigured) {
-        const newEmulator = EmulatorsService.getEmulator(state.wizard.emulatorCurrentlyConfigured.Id)
+        const newEmulator = emulatorsService.getEmulator(state.wizard.emulatorCurrentlyConfigured.Id)
         if (newEmulator) {
           newEmulator.configurations = action.payload
           state.wizard.emulatorCurrentlyConfigured = newEmulator

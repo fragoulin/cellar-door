@@ -1,4 +1,5 @@
 import { app, BrowserWindow, Menu, session } from 'electron'
+import { ipcMainService } from './mainDependencies'
 
 // Electron forge constants (automatically set by electron forge)
 declare const MAIN_WINDOW_WEBPACK_ENTRY: string
@@ -117,5 +118,4 @@ app.on('activate', () => {
 // code. You can also put them in separate files and require them here.
 app.allowRendererProcessReuse = true
 
-require('./services/database-service')
-require('./services/ipc-main-service')
+ipcMainService.registerListeners()
