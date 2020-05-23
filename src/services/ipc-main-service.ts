@@ -23,6 +23,7 @@ export class CellarIpcMainService implements IpcMainService {
   private databaseService: DatabaseService
 
   /**
+   * Build new IPC main service.
    *
    * @param databaseService - the database service to use for state persistence.
    */
@@ -32,9 +33,6 @@ export class CellarIpcMainService implements IpcMainService {
     this.databaseService = databaseService
   }
 
-  /**
-   * Register listeners with code aimed to run on main process.
-   */
   public registerListeners(): void {
     // Open dialog sync request
     ipcMain.on(

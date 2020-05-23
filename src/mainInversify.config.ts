@@ -11,7 +11,10 @@ import {
  */
 const mainContainer = new Container()
 
-mainContainer.bind<DatabaseService>(TYPES.DatabaseService).to(NedbService)
+mainContainer
+  .bind<DatabaseService>(TYPES.DatabaseService)
+  .to(NedbService)
+  .inSingletonScope()
 mainContainer
   .bind<IpcMainService>(TYPES.IpcMainService)
   .to(CellarIpcMainService)
