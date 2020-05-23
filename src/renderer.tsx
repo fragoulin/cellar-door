@@ -1,14 +1,13 @@
 import ReactDOM from 'react-dom'
-import React, { ReactElement } from 'react'
+import React, { ReactElement, Suspense } from 'react'
 import 'typeface-roboto'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import { Router } from './components/router/router-component'
 import 'reflect-metadata'
-import { IntlProvider } from 'react-intl'
 import * as CellarStore from './redux/store'
-import { currentLocaleSet } from './redux/modules/cellar'
 import { Store } from '@reduxjs/toolkit'
-import { localeService } from './rendererDependencies'
+import { I18nextProvider } from 'react-i18next'
+import i18n from './i18next.config'
 
 /**
  * Main element is the entry point of HTML content.
@@ -22,26 +21,20 @@ document.body.appendChild(main)
  * @param store - redux store
  */
 function createRoot(store: Store): void {
-  // Locales
-  const locale = navigator.language.split(/[-_]/)[0] // locale without region code
-  store.dispatch(currentLocaleSet(locale))
-
-  const messages = localeService.getMessagesForLocale(locale)
+  // TODO locale from detectlocale
+  //  store.dispatch(currentLocaleSet(locale))
 
   const root: ReactElement = (
     <section id="root">
       <CssBaseline />
       <React.StrictMode>
-        <IntlProvider
-          locale={locale}
-          key={locale}
-          defaultLocale={localeService.getDefaultLocale()}
-          messages={messages}
-        >
-          <header></header>
-          <Router store={store} />
-          <footer></footer>
-        </IntlProvider>
+        <I18nextProvider i18n={i18n}>
+          <Suspense fallback="loading">
+            <header></header>
+            <Router store={store} />
+            <footer></footer>
+          </Suspense>
+        </I18nextProvider>
       </React.StrictMode>
     </section>
   )
@@ -49,7 +42,7 @@ function createRoot(store: Store): void {
   ReactDOM.render(root, main)
 }
 
-// Wait for redux store to be ready before creating root element.
+// Promise for redux store to be ready before creating root element.
 CellarStore.whenReady((store) => {
   createRoot(store)
 })

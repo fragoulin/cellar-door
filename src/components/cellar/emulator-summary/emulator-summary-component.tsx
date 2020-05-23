@@ -1,6 +1,7 @@
 import React from 'react'
 import { Emulator } from '../../../models/emulator/types'
-import { EmulatorConfigurationSummary } from '../../emulator/configuration/emulator-configuration-summary/emulator-configuration-summary'
+import EmulatorConfigurationSummary from '../../emulator/configuration/emulator-configuration-summary/emulator-configuration-summary'
+import { withTranslation, WithTranslation } from 'react-i18next'
 
 /**
  * Properties definition for this component.
@@ -14,8 +15,8 @@ export interface EmulatorSummaryComponentProperties {
  *
  * @see {@link EmulatorConfigurationSummary}
  */
-export class EmulatorSummary extends React.PureComponent<
-  EmulatorSummaryComponentProperties
+class EmulatorSummary extends React.PureComponent<
+  EmulatorSummaryComponentProperties & WithTranslation
 > {
   /**
    * Render title and a summary of emulator configurations.
@@ -33,3 +34,5 @@ export class EmulatorSummary extends React.PureComponent<
     )
   }
 }
+
+export default withTranslation()(EmulatorSummary)

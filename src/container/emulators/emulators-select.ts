@@ -1,7 +1,6 @@
 import { connect } from 'react-redux'
 import { RootState } from '../../redux/store'
-import {
-  EmulatorsSelect,
+import EmulatorsSelect, {
   EmulatorsSelectComponentStateProperties,
   EmulatorSelectComponentDispatchProperties,
 } from '../../components/emulator/configuration/emulators-select/emulators-select-component'

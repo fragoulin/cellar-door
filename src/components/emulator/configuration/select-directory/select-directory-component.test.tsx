@@ -1,53 +1,33 @@
 import React from 'react'
 import SelectDirectory from './select-directory-component'
-import { unmountComponentAtNode } from 'react-dom'
 import { screen } from '@testing-library/react'
-import { createComponentWithIntlAndProviderAndRouter } from '../../../../../test/createComponentsHelpers'
-import { localeService } from '../../../../rendererDependencies'
+import { createComponentWithProviderAndRouter } from '../../../../../test/createComponentsHelpers'
 import configureMockStore from 'redux-mock-store'
 import { CellarWin } from '../../../../preload'
 import userEvent from '@testing-library/user-event'
 import wrap from 'jest-wrap'
 
-let container: HTMLDivElement | undefined
 const mockStore = configureMockStore()
 const mockWindow = window as CellarWin
 mockWindow.api = {
   receive: jest.fn(),
   send: jest.fn(),
+  i18nextElectronBackend: undefined,
 }
-
-beforeEach(() => {
-  // setup a DOM element as a render target
-  container = document.createElement('div')
-  document.body.appendChild(container)
-})
-
-afterEach(() => {
-  // cleanup on exiting
-  if (container) {
-    unmountComponentAtNode(container)
-    container.remove()
-    container = undefined
-  }
-})
 
 wrap()
   .withGlobal('window', () => mockWindow)
   .describe('mocked window', () => {
     it('should correctly render input and button', () => {
       const name = 'test'
-      const locale = localeService.getDefaultLocale()
-      const messages = localeService.getMessagesForLocale(locale)
 
-      createComponentWithIntlAndProviderAndRouter(
+      createComponentWithProviderAndRouter(
         <SelectDirectory
           name={name}
           hasError={false}
           mandatory={true}
           onDirectorySelected={jest.fn()}
         />,
-        { locale: locale, messages: messages },
         mockStore()
       )
 
@@ -58,23 +38,20 @@ wrap()
 
       const directorySelector = screen.getByRole(name)
       expect(directorySelector.getAttribute('aria-label')).toEqual(
-        messages['select-directory']
+        'selectDirectory.label'
       )
     })
 
     it('should open dialog on click', (done) => {
       const name = 'test'
-      const locale = localeService.getDefaultLocale()
-      const messages = localeService.getMessagesForLocale(locale)
 
-      createComponentWithIntlAndProviderAndRouter(
+      createComponentWithProviderAndRouter(
         <SelectDirectory
           name={name}
           hasError={false}
           mandatory={true}
           onDirectorySelected={jest.fn()}
         />,
-        { locale: locale, messages: messages },
         mockStore()
       )
 
@@ -95,17 +72,14 @@ wrap()
 
     it('should display error message in case of error', () => {
       const name = 'test'
-      const locale = localeService.getDefaultLocale()
-      const messages = localeService.getMessagesForLocale(locale)
 
-      createComponentWithIntlAndProviderAndRouter(
+      createComponentWithProviderAndRouter(
         <SelectDirectory
           name={name}
           hasError={true}
           mandatory={true}
           onDirectorySelected={jest.fn()}
         />,
-        { locale: locale, messages: messages },
         mockStore()
       )
 

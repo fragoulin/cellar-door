@@ -1,6 +1,7 @@
 import './emulator-configuration-summary.css'
 import React from 'react'
 import { EmulatorConfiguration } from '../../../../models/emulator/types'
+import { withTranslation, WithTranslation } from 'react-i18next'
 
 /**
  * Properties definition for this component.
@@ -12,8 +13,8 @@ interface EmulatorConfigurationSummaryProperties {
 /**
  * Emulator configuration summary component displays the specified emulator configurations.
  */
-export class EmulatorConfigurationSummary extends React.Component<
-  EmulatorConfigurationSummaryProperties
+class EmulatorConfigurationSummary extends React.Component<
+  EmulatorConfigurationSummaryProperties & WithTranslation
 > {
   /**
    * Renders the configurations specified in the properties using a table.
@@ -39,3 +40,5 @@ export class EmulatorConfigurationSummary extends React.Component<
     )
   }
 }
+
+export default withTranslation()(EmulatorConfigurationSummary)

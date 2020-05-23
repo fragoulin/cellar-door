@@ -1,25 +1,7 @@
 import React from 'react'
-import { EmulatorSummary } from './emulator-summary-component'
-import { unmountComponentAtNode } from 'react-dom'
+import EmulatorSummary from './emulator-summary-component'
 import Emulators from '../../../models/emulator/emulators/index'
 import { render, screen } from '@testing-library/react'
-
-let container: HTMLDivElement | undefined
-
-beforeEach(() => {
-  // setup a DOM element as a render target
-  container = document.createElement('div')
-  document.body.appendChild(container)
-})
-
-afterEach(() => {
-  // cleanup on exiting
-  if (container) {
-    unmountComponentAtNode(container)
-    container.remove()
-    container = undefined
-  }
-})
 
 it('should render Mame emulator correctly', () => {
   const emulator = Emulators[0]

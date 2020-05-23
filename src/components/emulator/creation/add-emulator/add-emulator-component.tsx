@@ -4,7 +4,7 @@ import { Button, FormControl } from '@material-ui/core'
 import { Link, Redirect } from 'react-router-dom'
 import EmulatorsSelect from '../../../../container/emulators/emulators-select'
 import { EmulatorId } from '../../../../models/emulator/types'
-import { FormattedMessage } from 'react-intl'
+import { withTranslation, WithTranslation } from 'react-i18next'
 
 /**
  * Properties definition for this component (from redux state).
@@ -34,8 +34,10 @@ interface AddEmulatorComponentState {
  * Add emulator component is the first step of the configuration of an emulator.
  * It displays the list of available emulators and back/submit buttons.
  */
-export class AddEmulator extends React.PureComponent<
-  AddEmulatorComponentStateProperties & AddEmulatorComponentDispatchProperties,
+class AddEmulator extends React.PureComponent<
+  AddEmulatorComponentStateProperties &
+    AddEmulatorComponentDispatchProperties &
+    WithTranslation,
   AddEmulatorComponentState
 > {
   /**
@@ -45,7 +47,8 @@ export class AddEmulator extends React.PureComponent<
    */
   constructor(
     props: AddEmulatorComponentStateProperties &
-      AddEmulatorComponentDispatchProperties
+      AddEmulatorComponentDispatchProperties &
+      WithTranslation
   ) {
     super(props)
 
@@ -88,22 +91,18 @@ export class AddEmulator extends React.PureComponent<
   public render(): React.ReactNode {
     return !this.state.redirect ? (
       <form className="AddEmulator" onSubmit={this.handleSubmit}>
-        <h1>
-          <FormattedMessage id="add-emulator.title" />
-        </h1>
-        <p>
-          <FormattedMessage id="add-emulator.text" />
-        </p>
+        <h1>{this.props.t('addEmulator.title')}</h1>
+        <p>{this.props.t('addEmulator.text')}</p>
         <div>
           <FormControl required error={this.props.hasError}>
             <EmulatorsSelect />
           </FormControl>
         </div>
         <Button color="secondary" component={Link} to="/">
-          <FormattedMessage id="common.back" />
+          {this.props.t('common.back')}
         </Button>
         <Button color="primary" type="submit">
-          <FormattedMessage id="common.confirm" />
+          {this.props.t('common.confirm')}
         </Button>
       </form>
     ) : (
@@ -111,3 +110,5 @@ export class AddEmulator extends React.PureComponent<
     )
   }
 }
+
+export default withTranslation()(AddEmulator)

@@ -1,6 +1,5 @@
 import { connect } from 'react-redux'
-import {
-  AddEmulator,
+import AddEmulator, {
   AddEmulatorComponentStateProperties,
   AddEmulatorComponentDispatchProperties,
 } from '../../components/emulator/creation/add-emulator/add-emulator-component'

@@ -1,4 +1,5 @@
 import { contextBridge, ipcRenderer } from 'electron'
+import * as backend from 'i18next-electron-fs-backend'
 
 /**
  * Custom interface to type Window object with IPC functionalities.
@@ -7,6 +8,7 @@ interface Api {
   api: {
     receive(name: string, ...args: unknown[]): void
     send(name: string, ...args: unknown[]): void
+    i18nextElectronBackend: unknown
   }
 }
 
@@ -29,7 +31,8 @@ contextBridge.exposeInMainWorld('api', {
     const validChannels = ['dialogSyncResult', 'stateSaved', 'stateLoaded']
     if (validChannels.includes(channel)) {
       // Deliberately strip event as it includes `sender`
-      ipcRenderer.on(channel, (event, ...args) => func(...args))
+      ipcRenderer.on(channel, (_event, ...args) => func(...args))
     }
   },
+  i18nextElectronBackend: backend.preloadBindings(ipcRenderer),
 })

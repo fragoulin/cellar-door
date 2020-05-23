@@ -1,12 +1,8 @@
 import React from 'react'
-import { AddEmulator } from './add-emulator-component'
-import { unmountComponentAtNode } from 'react-dom'
+import AddEmulator from './add-emulator-component'
 import { screen } from '@testing-library/react'
-import { createComponentWithIntlAndProviderAndRouter } from '../../../../../test/createComponentsHelpers'
-import {
-  localeService,
-  emulatorsService,
-} from '../../../../rendererDependencies'
+import { createComponentWithProviderAndRouter } from '../../../../../test/createComponentsHelpers'
+import { emulatorsService } from '../../../../rendererDependencies'
 import configureMockStore from 'redux-mock-store'
 import { CellarWin } from '../../../../preload'
 import userEvent from '@testing-library/user-event'
@@ -15,42 +11,24 @@ import { RootState } from '../../../../redux/store'
 import Emulators from '../../../../models/emulator/emulators/index'
 import { EmulatorId } from '../../../../models/emulator/types'
 
-let container: HTMLDivElement | undefined
 const mockStore = configureMockStore()
 const mockWindow = window as CellarWin
 mockWindow.api = {
   receive: jest.fn(),
   send: jest.fn(),
+  i18nextElectronBackend: undefined,
 }
-
-beforeEach(() => {
-  // setup a DOM element as a render target
-  container = document.createElement('div')
-  document.body.appendChild(container)
-})
-
-afterEach(() => {
-  // cleanup on exiting
-  if (container) {
-    unmountComponentAtNode(container)
-    container.remove()
-    container = undefined
-  }
-})
 
 wrap()
   .withGlobal('window', () => mockWindow)
   .describe('mocked window', () => {
     it('should correctly render components', () => {
-      const locale = localeService.getDefaultLocale()
-      const messages = localeService.getMessagesForLocale(locale)
-
       const initialState: RootState = {
         cellar: {
           currentCellar: {},
           i18n: {
-            availableLocales: [locale],
-            currentLocale: locale,
+            availableLocales: ['en', 'fr'],
+            currentLocale: 'en',
           },
         },
         emulators: {
@@ -65,7 +43,7 @@ wrap()
       }
       const store = mockStore(initialState)
 
-      createComponentWithIntlAndProviderAndRouter(
+      createComponentWithProviderAndRouter(
         <AddEmulator
           selectedEmulatorId={undefined}
           hasError={false}
@@ -73,39 +51,34 @@ wrap()
           createEmulator={jest.fn()}
           setWizardStatus={jest.fn()}
         />,
-        { locale: locale, messages: messages },
         store
       )
 
       expect(screen.getByRole('heading').textContent).toEqual(
-        messages['add-emulator.title']
+        'addEmulator.title'
       )
       expect(screen.getByRole('combobox').getAttribute('name')).toEqual(
         'emulator'
       )
       expect(
-        screen
-          .getByRole('button', { name: messages['common.back'] })
-          .getAttribute('href')
+        screen.getByRole('button', { name: 'common.back' }).getAttribute('href')
       ).toEqual('/')
       expect(
         screen
-          .getByRole('button', { name: messages['common.confirm'] })
+          .getByRole('button', { name: 'common.confirm' })
           .getAttribute('type')
       ).toEqual('submit')
     })
 
     it('should call createEmulator() method on submit', (done) => {
-      const locale = localeService.getDefaultLocale()
-      const messages = localeService.getMessagesForLocale(locale)
       const mame = Emulators[0]
 
       const initialState: RootState = {
         cellar: {
           currentCellar: {},
           i18n: {
-            availableLocales: [locale],
-            currentLocale: locale,
+            availableLocales: ['en', 'fr'],
+            currentLocale: 'en',
           },
         },
         emulators: {
@@ -125,7 +98,7 @@ wrap()
         done()
       }
 
-      createComponentWithIntlAndProviderAndRouter(
+      createComponentWithProviderAndRouter(
         <AddEmulator
           selectedEmulatorId={mame.Id}
           hasError={false}
@@ -133,25 +106,24 @@ wrap()
           createEmulator={callback}
           setWizardStatus={jest.fn()}
         />,
-        { locale: locale, messages: messages },
         store
       )
 
-      const submitButton = screen.getByRole('button', { name: 'Confirm' })
+      const submitButton = screen.getByRole('button', {
+        name: 'common.confirm',
+      })
       userEvent.click(submitButton)
     })
 
     it('should redirect to configure emulator component on submit', () => {
-      const locale = localeService.getDefaultLocale()
-      const messages = localeService.getMessagesForLocale(locale)
       const mame = Emulators[0]
 
       const initialState: RootState = {
         cellar: {
           currentCellar: {},
           i18n: {
-            availableLocales: [locale],
-            currentLocale: locale,
+            availableLocales: ['en', 'fr'],
+            currentLocale: 'en',
           },
         },
         emulators: {
@@ -166,7 +138,7 @@ wrap()
       }
       const store = mockStore(initialState)
 
-      createComponentWithIntlAndProviderAndRouter(
+      createComponentWithProviderAndRouter(
         <AddEmulator
           selectedEmulatorId={mame.Id}
           hasError={false}
@@ -174,11 +146,12 @@ wrap()
           createEmulator={jest.fn()}
           setWizardStatus={jest.fn()}
         />,
-        { locale: locale, messages: messages },
         store
       )
 
-      const submitButton = screen.getByRole('button', { name: 'Confirm' })
+      const submitButton = screen.getByRole('button', {
+        name: 'common.confirm',
+      })
       userEvent.click(submitButton)
 
       expect(window.location.href).toMatch('/configure-emulator/')

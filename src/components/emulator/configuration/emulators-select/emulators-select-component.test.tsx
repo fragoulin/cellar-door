@@ -1,45 +1,21 @@
 import React from 'react'
-import { EmulatorsSelect } from './emulators-select-component'
-import { unmountComponentAtNode } from 'react-dom'
+import EmulatorsSelect from './emulators-select-component'
 import { screen } from '@testing-library/react'
-import { createComponentWithIntlAndRouter } from '../../../../../test/createComponentsHelpers'
-import {
-  localeService,
-  emulatorsService,
-} from '../../../../rendererDependencies'
+import { createComponentWithRouter } from '../../../../../test/createComponentsHelpers'
+import { emulatorsService } from '../../../../rendererDependencies'
 import Emulators from '../../../../models/emulator/emulators/index'
 import { EmulatorId } from 'src/models/emulator/types'
 import userEvent from '@testing-library/user-event'
 
-let container: HTMLDivElement | undefined
-
-beforeEach(() => {
-  // setup a DOM element as a render target
-  container = document.createElement('div')
-  document.body.appendChild(container)
-})
-
-afterEach(() => {
-  // cleanup on exiting
-  if (container) {
-    unmountComponentAtNode(container)
-    container.remove()
-    container = undefined
-  }
-})
-
 it('should correctly render emulators select', () => {
-  const locale = localeService.getDefaultLocale()
-  const messages = localeService.getMessagesForLocale(locale)
   const emulatorsIdsToNames = emulatorsService.buildAvailableEmulatorNamesList()
 
-  createComponentWithIntlAndRouter(
+  createComponentWithRouter(
     <EmulatorsSelect
       availableEmulatorNames={emulatorsIdsToNames}
       hasError={false}
       setSelectedEmulatorId={jest.fn()}
-    />,
-    { locale: locale, messages: messages }
+    />
   )
 
   const options = screen.getAllByRole('option')
@@ -60,17 +36,14 @@ it('should call setSelectedEmulatorId() method when MAME is selected', (done) =>
     done()
   }
 
-  const locale = localeService.getDefaultLocale()
-  const messages = localeService.getMessagesForLocale(locale)
   const emulatorsIdsToNames = emulatorsService.buildAvailableEmulatorNamesList()
 
-  createComponentWithIntlAndRouter(
+  createComponentWithRouter(
     <EmulatorsSelect
       availableEmulatorNames={emulatorsIdsToNames}
       hasError={false}
       setSelectedEmulatorId={callback}
-    />,
-    { locale: locale, messages: messages }
+    />
   )
 
   const select = screen.getByRole('combobox')

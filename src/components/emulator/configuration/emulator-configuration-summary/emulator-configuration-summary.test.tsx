@@ -1,36 +1,13 @@
 import React from 'react'
-import { EmulatorConfigurationSummary } from './emulator-configuration-summary'
-import { unmountComponentAtNode } from 'react-dom'
+import EmulatorConfigurationSummary from './emulator-configuration-summary'
 import { screen } from '@testing-library/react'
-import { createComponentWithIntlAndRouter } from '../../../../../test/createComponentsHelpers'
-import { localeService } from '../../../../rendererDependencies'
+import { createComponentWithRouter } from '../../../../../test/createComponentsHelpers'
 import Emulators from '../../../../models/emulator/emulators/index'
 
-let container: HTMLDivElement | undefined
-
-beforeEach(() => {
-  // setup a DOM element as a render target
-  container = document.createElement('div')
-  document.body.appendChild(container)
-})
-
-afterEach(() => {
-  // cleanup on exiting
-  if (container) {
-    unmountComponentAtNode(container)
-    container.remove()
-    container = undefined
-  }
-})
-
 it('should correctly display configurations rows', () => {
-  const locale = localeService.getDefaultLocale()
-  const messages = localeService.getMessagesForLocale(locale)
-
   const mame = Emulators[0]
-  createComponentWithIntlAndRouter(
-    <EmulatorConfigurationSummary configurations={mame.configurations} />,
-    { locale: locale, messages: messages }
+  createComponentWithRouter(
+    <EmulatorConfigurationSummary configurations={mame.configurations} />
   )
 
   const rows = screen.getAllByRole('row')

@@ -2,8 +2,8 @@ import './emulators-select.css'
 import * as React from 'react'
 import { Select, InputLabel, FormHelperText } from '@material-ui/core'
 import { EmulatorId } from '../../../../models/emulator/types'
-import { FormattedMessage } from 'react-intl'
 import { EmulatorIdsToName } from '../../../../redux/modules/emulators'
+import { withTranslation, WithTranslation } from 'react-i18next'
 
 /**
  * Properties definition for this component (from redux state).
@@ -30,9 +30,10 @@ interface EmulatorSelectComponentState {
 /**
  * Emulators select component displays a list of selectable emulators.
  */
-export class EmulatorsSelect extends React.PureComponent<
+class EmulatorsSelect extends React.PureComponent<
   EmulatorsSelectComponentStateProperties &
-    EmulatorSelectComponentDispatchProperties,
+    EmulatorSelectComponentDispatchProperties &
+    WithTranslation,
   EmulatorSelectComponentState
 > {
   /**
@@ -42,7 +43,8 @@ export class EmulatorsSelect extends React.PureComponent<
    */
   constructor(
     props: EmulatorsSelectComponentStateProperties &
-      EmulatorSelectComponentDispatchProperties
+      EmulatorSelectComponentDispatchProperties &
+      WithTranslation
   ) {
     super(props)
 
@@ -72,7 +74,7 @@ export class EmulatorsSelect extends React.PureComponent<
     return (
       <>
         <InputLabel htmlFor="emulator">
-          <FormattedMessage id="emulator-select.label" />
+          {this.props.t('emulatorSelect.label')}
         </InputLabel>
         <Select
           native
@@ -90,10 +92,12 @@ export class EmulatorsSelect extends React.PureComponent<
         </Select>
         {this.props.hasError && (
           <FormHelperText>
-            <FormattedMessage id="emulator-select.error-required" />
+            {this.props.t('emulatorSelect.errorRequired')}
           </FormHelperText>
         )}
       </>
     )
   }
 }
+
+export default withTranslation()(EmulatorsSelect)

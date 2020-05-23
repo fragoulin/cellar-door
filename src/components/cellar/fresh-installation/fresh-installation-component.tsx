@@ -1,7 +1,7 @@
 import React from 'react'
 import { Button } from '@material-ui/core'
 import { Link } from 'react-router-dom'
-import { FormattedMessage } from 'react-intl'
+import { withTranslation, WithTranslation } from 'react-i18next'
 
 /**
  * Properties definition for this component.
@@ -13,8 +13,8 @@ export interface FreshInstallationComponentDispatchProperties {
 /**
  * Fresh installation component renders content related to a fresh installation (no cellar or no emulators associated to cellar).
  */
-export class FreshInstallation extends React.PureComponent<
-  FreshInstallationComponentDispatchProperties
+class FreshInstallation extends React.PureComponent<
+  FreshInstallationComponentDispatchProperties & WithTranslation
 > {
   /**
    * Automatically create default cellar when component is mounted.
@@ -31,13 +31,13 @@ export class FreshInstallation extends React.PureComponent<
   public render(): React.ReactNode {
     return (
       <>
-        <p role="note">
-          <FormattedMessage id="fresh-installation.text" />
-        </p>
+        <p role="note">{this.props.t('freshInstallation.text')}</p>
         <Button color="primary" component={Link} to="/add-emulator/">
-          <FormattedMessage id="fresh-installation.button-text" />
+          {this.props.t('freshInstallation.buttonText')}
         </Button>
       </>
     )
   }
 }
+
+export default withTranslation()(FreshInstallation)

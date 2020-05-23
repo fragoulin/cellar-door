@@ -1,10 +1,10 @@
 import * as React from 'react'
 import './welcome.css'
 import { Cellar } from '../../../models/cellar'
-import { EmulatorsList } from '../emulators-list/emulators-list-component'
+import EmulatorsList from '../emulators-list/emulators-list-component'
 import FreshInstallation from '../../../container/cellar/fresh-installation'
 import { Emulator } from '../../../models/emulator/types'
-import { FormattedMessage } from 'react-intl'
+import { withTranslation, WithTranslation } from 'react-i18next'
 
 /**
  * Properties definition for this component.
@@ -18,8 +18,8 @@ export interface WelcomeComponentStateProperties {
  * Welcome component is the entry point.
  * It displays either the list of emulators of the current cellar (if available) or simply renders the fresh installation component.
  */
-export class Welcome extends React.PureComponent<
-  WelcomeComponentStateProperties
+class Welcome extends React.PureComponent<
+  WelcomeComponentStateProperties & WithTranslation
 > {
   /**
    * If current cellar exists and contains emulator(s), renders the emulators list component, else renders the fresh installation component.
@@ -29,9 +29,7 @@ export class Welcome extends React.PureComponent<
   render(): React.ReactNode {
     return (
       <div className="Welcome">
-        <h1>
-          <FormattedMessage id="welcome.title" />
-        </h1>
+        <h1>{this.props.t('welcome.title')}</h1>
         {
           // Check for cellar
           this.props.cellar && this.props.emulatorsInCellar.length > 0 ? (
@@ -44,3 +42,5 @@ export class Welcome extends React.PureComponent<
     )
   }
 }
+
+export default withTranslation()(Welcome)

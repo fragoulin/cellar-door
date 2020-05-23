@@ -1,0 +1,37 @@
+{
+  "welcome": {
+    "title": "Bienvenue à \"Cellar door!\""
+  },
+  "freshInstallation": {
+    "text": "Nouvelle installation détectée. Vous pouvez configurer un premier émulateur en cliquant sur le bouton ci-dessous:",
+    "buttonText": "Ajouter un émulateur"
+  },
+  "configureEmulator": {
+    "title": "Configurer l'émulateur {{name}}",
+    "notFound": "Emulateur introuvable"
+  },
+  "emulatorsList": {
+    "title": "Liste des émulateurs"
+  },
+  "emulatorSelect": {
+    "label": "Emulateur",
+    "errorRequired": "L'émulateur est requis"
+  },
+  "selectDirectory": {
+    "label": "Sélectionner un répertoire",
+    "errorRequired": "Le répertoire est requis"
+  },
+  "addEmulator": {
+    "title": "Ajouter un émulateur",
+    "text": "Choisissez un émulateur"
+  },
+  "createEmulator": {
+    "title": "L'émulateur {{name}} a été créé avec succès",
+    "addAnother": "Ajouter un autre émulateur"
+  },
+  "common": {
+    "confirm": "Confirmer",
+    "back": "Retour",
+    "backToCellar": "Retour to cellier"
+  }
+}

@@ -1,5 +1,7 @@
-import { app, BrowserWindow, Menu, session } from 'electron'
+import { app, BrowserWindow, Menu, session, ipcMain } from 'electron'
 import { ipcMainService } from './mainDependencies'
+import * as backend from 'i18next-electron-fs-backend'
+import fs from 'fs'
 
 /**
  * Path to main webpack entry.
@@ -96,6 +98,9 @@ function createWindow(): void {
     },
   })
 
+  // Configure backend for i18next
+  backend.mainBindings(ipcMain, win, fs)
+
   // and load the index.html of the app.
   win.loadURL(MAIN_WINDOW_WEBPACK_ENTRY)
 
@@ -117,6 +122,8 @@ app.on('window-all-closed', () => {
   // to stay active until the user quits explicitly with Cmd + Q
   if (process.platform !== 'darwin') {
     app.quit()
+  } else {
+    backend.clearMainBindings(ipcMain)
   }
 })
 

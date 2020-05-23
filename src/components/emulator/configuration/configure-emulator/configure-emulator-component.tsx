@@ -7,8 +7,8 @@ import {
   EmulatorConfiguration,
 } from '../../../../models/emulator/types'
 import SelectDirectory from '../select-directory/select-directory-component'
-import { FormattedMessage } from 'react-intl'
 import { emulatorsService } from '../../../../rendererDependencies'
+import { withTranslation, WithTranslation } from 'react-i18next'
 
 /**
  * Properties definition for this component (from redux state).
@@ -37,9 +37,10 @@ interface ComponentState {
 /**
  * Configure emulator component displays a basic form to pre-configure an emulator with basic properties (mainly mandatories directories).
  */
-export class ConfigureEmulator extends React.PureComponent<
+class ConfigureEmulator extends React.PureComponent<
   ConfigureEmulatorComponentStateProperties &
-    ConfigureEmulatorComponentDispatchProperties,
+    ConfigureEmulatorComponentDispatchProperties &
+    WithTranslation,
   ComponentState
 > {
   /**
@@ -49,7 +50,8 @@ export class ConfigureEmulator extends React.PureComponent<
    */
   constructor(
     props: ConfigureEmulatorComponentStateProperties &
-      ConfigureEmulatorComponentDispatchProperties
+      ConfigureEmulatorComponentDispatchProperties &
+      WithTranslation
   ) {
     super(props)
 
@@ -116,20 +118,15 @@ export class ConfigureEmulator extends React.PureComponent<
    */
   public render(): React.ReactNode {
     if (!this.props.emulator)
-      return (
-        <div>
-          <FormattedMessage id="configure-emulator.not-found" />
-        </div>
-      )
+      return <div>{this.props.t('configureEmulator.notFound')}</div>
     if (this.state.redirect) return <Redirect to="/create-emulator/" />
 
     return (
       <form className="ConfigureEmulator" onSubmit={this.handleSubmit}>
         <h1>
-          <FormattedMessage
-            id="configure-emulator.title"
-            values={{ name: this.props.emulator.shortName }}
-          />
+          {this.props.t('configureEmulator.title', {
+            name: this.props.emulator.shortName,
+          })}
         </h1>
         <div>
           <FormControl required error={this.props.hasError}>
@@ -149,12 +146,14 @@ export class ConfigureEmulator extends React.PureComponent<
           </FormControl>
         </div>
         <Button color="secondary" component={Link} to="/add-emulator/">
-          <FormattedMessage id="common.back" />
+          {this.props.t('common.back')}
         </Button>
         <Button color="primary" type="submit">
-          <FormattedMessage id="common.confirm" />
+          {this.props.t('common.confirm')}
         </Button>
       </form>
     )
   }
 }
+
+export default withTranslation()(ConfigureEmulator)

@@ -1,6 +1,5 @@
 import { connect } from 'react-redux'
-import {
-  FreshInstallation,
+import FreshInstallation, {
   FreshInstallationComponentDispatchProperties,
 } from '../../components/cellar/fresh-installation/fresh-installation-component'
 import { cellarCreated } from '../../redux/modules/cellar'

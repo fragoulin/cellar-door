@@ -1,12 +1,12 @@
 import React from 'react'
-import { FormattedMessage } from 'react-intl'
 import { Link } from 'react-router-dom'
 import { Button } from '@material-ui/core'
+import { withTranslation, WithTranslation } from 'react-i18next'
 
 /**
  * Emulators list component renders the list of emulators associated to the current cellar.
  */
-export class EmulatorsList extends React.PureComponent {
+class EmulatorsList extends React.PureComponent<WithTranslation> {
   /**
    * Render title and the list of emulators.
    *
@@ -15,14 +15,14 @@ export class EmulatorsList extends React.PureComponent {
   public render(): React.ReactNode {
     return (
       <>
-        <h2>
-          <FormattedMessage id="emulators-list.title" />
-        </h2>
+        <h2>{this.props.t('emulatorsList.title')}</h2>
         <div>TODO</div>
         <Button color="primary" component={Link} to="/add-emulator/">
-          <FormattedMessage id="fresh-installation.button-text" />
+          {this.props.t('freshInstallation.buttonText')}
         </Button>
       </>
     )
   }
 }
+
+export default withTranslation()(EmulatorsList)

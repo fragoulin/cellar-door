@@ -2,19 +2,14 @@ import './select-directory.css'
 import React from 'react'
 import { IconButton, TextField, FormHelperText } from '@material-ui/core'
 import FolderIcon from '@material-ui/icons/Folder'
-import {
-  FormattedMessage,
-  injectIntl,
-  IntlShape,
-  WrappedComponentProps,
-} from 'react-intl'
 import { v4 as uuidv4 } from 'uuid'
 import { CellarWin } from '../../../../preload'
+import { withTranslation, WithTranslation } from 'react-i18next'
 
 /**
  * Properties definition for this component.
  */
-interface ComponentProperties extends WrappedComponentProps {
+interface ComponentProperties extends WithTranslation {
   name: string
   mandatory: boolean
   onDirectorySelected(
@@ -23,7 +18,6 @@ interface ComponentProperties extends WrappedComponentProps {
     mandatory: boolean
   ): void
   hasError: boolean
-  intl: IntlShape
 }
 
 /**
@@ -114,9 +108,7 @@ class SelectDirectory extends React.PureComponent<
         <label htmlFor="select-directory">
           <IconButton
             color="primary"
-            aria-label={this.props.intl.formatMessage({
-              id: 'select-directory',
-            })}
+            aria-label={this.props.t('selectDirectory.label')}
             role={this.props.name}
             component="span"
             onClick={this.openDialog}
@@ -126,7 +118,7 @@ class SelectDirectory extends React.PureComponent<
         </label>
         {this.props.mandatory && this.props.hasError && (
           <FormHelperText error={true} role="alert">
-            <FormattedMessage id="select-directory.error-required" />
+            {this.props.t('selectDirectory.errorRequired')}
           </FormHelperText>
         )}
       </div>
@@ -134,4 +126,4 @@ class SelectDirectory extends React.PureComponent<
   }
 }
 
-export default injectIntl(SelectDirectory)
+export default withTranslation()(SelectDirectory)
