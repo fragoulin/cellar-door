@@ -7,6 +7,7 @@
   "emulators-list.title": "Liste des émulateurs",
   "emulator-select.label": "Emulateur",
   "emulator-select.error-required": "L'émulateur est requis",
+  "select-directory": "Sélectionner un répertoire",
   "select-directory.error-required": "Le répertoire est requis",
   "add-emulator.title": "Ajouter un émulateur",
   "add-emulator.text": "Choisissez un émulateur",

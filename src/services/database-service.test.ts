@@ -9,8 +9,8 @@ const stateFromDatabase: RootState = {
     currentCellar: {},
     i18n: {
       availableLocales: ['en', 'fr'],
-      currentLocale: 'fr'
-    }
+      currentLocale: 'fr',
+    },
   },
   emulators: {
     availableEmulatorNames: [],
@@ -18,22 +18,25 @@ const stateFromDatabase: RootState = {
     wizard: {
       hasError: false,
       emulatorCurrentlyConfigured: undefined,
-      selectedEmulatorId: undefined
-    }
-  }
+      selectedEmulatorId: undefined,
+    },
+  },
 }
 
 jest.mock('nedb', () => {
   return jest.fn().mockImplementation(() => {
     return {
-      findOne: (_query: unknown, callback: (err: Error | null, state: RootState | null) => void): void => {
+      findOne: (
+        _query: unknown,
+        callback: (err: Error | null, state: RootState | null) => void
+      ): void => {
         callback(mockResultErr, mockResultState)
-      }
+      },
     }
   })
 })
 
-it('should return null with empty state', done => {
+it('should return null with empty state', (done) => {
   mockResultErr = null
   mockResultState = null
 
@@ -46,7 +49,7 @@ it('should return null with empty state', done => {
   databaseService.loadState(callback)
 })
 
-it('should return state', done => {
+it('should return state', (done) => {
   mockResultErr = null
   mockResultState = stateFromDatabase
 

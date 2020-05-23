@@ -10,12 +10,18 @@ import { currentLocaleSet } from './redux/modules/cellar'
 import { Store } from '@reduxjs/toolkit'
 import { localeService } from './rendererDependencies'
 
-// Main rendering
+/**
+ * Main element is the entry point of HTML content.
+ */
 const main = document.createElement('main')
 document.body.appendChild(main)
 
-// Create root document
-function createRoot (store: Store): void {
+/**
+ * Create root element of cellar application.
+ *
+ * @param store - redux store
+ */
+function createRoot(store: Store): void {
   // Locales
   const locale = navigator.language.split(/[-_]/)[0] // locale without region code
   store.dispatch(currentLocaleSet(locale))
@@ -24,11 +30,16 @@ function createRoot (store: Store): void {
 
   const root: ReactElement = (
     <section id="root">
-      <CssBaseline/>
+      <CssBaseline />
       <React.StrictMode>
-        <IntlProvider locale={locale} key={locale} defaultLocale={localeService.getDefaultLocale()} messages={messages}>
+        <IntlProvider
+          locale={locale}
+          key={locale}
+          defaultLocale={localeService.getDefaultLocale()}
+          messages={messages}
+        >
           <header></header>
-          <Router store={store}/>
+          <Router store={store} />
           <footer></footer>
         </IntlProvider>
       </React.StrictMode>
@@ -38,6 +49,7 @@ function createRoot (store: Store): void {
   ReactDOM.render(root, main)
 }
 
-CellarStore.whenReady(store => {
+// Wait for redux store to be ready before creating root element.
+CellarStore.whenReady((store) => {
   createRoot(store)
 })

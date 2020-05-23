@@ -1,29 +1,45 @@
 import { app, BrowserWindow, Menu, session } from 'electron'
 import { ipcMainService } from './mainDependencies'
 
-// Electron forge constants (automatically set by electron forge)
+/**
+ * Path to main webpack entry.
+ *
+ * Automatically set by electron forge.
+ */
 declare const MAIN_WINDOW_WEBPACK_ENTRY: string
+
+/**
+ * Path to preload file.
+ *
+ * Automatically set by electron forge.
+ */
 declare const MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY: string
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let win: BrowserWindow
 
-function setCspHeaders (): void {
-  // Add CSP HTTP header if application is packaged.
-  if (app.isPackaged) {
-    session.defaultSession.webRequest.onHeadersReceived((details, callbackHeaders) => {
+/**
+ * Set CSP header for packaged (production) application.
+ */
+function setCspHeaders(): void {
+  if (!app.isPackaged) return
+  session.defaultSession.webRequest.onHeadersReceived(
+    (details, callbackHeaders) => {
       callbackHeaders({
         responseHeaders: {
           ...details.responseHeaders,
-          'Content-Security-Policy': ['script-src \'self\' \'unsafe-inline\'']
-        }
+          'Content-Security-Policy': ["script-src 'self' 'unsafe-inline'"],
+        },
       })
-    })
-  }
+    }
+  )
 }
 
-function createMenu (): Menu {
+/**
+ * Create application menu.
+ */
+function createMenu(): Menu {
   return Menu.buildFromTemplate([
     {
       label: 'Cellar',
@@ -41,34 +57,32 @@ function createMenu (): Menu {
         { type: 'separator' },
         {
           label: 'Exit',
-          click (): void {
+          click(): void {
             app.quit()
-          }
-        }
-      ]
+          },
+        },
+      ],
     },
     {
       label: 'Preferences',
       submenu: [
         {
           label: 'Locale',
-          submenu: [
-            { label: 'English' },
-            { label: 'French' }
-          ]
-        }
-      ]
+          submenu: [{ label: 'English' }, { label: 'French' }],
+        },
+      ],
     },
     {
       label: 'Help',
-      submenu: [
-        { label: 'About' }
-      ]
-    }
+      submenu: [{ label: 'About' }],
+    },
   ])
 }
 
-function createWindow (): void {
+/**
+ * Create main window (set headers, load URL and initialize menu).
+ */
+function createWindow(): void {
   setCspHeaders()
 
   // Create the browser window.
@@ -78,8 +92,8 @@ function createWindow (): void {
     webPreferences: {
       contextIsolation: true,
       enableRemoteModule: false,
-      preload: MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY
-    }
+      preload: MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY,
+    },
   })
 
   // and load the index.html of the app.
@@ -118,4 +132,5 @@ app.on('activate', () => {
 // code. You can also put them in separate files and require them here.
 app.allowRendererProcessReuse = true
 
+// Register IPC listeners for main process.
 ipcMainService.registerListeners()

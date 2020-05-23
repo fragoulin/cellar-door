@@ -7,6 +7,7 @@
   "emulators-list.title": "Emulators list",
   "emulator-select.label": "Emulator",
   "emulator-select.error-required": "Emulator is required",
+  "select-directory": "Select directory",
   "select-directory.error-required": "Directory is required",
   "add-emulator.title": "Add an emulator",
   "add-emulator.text": "Choose an emulator",

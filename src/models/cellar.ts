@@ -1,2 +1,4 @@
-export type Cellar = {
-}
+/**
+ * Cellar definition.
+ */
+export type Cellar = {}

@@ -2,17 +2,34 @@ import React from 'react'
 import { Emulator } from '../../../models/emulator/types'
 import { EmulatorConfigurationSummary } from '../../emulator/configuration/emulator-configuration-summary/emulator-configuration-summary'
 
+/**
+ * Properties definition for this component.
+ */
 export interface EmulatorSummaryComponentProperties {
-  emulator: Emulator;
+  emulator: Emulator
 }
 
-export class EmulatorSummary extends React.PureComponent<EmulatorSummaryComponentProperties> {
-  public render (): React.ReactNode {
+/**
+ * Emulator summary component renders a summary of an emulator.
+ *
+ * @see {@link EmulatorConfigurationSummary}
+ */
+export class EmulatorSummary extends React.PureComponent<
+  EmulatorSummaryComponentProperties
+> {
+  /**
+   * Render title and a summary of emulator configurations.
+   *
+   * @returns the newly created node.
+   */
+  public render(): React.ReactNode {
     return (
-      <div>
+      <>
         <h2>{this.props.emulator.shortName}</h2>
-        <EmulatorConfigurationSummary configurations={this.props.emulator.configurations}/>
-      </div>
+        <EmulatorConfigurationSummary
+          configurations={this.props.emulator.configurations}
+        />
+      </>
     )
   }
 }

@@ -2,3 +2,7 @@
 
 .webpack/*
 release-builds/*
+out/*
+logs/*
+data/*
+config/*

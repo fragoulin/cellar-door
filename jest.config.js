@@ -1,7 +1,8 @@
 module.exports = {
   preset: 'ts-jest',
-  testEnvironment: 'node',
+  testEnvironment: 'jsdom',
   moduleNameMapper: {
-    "electron": "<rootDir>/test/mock/electron.ts"
-  }
-};
+    electron: '<rootDir>/test/mock/electron.ts',
+    '\\.(css|less|scss|sass)$': 'identity-obj-proxy',
+  },
+}

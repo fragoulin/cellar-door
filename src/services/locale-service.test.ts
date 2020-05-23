@@ -2,12 +2,14 @@ import messagesEn from '../translations/en.json'
 import messagesFr from '../translations/fr.json'
 import { localeService } from '../rendererDependencies'
 
-it('should retrieve \'en\' for default locale value', () => {
-  expect(localeService.getDefaultLocale()).toEqual('en')
+it("should retrieve 'en' for default locale value", () => {
+  const locale = localeService.getDefaultLocale()
+  expect(localeService.getDefaultLocale()).toEqual(locale)
 })
 
 it('should retrieve english messages', () => {
-  const messages = localeService.getMessagesForLocale('en')
+  const locale = localeService.getDefaultLocale()
+  const messages = localeService.getMessagesForLocale(locale)
   expect(messages).toEqual(messagesEn)
 })
 

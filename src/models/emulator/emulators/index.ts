@@ -1,9 +1,9 @@
 import Mame from './mame'
 import ScummVm from './scummvm'
 import Zinc from './zinc'
+import _ from 'lodash'
 
-export default [
-  Mame,
-  ScummVm,
-  Zinc
-]
+/**
+ * Array of available emulators.
+ */
+export default [_.cloneDeep(Mame), _.cloneDeep(ScummVm), _.cloneDeep(Zinc)]

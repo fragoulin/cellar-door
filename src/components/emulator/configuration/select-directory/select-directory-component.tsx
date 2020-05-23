@@ -2,43 +2,68 @@ import './select-directory.css'
 import React from 'react'
 import { IconButton, TextField, FormHelperText } from '@material-ui/core'
 import FolderIcon from '@material-ui/icons/Folder'
-import { FormattedMessage } from 'react-intl'
+import {
+  FormattedMessage,
+  injectIntl,
+  IntlShape,
+  WrappedComponentProps,
+} from 'react-intl'
 import { v4 as uuidv4 } from 'uuid'
 import { CellarWin } from '../../../../preload'
 
-interface ComponentProperties {
-  name: string;
-  mandatory: boolean;
-  onDirectorySelected(name: string, directoryName: string, mandatory: boolean): void;
-  hasError: boolean;
+/**
+ * Properties definition for this component.
+ */
+interface ComponentProperties extends WrappedComponentProps {
+  name: string
+  mandatory: boolean
+  onDirectorySelected(
+    name: string,
+    directoryName: string,
+    mandatory: boolean
+  ): void
+  hasError: boolean
+  intl: IntlShape
 }
 
+/**
+ * State definition for this component.
+ */
 interface ComponentState {
-  directoryName: string;
-  inputId: string;
+  directoryName: string
+  inputId: string
 }
 
-// For TS validation
-interface InputDirectory extends HTMLInputElement {
-  directory: boolean;
-  webkitdirectory: boolean;
-}
-
+/**
+ * Cellar window.
+ */
 const win = window as CellarWin
 
-// Select directory component
-export class SelectDirectory extends React.PureComponent<ComponentProperties, ComponentState> {
-  constructor (props: ComponentProperties) {
+/**
+ * Select directory component displays a file selector which can select a directory.
+ */
+class SelectDirectory extends React.PureComponent<
+  ComponentProperties,
+  ComponentState
+> {
+  /**
+   * Initialize component state.
+   *
+   * @param props - component properties.
+   */
+  constructor(props: ComponentProperties) {
     super(props)
 
     this.state = {
       directoryName: '',
-      inputId: uuidv4()
+      inputId: uuidv4(),
     }
   }
 
-  componentDidMount (): void {
-    // Set callback for dialog select directory result
+  /**
+   * Set callback for dialog select directory result
+   */
+  componentDidMount(): void {
     win.api.receive('dialogSyncResult', this.dialogResult)
   }
 
@@ -48,20 +73,32 @@ export class SelectDirectory extends React.PureComponent<ComponentProperties, Co
     win.api.send('dialogSync', this.state.inputId, properties)
   }
 
-  // Callback for dialogSync call to main process
+  /*
+   * Callback for dialogSync call to main process
+   */
   private dialogResult = (inputId: string, files: string[]): void => {
-    if (this.state.inputId === inputId && files?.length === 1) {
-      const directoryName = files[0]
+    if (this.state.inputId !== inputId) return
+    if (!files || files.length !== 1) return
 
-      this.setState({
-        directoryName: directoryName
-      })
+    const directoryName = files[0]
 
-      this.props.onDirectorySelected(this.props.name, directoryName, this.props.mandatory)
-    }
+    this.setState({
+      directoryName: directoryName,
+    })
+
+    this.props.onDirectorySelected(
+      this.props.name,
+      directoryName,
+      this.props.mandatory
+    )
   }
 
-  public render (): React.ReactNode {
+  /**
+   * Render the directory selector.
+   *
+   * @returns the newly created node.
+   */
+  public render(): React.ReactNode {
     return (
       <div>
         <TextField
@@ -70,17 +107,31 @@ export class SelectDirectory extends React.PureComponent<ComponentProperties, Co
           label={this.props.name}
           value={this.state.directoryName}
           InputProps={{
-            readOnly: true
+            readOnly: true,
           }}
           onClick={this.openDialog}
         />
         <label htmlFor="select-directory">
-          <IconButton color="primary" aria-label="Select directory" component="span" onClick={this.openDialog}>
-            <FolderIcon/>
+          <IconButton
+            color="primary"
+            aria-label={this.props.intl.formatMessage({
+              id: 'select-directory',
+            })}
+            role={this.props.name}
+            component="span"
+            onClick={this.openDialog}
+          >
+            <FolderIcon />
           </IconButton>
         </label>
-        {this.props.mandatory && this.props.hasError && <FormHelperText><FormattedMessage id="select-directory.error-required"/></FormHelperText>}
+        {this.props.mandatory && this.props.hasError && (
+          <FormHelperText error={true} role="alert">
+            <FormattedMessage id="select-directory.error-required" />
+          </FormHelperText>
+        )}
       </div>
     )
   }
 }
+
+export default injectIntl(SelectDirectory)

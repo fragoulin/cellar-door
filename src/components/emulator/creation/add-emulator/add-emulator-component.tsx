@@ -6,35 +6,58 @@ import EmulatorsSelect from '../../../../container/emulators/emulators-select'
 import { EmulatorId } from '../../../../models/emulator/types'
 import { FormattedMessage } from 'react-intl'
 
-// Interface for component state properties
+/**
+ * Properties definition for this component (from redux state).
+ */
 export interface AddEmulatorComponentStateProperties {
-  selectedEmulatorId: EmulatorId | undefined;
-  hasError: boolean;
+  selectedEmulatorId: EmulatorId | undefined
+  hasError: boolean
 }
 
-// Interface for component dispatch properties
+/**
+ * Properties definition for this component (from redux reducer).
+ */
 export interface AddEmulatorComponentDispatchProperties {
-  buildAvailableEmulatorNamesList(): void;
-  setWizardStatus(status: boolean): void;
-  createEmulator(emulatorId: EmulatorId): void;
+  buildAvailableEmulatorNamesList(): void
+  setWizardStatus(status: boolean): void
+  createEmulator(emulatorId: EmulatorId): void
 }
 
-// Interface for component state
+/**
+ * State definition for this component.
+ */
 interface AddEmulatorComponentState {
-  redirect: boolean;
+  redirect: boolean
 }
 
-// Add emulator (step1) page
-export class AddEmulator extends React.PureComponent<AddEmulatorComponentStateProperties & AddEmulatorComponentDispatchProperties, AddEmulatorComponentState> {
-  constructor (props: AddEmulatorComponentStateProperties & AddEmulatorComponentDispatchProperties) {
+/**
+ * Add emulator component is the first step of the configuration of an emulator.
+ * It displays the list of available emulators and back/submit buttons.
+ */
+export class AddEmulator extends React.PureComponent<
+  AddEmulatorComponentStateProperties & AddEmulatorComponentDispatchProperties,
+  AddEmulatorComponentState
+> {
+  /**
+   * Initialize component state.
+   *
+   * @param props - component properties.
+   */
+  constructor(
+    props: AddEmulatorComponentStateProperties &
+      AddEmulatorComponentDispatchProperties
+  ) {
     super(props)
 
     this.state = {
-      redirect: false
+      redirect: false,
     }
   }
 
-  componentDidMount (): void {
+  /**
+   * Build available emulators list when component is mounted.
+   */
+  componentDidMount(): void {
     this.props.buildAvailableEmulatorNamesList()
   }
 
@@ -52,25 +75,39 @@ export class AddEmulator extends React.PureComponent<AddEmulatorComponentStatePr
     }
 
     this.setState({
-      redirect: emulatorIdDefined
+      redirect: emulatorIdDefined,
     })
   }
 
-  public render (): React.ReactNode {
-    return (
-      !this.state.redirect
-        ? <form className="AddEmulator" onSubmit={this.handleSubmit}>
-          <h1><FormattedMessage id="add-emulator.title"/></h1>
-          <p><FormattedMessage id="add-emulator.text"/></p>
-          <div>
-            <FormControl required error={this.props.hasError}>
-              <EmulatorsSelect/>
-            </FormControl>
-          </div>
-          <Button color="secondary" component={Link} to="/"><FormattedMessage id="common.back"/></Button>
-          <Button color="primary" type="submit"><FormattedMessage id="common.confirm"/></Button>
-        </form>
-        : <Redirect to="/configure-emulator/" />
+  /**
+   * Renders emulators select component inside a form and control buttons.
+   * If an emulator is selected and confirmed, redirect to configure emulator component.
+   *
+   * @returns the newly created node.
+   */
+  public render(): React.ReactNode {
+    return !this.state.redirect ? (
+      <form className="AddEmulator" onSubmit={this.handleSubmit}>
+        <h1>
+          <FormattedMessage id="add-emulator.title" />
+        </h1>
+        <p>
+          <FormattedMessage id="add-emulator.text" />
+        </p>
+        <div>
+          <FormControl required error={this.props.hasError}>
+            <EmulatorsSelect />
+          </FormControl>
+        </div>
+        <Button color="secondary" component={Link} to="/">
+          <FormattedMessage id="common.back" />
+        </Button>
+        <Button color="primary" type="submit">
+          <FormattedMessage id="common.confirm" />
+        </Button>
+      </form>
+    ) : (
+      <Redirect to="/configure-emulator/" />
     )
   }
 }

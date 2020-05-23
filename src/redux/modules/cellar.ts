@@ -2,38 +2,57 @@ import { Cellar } from '../../models/cellar'
 import { createSlice } from '@reduxjs/toolkit'
 import { localeService } from '../../rendererDependencies'
 
-// State
+/**
+ * Cellar state definition.
+ */
 interface CellarState {
-  currentCellar: Cellar | undefined;
+  currentCellar: Cellar | undefined
   i18n: {
-    currentLocale: string;
-    availableLocales: string[];
-  };
+    currentLocale: string
+    availableLocales: string[]
+  }
 }
 
+/**
+ * Initial state for cellar state.
+ */
 const initialState: CellarState = {
   currentCellar: undefined,
   i18n: {
     currentLocale: localeService.getDefaultLocale(),
-    availableLocales: []
-  }
+    availableLocales: [],
+  },
 }
 
+/**
+ * Redux slice for cellar store.
+ */
 const cellarSlice = createSlice({
   name: 'cellar',
   initialState: initialState,
   reducers: {
-    cellarCreated (state): void {
+    cellarCreated(state): void {
       state.currentCellar = {}
     },
-    cellarClosed (state): void {
+    cellarClosed(state): void {
       state.currentCellar = undefined
     },
-    currentLocaleSet (state, action): void {
+    currentLocaleSet(state, action): void {
       state.i18n = action.payload
-    }
-  }
+    },
+  },
 })
 
-export const { cellarCreated, cellarClosed, currentLocaleSet } = cellarSlice.actions
+/**
+ * Cellar actions.
+ */
+export const {
+  cellarCreated,
+  cellarClosed,
+  currentLocaleSet,
+} = cellarSlice.actions
+
+/**
+ * Cellar reducer.
+ */
 export default cellarSlice.reducer
