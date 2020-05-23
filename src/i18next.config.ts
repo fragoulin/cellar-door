@@ -3,6 +3,7 @@ import { initReactI18next } from 'react-i18next'
 import LanguageDetector from 'i18next-browser-languagedetector'
 import i18nBackend from 'i18next-electron-fs-backend'
 import { CellarWin } from './preload'
+import { app } from 'electron'
 
 i18n
   // Filesystem backend to access translations in locales directory
@@ -24,7 +25,7 @@ i18n
       jsonIndent: 2,
       ipcRenderer: (window as CellarWin).api.i18nextElectronBackend,
     },
-    debug: true,
+    debug: !app.isPackaged,
     saveMissing: true,
     fallbackLng: 'en',
     whitelist: ['en', 'fr'],

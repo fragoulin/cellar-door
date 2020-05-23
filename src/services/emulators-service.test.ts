@@ -3,7 +3,7 @@ import { EmulatorId, EmulatorConfiguration } from '../models/emulator/types'
 import MAME from '../models/emulator/emulators/mame'
 import ScummVM from '../models/emulator/emulators/scummvm'
 import ZiNc from '../models/emulator/emulators/zinc'
-import { emulatorsService } from '../rendererDependencies'
+import { emulatorsService } from '../inversify/rendererDependencies'
 
 it('should build available emulators names list', () => {
   const listToTest = emulatorsService.buildAvailableEmulatorNamesList()

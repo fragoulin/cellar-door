@@ -1,9 +1,9 @@
 import { Container } from 'inversify'
-import { TYPES } from './services/types'
+import { TYPES } from '../services/types'
 import {
   EmulatorsService,
   CellarEmulatorsService,
-} from './services/emulators-service'
+} from '../services/emulators-service'
 
 /**
  * Inversify container for renderer process.

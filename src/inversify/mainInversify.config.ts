@@ -1,10 +1,10 @@
 import { Container } from 'inversify'
-import { DatabaseService, NedbService } from './services/database-service'
-import { TYPES } from './services/types'
+import { DatabaseService, NedbService } from '../services/database-service'
+import { TYPES } from '../services/types'
 import {
   IpcMainService,
   CellarIpcMainService,
-} from './services/ipc-main-service'
+} from '../services/ipc-main-service'
 
 /**
  * Inversify container for main process.

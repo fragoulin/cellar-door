@@ -1,6 +1,6 @@
 import { EmulatorId, Emulator } from '../../models/emulator/types'
 import { createSlice } from '@reduxjs/toolkit'
-import { emulatorsService } from '../../rendererDependencies'
+import { emulatorsService } from '../../inversify/rendererDependencies'
 
 /**
  * Maps emulator Ids to emulator names.

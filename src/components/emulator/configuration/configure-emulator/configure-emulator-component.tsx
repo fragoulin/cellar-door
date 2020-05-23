@@ -7,7 +7,7 @@ import {
   EmulatorConfiguration,
 } from '../../../../models/emulator/types'
 import SelectDirectory from '../select-directory/select-directory-component'
-import { emulatorsService } from '../../../../rendererDependencies'
+import { emulatorsService } from '../../../../inversify/rendererDependencies'
 import { withTranslation, WithTranslation } from 'react-i18next'
 
 /**

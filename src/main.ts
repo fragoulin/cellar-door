@@ -1,5 +1,5 @@
 import { app, BrowserWindow, Menu, session, ipcMain } from 'electron'
-import { ipcMainService } from './mainDependencies'
+import { ipcMainService } from './inversify/mainDependencies'
 import * as backend from 'i18next-electron-fs-backend'
 import fs from 'fs'
 

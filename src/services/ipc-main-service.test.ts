@@ -1,4 +1,4 @@
-import { ipcMainService } from '../mainDependencies'
+import { ipcMainService } from '../inversify/mainDependencies'
 import { ipcMain } from 'electron'
 
 jest.mock('nedb')

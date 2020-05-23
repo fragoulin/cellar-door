@@ -1,6 +1,6 @@
 import { rendererContainer } from './rendererInversify.config'
-import { TYPES } from './services/types'
-import { EmulatorsService } from './services/emulators-service'
+import { TYPES } from '../services/types'
+import { EmulatorsService } from '../services/emulators-service'
 
 /**
  * Emulators service.

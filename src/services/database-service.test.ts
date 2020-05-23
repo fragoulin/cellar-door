@@ -1,5 +1,5 @@
 import { RootState } from '../redux/store'
-import { databaseService } from '../mainDependencies'
+import { databaseService } from '../inversify/mainDependencies'
 
 let mockResultErr: Error | null
 let mockResultState: RootState | null
