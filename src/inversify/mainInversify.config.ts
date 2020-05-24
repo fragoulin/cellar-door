@@ -5,7 +5,6 @@ import {
   IpcMainService,
   CellarIpcMainService,
 } from '../services/ipc-main-service'
-import { MenuService, CellarMenuService } from '../services/menu-service'
 
 /**
  * Inversify container for main process.
@@ -19,6 +18,5 @@ mainContainer
 mainContainer
   .bind<IpcMainService>(TYPES.IpcMainService)
   .to(CellarIpcMainService)
-mainContainer.bind<MenuService>(TYPES.MenuService).to(CellarMenuService)
 
 export { mainContainer }

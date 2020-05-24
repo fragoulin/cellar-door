@@ -1,7 +1,8 @@
 import { app, BrowserWindow, Menu, session, ipcMain } from 'electron'
-import { ipcMainService, menuService } from '../inversify/mainDependencies'
+import { ipcMainService } from '../inversify/mainDependencies'
 import * as i18nextBackend from 'i18next-electron-fs-backend'
 import fs from 'fs'
+import * as MenuBuilder from './menus/menu-builder'
 
 const isDev = process.env.NODE_ENV === 'development'
 
@@ -44,7 +45,7 @@ function setCspHeaders(): void {
  * Create application menu.
  */
 function createMenu(): Menu {
-  return menuService.buildMenu(app)
+  return MenuBuilder.buildMenu(app)
 }
 
 /**
