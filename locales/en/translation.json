@@ -26,7 +26,7 @@
     "text": "Choose an emulator"
   },
   "createEmulator": {
-    "title": "Emulator {{name}} successfully created",
+    "title": "{{name}} emulator successfully created",
     "addAnother": "Add another emulator"
   },
   "common": {
