@@ -4,7 +4,7 @@ import { screen } from '@testing-library/react'
 import { createComponentWithRouter } from '../../../../../test/createComponentsHelpers'
 import { emulatorsService } from '../../../../inversify/rendererDependencies'
 import Emulators from '../../../../models/emulator/emulators/index'
-import { EmulatorId } from 'src/models/emulator/types'
+import { EmulatorId } from '../../../../models/emulator/types'
 import userEvent from '@testing-library/user-event'
 
 it('should correctly render emulators select', () => {

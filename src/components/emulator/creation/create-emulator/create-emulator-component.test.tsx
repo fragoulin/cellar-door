@@ -3,7 +3,7 @@ import CreateEmulator from './create-emulator-component'
 import { screen } from '@testing-library/react'
 import { createComponentWithProviderAndRouter } from '../../../../../test/createComponentsHelpers'
 import configureMockStore from 'redux-mock-store'
-import { CellarWin } from '../../../../preload'
+import { CellarWin } from '../../../../electron/preload'
 import wrap from 'jest-wrap'
 import Emulators from '../../../../models/emulator/emulators/index'
 import { Emulator } from '../../../../models/emulator/types'
@@ -13,6 +13,7 @@ const mockWindow = window as CellarWin
 mockWindow.api = {
   receive: jest.fn(),
   send: jest.fn(),
+  sendSync: jest.fn(),
   i18nextElectronBackend: undefined,
 }
 

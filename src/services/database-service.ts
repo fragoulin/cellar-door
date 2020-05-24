@@ -8,11 +8,8 @@ import Nedb = require('nedb')
  * Database service definition.
  */
 export interface DatabaseService {
-  loadState(callback: (err: Error, state: RootState | null) => void): void
-  saveState(
-    state: RootState,
-    callback: (err: Error, numReplaced: number, upsert: boolean) => void
-  ): void
+  loadState(): Promise<RootState>
+  saveState(state: RootState): Promise<RootState>
 }
 
 /**
@@ -37,21 +34,23 @@ export class NedbService implements DatabaseService {
   }
 
   /**
-   * Load redux state from database.
+   * Builds a promise for load state.
    *
    * @remarks
    * Nedb Id is stripped from record returned in callback.
    *
-   * @param callback - function called when request is finished.
+   * @returns a promise for load state.
    */
-  public loadState(
-    callback: (err: Error, state: RootState | null) => void
-  ): void {
-    this.stateDb.findOne({}, (err, state) => {
-      if (state) {
-        delete state._id
-      }
-      callback(err, state)
+  public loadState(): Promise<RootState> {
+    return new Promise((resolve, reject) => {
+      this.stateDb.findOne({}, (err, state) => {
+        if (err) {
+          reject(err)
+        } else {
+          delete state._id
+          resolve(state)
+        }
+      })
     })
   }
 
@@ -61,17 +60,15 @@ export class NedbService implements DatabaseService {
    * @param state - root state to persist.
    * @param callback - function called when database update is finished.
    */
-  public saveState(
-    state: RootState,
-    callback: (err: Error, numReplaced: number, upsert: boolean) => void
-  ): void {
-    this.stateDb.update(
-      {},
-      state,
-      { upsert: true },
-      (err, numReplaced, upsert) => {
-        callback(err, numReplaced, upsert)
-      }
-    )
+  public saveState(state: RootState): Promise<RootState> {
+    return new Promise((resolve, reject) => {
+      this.stateDb.update({}, state, { upsert: true }, (err) => {
+        if (err) {
+          reject(err)
+        } else {
+          resolve(state)
+        }
+      })
+    })
   }
 }

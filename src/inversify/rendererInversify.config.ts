@@ -1,5 +1,5 @@
 import { Container } from 'inversify'
-import { TYPES } from '../services/types'
+import { TYPES } from './types'
 import {
   EmulatorsService,
   CellarEmulatorsService,

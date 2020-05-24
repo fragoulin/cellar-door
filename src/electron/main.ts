@@ -1,7 +1,9 @@
 import { app, BrowserWindow, Menu, session, ipcMain } from 'electron'
-import { ipcMainService } from './inversify/mainDependencies'
-import * as backend from 'i18next-electron-fs-backend'
+import { ipcMainService, menuService } from '../inversify/mainDependencies'
+import * as i18nextBackend from 'i18next-electron-fs-backend'
 import fs from 'fs'
+
+const isDev = process.env.NODE_ENV === 'development'
 
 /**
  * Path to main webpack entry.
@@ -25,7 +27,7 @@ let win: BrowserWindow
  * Set CSP header for packaged (production) application.
  */
 function setCspHeaders(): void {
-  if (!app.isPackaged) return
+  if (isDev) return
   session.defaultSession.webRequest.onHeadersReceived(
     (details, callbackHeaders) => {
       callbackHeaders({
@@ -42,43 +44,7 @@ function setCspHeaders(): void {
  * Create application menu.
  */
 function createMenu(): Menu {
-  return Menu.buildFromTemplate([
-    {
-      label: 'Cellar',
-      submenu: [
-        { label: 'New cellar' },
-        { label: 'New emulator' },
-        { type: 'separator' },
-        { label: 'Open' },
-        { label: 'Open recent' },
-        { type: 'separator' },
-        { label: 'Save' },
-        { label: 'Save As' },
-        { type: 'separator' },
-        { label: 'Close' },
-        { type: 'separator' },
-        {
-          label: 'Exit',
-          click(): void {
-            app.quit()
-          },
-        },
-      ],
-    },
-    {
-      label: 'Preferences',
-      submenu: [
-        {
-          label: 'Locale',
-          submenu: [{ label: 'English' }, { label: 'French' }],
-        },
-      ],
-    },
-    {
-      label: 'Help',
-      submenu: [{ label: 'About' }],
-    },
-  ])
+  return menuService.buildMenu(app, win)
 }
 
 /**
@@ -91,21 +57,28 @@ function createWindow(): void {
   win = new BrowserWindow({
     width: 800,
     height: 600,
+    title: 'Cellar door',
     webPreferences: {
       contextIsolation: true,
+      devTools: isDev,
       enableRemoteModule: false,
+      nodeIntegration: false,
+      nodeIntegrationInWorker: false,
+      nodeIntegrationInSubFrames: false,
       preload: MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY,
     },
   })
 
   // Configure backend for i18next
-  backend.mainBindings(ipcMain, win, fs)
+  i18nextBackend.mainBindings(ipcMain, win, fs)
 
   // and load the index.html of the app.
   win.loadURL(MAIN_WINDOW_WEBPACK_ENTRY)
 
   // Open the DevTools.
-  win.webContents.openDevTools()
+  if (isDev) {
+    win.webContents.openDevTools()
+  }
 
   // Initialize menu.
   Menu.setApplicationMenu(createMenu())
@@ -114,7 +87,7 @@ function createWindow(): void {
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
-app.whenReady().then(createWindow)
+app.whenReady().then(createWindow).catch(console.error)
 
 // Quit when all windows are closed.
 app.on('window-all-closed', () => {
@@ -123,7 +96,7 @@ app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
     app.quit()
   } else {
-    backend.clearMainBindings(ipcMain)
+    i18nextBackend.clearMainBindings(ipcMain)
   }
 })
 

@@ -5,6 +5,7 @@ const TYPES = {
   DatabaseService: Symbol.for('DatabaseService'),
   EmulatorsService: Symbol.for('EmulatorsService'),
   IpcMainService: Symbol.for('IpcMainService'),
+  MenuService: Symbol.for('MenuService'),
 }
 
 export { TYPES }

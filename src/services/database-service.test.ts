@@ -40,24 +40,18 @@ it('should return null with empty state', (done) => {
   mockResultErr = null
   mockResultState = null
 
-  const callback = (err: Error, state: RootState | null): void => {
-    expect(err).toBeNull()
+  databaseService.loadState().then((state) => {
     expect(state).toBeNull()
     done()
-  }
-
-  databaseService.loadState(callback)
+  })
 })
 
 it('should return state', (done) => {
   mockResultErr = null
   mockResultState = stateFromDatabase
 
-  const callback = (err: Error, state: RootState | null): void => {
-    expect(err).toBeNull()
+  databaseService.loadState().then((state) => {
     expect(state).toEqual(stateFromDatabase)
     done()
-  }
-
-  databaseService.loadState(callback)
+  })
 })

@@ -3,7 +3,7 @@ import { configureStore, Store } from '@reduxjs/toolkit'
 import logger from 'redux-logger'
 import cellarReducer from './modules/cellar'
 import emulatorsReducer from './modules/emulators'
-import { CellarWin } from '../preload'
+import { CellarWin } from '../electron/preload'
 
 /**
  * Reducers combined.
@@ -24,48 +24,23 @@ export type RootState = ReturnType<typeof rootReducer>
 const win = window as CellarWin
 
 /**
- * Current store.
- */
-let store: Store
-
-/**
- * Listeners to notify when Redux state is updated.
- */
-const listeners: ((store: Store) => void)[] = []
-
-/**
- * Callback when state had been loaded
+ * Initialize store
  *
- * @param err - if an error occured
  * @param state - loaded state
  */
-const stateLoaded = (err: Error, state: RootState | null): void => {
-  if (err) {
-    console.error(err)
-  } else {
-    if (state === null) {
-      store = configureStore({
-        reducer: rootReducer,
-        middleware: [logger],
-      })
-    } else {
-      store = configureStore({
-        reducer: rootReducer,
-        middleware: [logger],
-        preloadedState: state,
-      })
-    }
+const initializeStore = (state: RootState | undefined): Store => {
+  const store = configureStore({
+    reducer: rootReducer,
+    middleware: [logger],
+    preloadedState: state,
+  })
 
-    // Subscribe to redux state update
-    store.subscribe(() => {
-      win.api.send('saveState', store.getState())
-    })
+  // Subscribe to redux state update
+  store.subscribe(() => {
+    win.api.send('saveState', store.getState())
+  })
 
-    // Notify listeners
-    listeners.forEach((listener) => {
-      listener(store)
-    })
-  }
+  return store
 }
 
 /**
@@ -73,21 +48,32 @@ const stateLoaded = (err: Error, state: RootState | null): void => {
  *
  * @param err - if an error occured
  */
-const stateSaved = (err: Error): void => {
+const stateSaved = (err: Error | undefined): void => {
   if (err) {
     console.error(err)
   }
 }
 
-win.api.receive('stateLoaded', stateLoaded)
 win.api.receive('stateSaved', stateSaved)
-win.api.send('loadState')
 
 /**
  * Callback when store is ready.
  *
  * @param callback - function called when store is ready.
  */
-export const whenReady = (callback: (store: Store) => void): void => {
-  listeners.push(callback)
+export const whenReady = (): Promise<Store> => {
+  return new Promise((resolve, reject) => {
+    win.api.send('loadState')
+    win.api.receive(
+      'stateLoaded',
+      (err: Error | undefined, state: RootState | undefined) => {
+        if (err) {
+          reject(err)
+        } else {
+          const store = initializeStore(state)
+          resolve(store)
+        }
+      }
+    )
+  })
 }

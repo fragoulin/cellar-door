@@ -3,7 +3,7 @@ import SelectDirectory from './select-directory-component'
 import { screen } from '@testing-library/react'
 import { createComponentWithProviderAndRouter } from '../../../../../test/createComponentsHelpers'
 import configureMockStore from 'redux-mock-store'
-import { CellarWin } from '../../../../preload'
+import { CellarWin } from '../../../../electron/preload'
 import userEvent from '@testing-library/user-event'
 import wrap from 'jest-wrap'
 
@@ -12,6 +12,7 @@ const mockWindow = window as CellarWin
 mockWindow.api = {
   receive: jest.fn(),
   send: jest.fn(),
+  sendSync: jest.fn(),
   i18nextElectronBackend: undefined,
 }
 

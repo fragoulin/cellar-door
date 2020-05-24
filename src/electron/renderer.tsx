@@ -2,12 +2,13 @@ import ReactDOM from 'react-dom'
 import React, { ReactElement, Suspense } from 'react'
 import 'typeface-roboto'
 import CssBaseline from '@material-ui/core/CssBaseline'
-import { Router } from './components/router/router-component'
+import { Router } from '../components/router/router-component'
 import 'reflect-metadata'
-import * as CellarStore from './redux/store'
+import * as CellarStore from '../redux/store'
 import { Store } from '@reduxjs/toolkit'
 import { I18nextProvider } from 'react-i18next'
-import i18n from './i18next.config'
+import * as i18nConfig from '../i18n/i18next.config'
+import { i18n as I18n } from 'i18next'
 
 /**
  * Main element is the entry point of HTML content.
@@ -20,7 +21,7 @@ document.body.appendChild(main)
  *
  * @param store - redux store
  */
-function createRoot(store: Store): void {
+function createRoot(store: Store, i18n: I18n): void {
   // TODO locale from detectlocale
   //  store.dispatch(currentLocaleSet(locale))
 
@@ -43,6 +44,9 @@ function createRoot(store: Store): void {
 }
 
 // Promise for redux store to be ready before creating root element.
-CellarStore.whenReady((store) => {
-  createRoot(store)
+const promiseStore = CellarStore.whenReady()
+const promiseI18n = i18nConfig.whenReady()
+
+Promise.all([promiseStore, promiseI18n]).then((values) => {
+  createRoot(values[0], values[1])
 })

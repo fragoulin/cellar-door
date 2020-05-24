@@ -3,7 +3,7 @@ import React from 'react'
 import { IconButton, TextField, FormHelperText } from '@material-ui/core'
 import FolderIcon from '@material-ui/icons/Folder'
 import { v4 as uuidv4 } from 'uuid'
-import { CellarWin } from '../../../../preload'
+import { CellarWin } from '../../../../electron/preload'
 import { withTranslation, WithTranslation } from 'react-i18next'
 
 /**

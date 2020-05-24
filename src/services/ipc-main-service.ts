@@ -1,7 +1,7 @@
 import { ipcMain, dialog, BrowserWindow } from 'electron'
 import { RootState } from '../redux/store'
 import { DatabaseService } from './database-service'
-import { TYPES } from './types'
+import { TYPES } from '../inversify/types'
 import { inject, injectable } from 'inversify'
 import 'reflect-metadata'
 
@@ -53,22 +53,30 @@ export class CellarIpcMainService implements IpcMainService {
 
     // Save redux state
     ipcMain.on('saveState', async (_event, state: RootState) => {
-      this.databaseService.saveState(state, (err, numReplaced, upsert) => {
-        // Retrieve main window and send result
-        const win = BrowserWindow.getFocusedWindow()
-        if (!win) return
-        win.webContents.send('stateSaved', err, numReplaced, upsert)
-      })
+      const win = BrowserWindow.getFocusedWindow()
+      if (!win) return
+      this.databaseService
+        .saveState(state)
+        .then(() => {
+          win.webContents.send('stateSaved')
+        })
+        .catch((err) => {
+          win.webContents.send('stateSaved', err)
+        })
     })
 
     // Load redux state
     ipcMain.on('loadState', async () => {
-      this.databaseService.loadState((err, state) => {
-        // Retrieve main window and send result
-        const win = BrowserWindow.getFocusedWindow()
-        if (!win) return
-        win.webContents.send('stateLoaded', err, state)
-      })
+      const win = BrowserWindow.getFocusedWindow()
+      if (!win) return
+      this.databaseService
+        .loadState()
+        .then((state) => {
+          win.webContents.send('stateLoaded', undefined, state)
+        })
+        .catch((err) => {
+          win.webContents.send('stateLoaded', err)
+        })
     })
   }
 }
