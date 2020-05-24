@@ -44,7 +44,7 @@ function setCspHeaders(): void {
  * Create application menu.
  */
 function createMenu(): Menu {
-  return menuService.buildMenu(app, win)
+  return menuService.buildMenu(app)
 }
 
 /**

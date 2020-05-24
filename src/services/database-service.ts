@@ -47,7 +47,7 @@ export class NedbService implements DatabaseService {
         if (err) {
           reject(err)
         } else {
-          delete state._id
+          if (state) delete state._id
           resolve(state)
         }
       })
