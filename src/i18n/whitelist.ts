@@ -21,14 +21,14 @@ const Whitelist = (function (): { langs: string[]; buildSubmenu: Function } {
     buildSubmenu: function (
       channel: string
     ): Array<{ label: string; click: Function }> {
-      const submenu = []
+      const submenu: Array<{ label: string; click: Function }> = []
 
-      for (let i = 0; i < keys.length; i++) {
+      keys.forEach((key) => {
         submenu.push({
-          label: whitelistMap[keys[i]],
-          click: clickFunction(channel, keys[i]),
+          label: whitelistMap[key],
+          click: clickFunction(channel, key),
         })
-      }
+      })
 
       return submenu
     },
