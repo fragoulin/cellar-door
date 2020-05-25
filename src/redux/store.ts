@@ -29,11 +29,20 @@ const win = window as CellarWin
  * @param state - loaded state
  */
 const initializeStore = (state: RootState | undefined): Store => {
-  const store = configureStore({
-    reducer: rootReducer,
-    middleware: [logger],
-    preloadedState: state,
-  })
+  let store: Store
+
+  if (state) {
+    store = configureStore({
+      reducer: rootReducer,
+      middleware: [logger],
+      preloadedState: state,
+    })
+  } else {
+    store = configureStore({
+      reducer: rootReducer,
+      middleware: [logger],
+    })
+  }
 
   // Subscribe to redux state update
   store.subscribe(() => {
