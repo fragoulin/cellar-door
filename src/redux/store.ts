@@ -4,6 +4,7 @@ import logger from 'redux-logger'
 import cellarReducer from './modules/cellar'
 import emulatorsReducer from './modules/emulators'
 import { CellarWin } from '../electron/preload'
+import _ from 'lodash'
 
 /**
  * Reducers combined.
@@ -29,20 +30,15 @@ const win = window as CellarWin
  * @param state - loaded state
  */
 const initializeStore = (state: RootState | undefined): Store => {
-  let store: Store
-
-  if (state) {
-    store = configureStore({
-      reducer: rootReducer,
-      middleware: [logger],
-      preloadedState: state,
-    })
-  } else {
-    store = configureStore({
-      reducer: rootReducer,
-      middleware: [logger],
-    })
-  }
+  const store = configureStore({
+    reducer: rootReducer,
+    middleware: [logger],
+    ...(state
+      ? {
+          preloadedState: state,
+        }
+      : {}),
+  })
 
   // Subscribe to redux state update
   store.subscribe(() => {
@@ -51,19 +47,6 @@ const initializeStore = (state: RootState | undefined): Store => {
 
   return store
 }
-
-/**
- * Callback when state has been saved
- *
- * @param err - if an error occured
- */
-const stateSaved = (err: Error | undefined): void => {
-  if (err) {
-    console.error(err)
-  }
-}
-
-win.api.receive('stateSaved', stateSaved)
 
 /**
  * Callback when store is ready.
@@ -76,12 +59,8 @@ export const whenReady = (): Promise<Store> => {
     win.api.receive(
       'stateLoaded',
       (err: Error | undefined, state: RootState | undefined) => {
-        if (err) {
-          reject(err)
-        } else {
-          const store = initializeStore(state)
-          resolve(store)
-        }
+        if (err) reject(err)
+        else resolve(initializeStore(_.cloneDeep(state)))
       }
     )
   })
