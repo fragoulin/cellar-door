@@ -2,9 +2,11 @@ import { app, BrowserWindow, Menu, session, ipcMain } from 'electron'
 import { ipcMainService } from '../inversify/mainDependencies'
 import * as i18nextBackend from 'i18next-electron-fs-backend'
 import fs from 'fs'
-import * as MenuBuilder from './menus/menu-builder'
+import menuTemplate from './menu'
+import { i18n as I18n } from 'i18next'
 
 const isDev = process.env.NODE_ENV === 'development'
+const isMac = process.platform === 'darwin'
 
 /**
  * Path to main webpack entry.
@@ -42,10 +44,17 @@ function setCspHeaders(): void {
 }
 
 /**
- * Create application menu.
+ * Create application menu
+ *
+ * @param i18n - the i18n instance used to translate menu items.
  */
-function createMenu(): Menu {
-  return MenuBuilder.buildMenu(app)
+function createMenu(i18n: I18n): void {
+  const menu = Menu.buildFromTemplate(menuTemplate(app, i18n))
+  if (isMac) {
+    Menu.setApplicationMenu(menu)
+  } else {
+    win.setMenu(menu)
+  }
 }
 
 /**
@@ -63,9 +72,6 @@ function createWindow(): void {
       contextIsolation: true,
       devTools: isDev,
       enableRemoteModule: false,
-      nodeIntegration: false,
-      nodeIntegrationInWorker: false,
-      nodeIntegrationInSubFrames: false,
       preload: MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY,
     },
   })
@@ -76,13 +82,13 @@ function createWindow(): void {
   // and load the index.html of the app.
   win.loadURL(MAIN_WINDOW_WEBPACK_ENTRY)
 
+  // Hide default menu.
+  Menu.setApplicationMenu(null)
+
   // Open the DevTools.
   if (isDev) {
     win.webContents.openDevTools()
   }
-
-  // Initialize menu.
-  Menu.setApplicationMenu(createMenu())
 }
 
 // This method will be called when Electron has finished
@@ -114,3 +120,8 @@ app.on('activate', () => {
 
 // Register IPC listeners for main process.
 ipcMainService.registerListeners()
+
+// Lister for language updated in order to update menu translations
+ipcMain.on('languageUpdated', (_event, i18n) => {
+  createMenu(i18n)
+})

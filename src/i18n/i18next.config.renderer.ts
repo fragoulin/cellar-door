@@ -1,4 +1,4 @@
-import i18n, { i18n as I18n } from 'i18next'
+import i18n, { i18n as I18n, InitOptions } from 'i18next'
 import LanguageDetector from 'i18next-browser-languagedetector'
 import i18nBackend from 'i18next-electron-fs-backend'
 import { initReactI18next } from 'react-i18next'
@@ -7,19 +7,16 @@ import whitelist from './whitelist'
 
 const win = window as CellarWin
 
-const options = {
+const options: InitOptions = {
   backend: {
     // path where resources get loaded from
     loadPath: './locales/{{lng}}/{{ns}}.json',
     // path to post missing resources
     addPath: './locales/{{lng}}/{{ns}}.missing.json',
-    // jsonIndent to use when storing json files
-    jsonIndent: 2,
     ipcRenderer: win.api.i18nextElectronBackend,
   },
   debug: false,
-  namespace: 'translation',
-  saveMissing: true,
+  saveMissing: false,
   fallbackLng: 'en',
   whitelist: whitelist.langs,
   interpolation: {
@@ -34,15 +31,13 @@ const options = {
  * Listen for language change and update i18n language.
  */
 win.api.i18nextElectronBackend.onLanguageChange((args: { lng: string }) => {
-  i18n.changeLanguage(args.lng, (error) => {
-    if (error) {
-      console.error(error)
-    }
-  })
+  if (args.lng !== i18n.language) {
+    i18n.changeLanguage(args.lng, (error) => error && console.error)
+  }
 })
 
 /**
- * Build a promise for i18next initialization.
+ * Build a promise for i18next initialization on renderer process.
  *
  * @returns a promise for i18next initialization.
  */
@@ -52,8 +47,8 @@ export const whenReady = (): Promise<I18n> => {
       resolve(i18n)
     } else {
       i18n
-        // Filesystem backend to access translations in locales directory
-        // https://github.com/i18next/i18next-fs-backend
+        // Filesystem backend to access translations in locales directory via electron IPC
+        // https://github.com/reZach/i18next-electron-fs-backend
         .use(i18nBackend)
         // detect user language
         // learn more: https://github.com/i18next/i18next-browser-languageDetector
@@ -65,10 +60,15 @@ export const whenReady = (): Promise<I18n> => {
       // for all options read: https://www.i18next.com/overview/configuration-options
       i18n
         .init(options)
-        .then(() => {
-          resolve(i18n)
-        })
+        .then(() => resolve(i18n))
         .catch(reject)
     }
   })
 }
+
+/**
+ * Listener for language changed and notify main process.
+ */
+i18n.on('languageChanged', (language) => {
+  win.api.send('updateLanguage', language)
+})

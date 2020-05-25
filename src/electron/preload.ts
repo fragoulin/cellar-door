@@ -8,7 +8,6 @@ interface Api {
   api: {
     receive(name: string, ...args: unknown[]): void
     send(name: string, ...args: unknown[]): void
-    sendSync(name: string, ...args: unknown[]): unknown
     i18nextElectronBackend: typeof backend.preloadBindings
   }
 }
@@ -23,15 +22,14 @@ export type CellarWin = Window & typeof globalThis & Api
 contextBridge.exposeInMainWorld('api', {
   send: (channel: string, ...args: unknown[]) => {
     // whitelist channels
-    const validChannels = ['dialogSync', 'saveState', 'loadState']
+    const validChannels = [
+      'dialogSync',
+      'saveState',
+      'loadState',
+      'updateLanguage',
+    ]
     if (validChannels.includes(channel)) {
       ipcRenderer.send(channel, ...args)
-    }
-  },
-  sendSync: (channel: string, ...args: unknown[]) => {
-    const validChannels = ['isDev']
-    if (validChannels.includes(channel)) {
-      return ipcRenderer.sendSync(channel, ...args)
     }
   },
   receive: (channel: string, func: Function) => {

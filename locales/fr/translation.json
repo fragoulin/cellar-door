@@ -32,6 +32,35 @@
   "common": {
     "confirm": "Confirmer",
     "back": "Retour",
-    "backToCellar": "Retour to cellier"
+    "backToCellar": "Retour au cellier"
+  },
+  "menu": {
+    "system": {
+      "about": "A propos",
+      "services": "Services",
+      "hide": "Masquer",
+      "unhide": "Afficher",
+      "quit": "Quitter"
+    },
+    "cellar": {
+      "label": "Cellier",
+      "newCellar": "Nouveau cellier",
+      "newEmulator": "Nouvel émulateur",
+      "open": "Ouvrir",
+      "openRecent": "Ouvrir récent",
+      "save": "Sauvegarder",
+      "saveAs": "Sauvegarder sous",
+      "closeEmulator": "Fermer l'émulateur",
+      "close": "Fermer",
+      "quit": "Quitter"
+    },
+    "preferences": {
+      "label": "Préférences",
+      "language": "Langue"
+    },
+    "help": {
+      "label": "Aide",
+      "about": "A propos"
+    }
   }
 }

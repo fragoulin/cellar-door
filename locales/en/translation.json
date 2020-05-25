@@ -33,5 +33,34 @@
     "confirm": "Confirm",
     "back": "Back",
     "backToCellar": "Back to cellar"
+  },
+  "menu": {
+    "system": {
+      "about": "About",
+      "services": "Services",
+      "hide": "Hide",
+      "unhide": "Unhide",
+      "quit": "Quit"
+    },
+    "cellar": {
+      "label": "Cellar",
+      "newCellar": "New cellar",
+      "newEmulator": "New emulator",
+      "open": "Open",
+      "openRecent": "Open recent",
+      "save": "Save",
+      "saveAs": "Save as",
+      "closeEmulator": "Close emulator",
+      "close": "Close",
+      "quit": "Quit"
+    },
+    "preferences": {
+      "label": "Preferences",
+      "language": "Language"
+    },
+    "help": {
+      "label": "Help",
+      "about": "About"
+    }
   }
 }
