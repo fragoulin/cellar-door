@@ -26,7 +26,6 @@ contextBridge.exposeInMainWorld('api', {
       'dialogSync',
       'saveState',
       'loadState',
-      'updateLanguage',
     ]
     if (validChannels.includes(channel)) {
       ipcRenderer.send(channel, ...args)

@@ -4,6 +4,7 @@ import * as i18nextBackend from 'i18next-electron-fs-backend'
 import fs from 'fs'
 import menuTemplate from './menu'
 import { i18n as I18n } from 'i18next'
+import * as i18nConfig from '../localization/i18next.config'
 
 const isDev = process.env.NODE_ENV === 'development'
 const isMac = process.platform === 'darwin'
@@ -121,7 +122,12 @@ app.on('activate', () => {
 // Register IPC listeners for main process.
 ipcMainService.registerListeners()
 
-// Lister for language updated in order to update menu translations
-ipcMain.on('languageUpdated', (_event, i18n) => {
-  createMenu(i18n)
-})
+i18nConfig
+  .whenReady()
+  .then((i18n) => {
+    i18n.on('languageChanged', () => {
+      createMenu(i18n)
+    })
+    createMenu(i18n)
+  })
+  .catch(console.error)

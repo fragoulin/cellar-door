@@ -1,11 +1,10 @@
 import i18n, { i18n as I18n, InitOptions } from 'i18next'
-import LanguageDetector from 'i18next-browser-languagedetector'
 import i18nBackend from 'i18next-electron-fs-backend'
 import { initReactI18next } from 'react-i18next'
 import { CellarWin } from '../electron/preload'
 import whitelist from './whitelist'
 
-const win = window as CellarWin
+const rendererProcess = typeof window !== 'undefined'
 
 const options: InitOptions = {
   backend: {
@@ -13,10 +12,13 @@ const options: InitOptions = {
     loadPath: './app/localization/locales/{{lng}}/{{ns}}.json',
     // path to post missing resources
     addPath: './app/localization/locales/{{lng}}/{{ns}}.missing.json',
-    ipcRenderer: win.api.i18nextElectronBackend,
+    ipcRenderer: rendererProcess
+      ? (window as CellarWin).api.i18nextElectronBackend
+      : undefined,
   },
   debug: false,
   saveMissing: false,
+  lng: 'en',
   fallbackLng: 'en',
   whitelist: whitelist.langs,
   interpolation: {
@@ -30,14 +32,18 @@ const options: InitOptions = {
 /**
  * Listen for language change and update i18n language.
  */
-win.api.i18nextElectronBackend.onLanguageChange((args: { lng: string }) => {
-  if (args.lng !== i18n.language) {
-    i18n.changeLanguage(args.lng, (error) => error && console.error)
-  }
-})
+if (rendererProcess) {
+  ;(window as CellarWin).api.i18nextElectronBackend.onLanguageChange(
+    (args: { lng: string }) => {
+      if (args.lng !== i18n.language) {
+        i18n.changeLanguage(args.lng, (error) => error && console.error(error))
+      }
+    }
+  )
+}
 
 /**
- * Build a promise for i18next initialization on renderer process.
+ * Build a promise for i18next initialization.
  *
  * @returns a promise for i18next initialization.
  */
@@ -50,9 +56,6 @@ export const whenReady = (): Promise<I18n> => {
         // Filesystem backend to access translations in locales directory via electron IPC
         // https://github.com/reZach/i18next-electron-fs-backend
         .use(i18nBackend)
-        // detect user language
-        // learn more: https://github.com/i18next/i18next-browser-languageDetector
-        .use(LanguageDetector)
         // pass the i18n instance to react-i18next.
         .use(initReactI18next)
 
@@ -65,10 +68,3 @@ export const whenReady = (): Promise<I18n> => {
     }
   })
 }
-
-/**
- * Listener for language changed and notify main process.
- */
-i18n.on('languageChanged', (language) => {
-  win.api.send('updateLanguage', language)
-})

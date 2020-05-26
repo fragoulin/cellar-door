@@ -5485,25 +5485,11 @@ hyphenate-style-name@^1.0.3:
   resolved "https://registry.yarnpkg.com/hyphenate-style-name/-/hyphenate-style-name-1.0.3.tgz#097bb7fa0b8f1a9cf0bd5c734cf95899981a9b48"
   integrity sha512-EcuixamT82oplpoJ2XU4pDtKGWQ7b00CD9f1ug9IaQ3p1bkHMiKCZ9ut9QDI6qsa6cpUuB+A/I+zLtdNK4n2DQ==
 
-i18next-browser-languagedetector@^4.2.0:
-  version "4.2.0"
-  resolved "https://registry.yarnpkg.com/i18next-browser-languagedetector/-/i18next-browser-languagedetector-4.2.0.tgz#82e35d31f88a1d7c2b6d5913bf8c8481cd40aafb"
-  integrity sha512-qRSCBWgDUSqVQb3sTxkDC+ImYLhF+wB387Y1RpOcJvyex+V3abi+W83n4Awy+dx719AOBbKTy97FjrUGrAhbyw==
-  dependencies:
-    "@babel/runtime" "^7.5.5"
-
-i18next-electron-fs-backend@^1.3.2:
+"i18next-electron-fs-backend@file:../i18next-electron-fs-backend":
   version "1.3.2"
-  resolved "https://registry.yarnpkg.com/i18next-electron-fs-backend/-/i18next-electron-fs-backend-1.3.2.tgz#f6d71aa21004b876fee414938152d7f4cb8071c3"
-  integrity sha512-QdubI0Z3xaQ3VPUY4UZKVz6WMSA2N1LNPgkMUq8Y+FRs2KlqR/mtMuWK+SUBqI6NPyZ8kQ30AnVtc68kryV+nA==
   dependencies:
     lodash.clonedeep "^4.5.0"
     lodash.merge "^4.6.2"
-
-i18next-fs-backend@^1.0.3:
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/i18next-fs-backend/-/i18next-fs-backend-1.0.3.tgz#2bfb81c1951d0c55ee6f82f9277ef950a55ba80d"
-  integrity sha512-ppSvicYolLrWEVQ7Eb27708GFYikq1bXGM9Wmz/5faM6V2nvhnHPP3fDLQ26E2cNZAKGeT/9znK08jSgei4leA==
 
 i18next@>=17.0.11, i18next@^19.4.4:
   version "19.4.5"
@@ -10302,7 +10288,7 @@ typeface-roboto@^0.0.75:
   resolved "https://registry.yarnpkg.com/typeface-roboto/-/typeface-roboto-0.0.75.tgz#98d5ba35ec234bbc7172374c8297277099cc712b"
   integrity sha512-VrR/IiH00Z1tFP4vDGfwZ1esNqTiDMchBEXYY9kilT6wRGgFoCAlgkEUMHb1E3mB0FsfZhv756IF0+R+SFPfdg==
 
-typescript@^3.8.3, typescript@^3.9.3:
+typescript@^3.9.3:
   version "3.9.3"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.9.3.tgz#d3ac8883a97c26139e42df5e93eeece33d610b8a"
   integrity sha512-D/wqnB2xzNFIcoBG9FG8cXRDjiqSTbG2wd8DMZeQyJlP1vfTkIxH4GKveWaEBYySKIg+USu+E+EDIR47SqnaMQ==

@@ -79,7 +79,10 @@ const preferencesMenuFragment = (i18n: I18n): MenuItemConstructorOptions => {
     submenu: [
       {
         label: i18n.t('menu.preferences.language'),
-        submenu: Whitelist.buildSubmenu(i18nBackend.changeLanguageRequest),
+        submenu: Whitelist.buildSubmenu(
+          i18nBackend.changeLanguageRequest,
+          i18n
+        ),
       },
     ],
   }

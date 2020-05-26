@@ -96,7 +96,7 @@
     "ts-import-plugin": "^1.6.6",
     "ts-jest": "^26.0.0",
     "ts-loader": "^7.0.1",
-    "typescript": "^3.8.3",
+    "typescript": "^3.9.3",
     "webpack": "^4.43.0"
   },
   "dependencies": {
@@ -106,9 +106,7 @@
     "electron-squirrel-startup": "^1.0.0",
     "file-loader": "^6.0.0",
     "i18next": "^19.4.4",
-    "i18next-browser-languagedetector": "^4.2.0",
-    "i18next-electron-fs-backend": "^1.3.2",
-    "i18next-fs-backend": "^1.0.3",
+    "i18next-electron-fs-backend": "file:../i18next-electron-fs-backend",
     "inversify": "^5.0.1",
     "lodash": "^4.17.15",
     "nedb": "^1.8.0",

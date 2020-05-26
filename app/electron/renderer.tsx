@@ -7,7 +7,7 @@ import 'reflect-metadata'
 import * as CellarStore from '../src/redux/store'
 import { Store } from '@reduxjs/toolkit'
 import { I18nextProvider } from 'react-i18next'
-import * as i18nConfig from '../localization/i18next.config.renderer'
+import * as i18nConfig from '../localization/i18next.config'
 import { i18n as I18n } from 'i18next'
 
 /**

@@ -4,7 +4,6 @@ import { DatabaseService } from './database-service'
 import { TYPES } from '../inversify/types'
 import { inject, injectable } from 'inversify'
 import 'reflect-metadata'
-import * as i18nConfig from '../../localization/i18next.config.main'
 
 /**
  * IPC main service definition.
@@ -78,16 +77,6 @@ export class CellarIpcMainService implements IpcMainService {
         .catch((err) => {
           win.webContents.send('stateLoaded', err)
         })
-    })
-
-    // Update language
-    ipcMain.on('updateLanguage', async (_event, language: string) => {
-      i18nConfig
-        .whenReady(language)
-        .then((i18n) => {
-          ipcMain.emit('languageUpdated', null, i18n)
-        })
-        .catch(console.error)
     })
   }
 }
