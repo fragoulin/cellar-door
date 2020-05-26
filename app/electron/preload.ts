@@ -26,9 +26,12 @@ contextBridge.exposeInMainWorld('api', {
       'dialogSync',
       'saveState',
       'loadState',
+      'updateLanguage',
     ]
     if (validChannels.includes(channel)) {
       ipcRenderer.send(channel, ...args)
+    } else {
+      console.error(`Invalid channel for send : ${channel}`)
     }
   },
   receive: (channel: string, func: Function) => {
@@ -36,6 +39,8 @@ contextBridge.exposeInMainWorld('api', {
     if (validChannels.includes(channel)) {
       // Deliberately strip event as it includes `sender`
       ipcRenderer.on(channel, (_event, ...args) => func(...args))
+    } else {
+      console.error(`Invalid channel for receive : ${channel}`)
     }
   },
   i18nextElectronBackend: backend.preloadBindings(ipcRenderer),

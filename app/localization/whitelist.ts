@@ -9,12 +9,16 @@ const whitelistMap: Record<string, string> = {
 
 const Whitelist = (function (): { langs: string[]; buildSubmenu: Function } {
   const keys = Object.keys(whitelistMap)
-  const clickFunction = function (channel: string, lng: string, i18n: I18n) {
+  const clickFunction = function (
+    channel: string,
+    language: string,
+    i18n: I18n
+  ) {
     return function (_menuItem: MenuItem, browserWindow: BrowserWindow): void {
-      i18n.changeLanguage(lng, (error) => error && console.error(error))
-      browserWindow.webContents.send(channel, {
-        lng,
-      })
+      i18n
+        .changeLanguage(language)
+        .then(() => browserWindow.webContents.send(channel, language))
+        .catch(console.error)
     }
   }
 

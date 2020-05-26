@@ -5,50 +5,17 @@ import { RootState } from './store'
 
 const mockWindow = window as CellarWin
 
-const emptyState: RootState = {
-  cellar: {
-    currentCellar: undefined,
-    i18n: {
-      availableLocales: [],
-      currentLocale: 'en',
-    },
-  },
-  emulators: {
-    availableEmulatorNames: [],
-    emulatorsInCellar: [],
-    wizard: {
-      emulatorCurrentlyConfigured: undefined,
-      hasError: false,
-      selectedEmulatorId: undefined,
-    },
-  },
-}
-
-const state: RootState = {
-  cellar: {
-    currentCellar: {},
-    i18n: {
-      availableLocales: ['en', 'fr'],
-      currentLocale: 'en',
-    },
-  },
-  emulators: {
-    availableEmulatorNames: emulatorsService.buildAvailableEmulatorNamesList(),
-    emulatorsInCellar: [],
-    wizard: {
-      emulatorCurrentlyConfigured: undefined,
-      hasError: false,
-      selectedEmulatorId: undefined,
-    },
-  },
-}
-
 beforeEach(() => {
   mockWindow.api = {
     receive: jest.fn(),
     send: jest.fn(),
     i18nextElectronBackend: undefined,
   }
+})
+
+afterEach(() => {
+  mockWindow.api.receive = jest.fn()
+  mockWindow.api.send = jest.fn()
 })
 
 it('should trigger state loading when calling whenReady function', (done) => {
@@ -75,6 +42,22 @@ it('should correctly handle error when calling whenReady function', (done) => {
 })
 
 it('should correctly handle undefined state result when calling whenReady function', (done) => {
+  const emptyState: RootState = {
+    cellar: {
+      currentCellar: undefined,
+      currentLocale: 'en',
+    },
+    emulators: {
+      availableEmulatorNames: [],
+      emulatorsInCellar: [],
+      wizard: {
+        emulatorCurrentlyConfigured: undefined,
+        hasError: false,
+        selectedEmulatorId: undefined,
+      },
+    },
+  }
+
   mockWindow.api.receive = (name: string, callback: Function): void => {
     expect(name).toEqual('stateLoaded')
     callback(undefined, undefined)
@@ -86,7 +69,23 @@ it('should correctly handle undefined state result when calling whenReady functi
   })
 })
 
-it('should correctly handle state result when calling whenReady function', (done) => {
+it('should correctly handle existing state result when calling whenReady function', (done) => {
+  const state: RootState = {
+    cellar: {
+      currentCellar: {},
+      currentLocale: 'en',
+    },
+    emulators: {
+      availableEmulatorNames: emulatorsService.buildAvailableEmulatorNamesList(),
+      emulatorsInCellar: [],
+      wizard: {
+        emulatorCurrentlyConfigured: undefined,
+        hasError: false,
+        selectedEmulatorId: undefined,
+      },
+    },
+  }
+
   mockWindow.api.receive = (name: string, callback: Function): void => {
     expect(name).toEqual('stateLoaded')
     callback(undefined, state)

@@ -42,7 +42,7 @@ const initializeStore = (state: RootState | undefined): Store => {
 
   // Subscribe to redux state update
   store.subscribe(() => {
-    win.api.send('saveState', store.getState())
+    if (store) win.api.send('saveState', store.getState())
   })
 
   return store
@@ -53,7 +53,7 @@ const initializeStore = (state: RootState | undefined): Store => {
  *
  * @param callback - function called when store is ready.
  */
-export const whenReady = (): Promise<Store> => {
+export const whenReady = (): Promise<Store<RootState>> => {
   return new Promise((resolve, reject) => {
     win.api.send('loadState')
     win.api.receive(

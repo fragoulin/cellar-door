@@ -30,24 +30,24 @@ const options: InitOptions = {
 }
 
 /**
- * Listen for language change and update i18n language.
+ * Listen for language change from backend and update i18n language.
  */
 if (rendererProcess) {
-  ;(window as CellarWin).api.i18nextElectronBackend.onLanguageChange(
-    (args: { lng: string }) => {
-      if (args.lng !== i18n.language) {
-        i18n.changeLanguage(args.lng, (error) => error && console.error(error))
-      }
+  const win = window as CellarWin
+  win.api.i18nextElectronBackend.onLanguageChange((language: string) => {
+    if (language !== i18n.language) {
+      i18n.changeLanguage(language).catch(console.error)
     }
-  )
+  })
 }
 
 /**
  * Build a promise for i18next initialization.
  *
+ * @param language - optional language for i18next initialization.
  * @returns a promise for i18next initialization.
  */
-export const whenReady = (): Promise<I18n> => {
+export const whenReady = (language?: string): Promise<I18n> => {
   return new Promise((resolve, reject) => {
     if (i18n.isInitialized) {
       resolve(i18n)
@@ -58,6 +58,9 @@ export const whenReady = (): Promise<I18n> => {
         .use(i18nBackend)
         // pass the i18n instance to react-i18next.
         .use(initReactI18next)
+
+      // Set default language if available
+      if (language) options.lng = language
 
       // init i18next
       // for all options read: https://www.i18next.com/overview/configuration-options

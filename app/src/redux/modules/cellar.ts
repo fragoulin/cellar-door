@@ -6,10 +6,7 @@ import { createSlice } from '@reduxjs/toolkit'
  */
 interface CellarState {
   currentCellar: Cellar | undefined
-  i18n: {
-    currentLocale: string
-    availableLocales: string[]
-  }
+  currentLocale: string
 }
 
 /**
@@ -17,10 +14,7 @@ interface CellarState {
  */
 const initialState: CellarState = {
   currentCellar: undefined,
-  i18n: {
-    currentLocale: 'en',
-    availableLocales: [],
-  },
+  currentLocale: 'en',
 }
 
 /**
@@ -37,7 +31,7 @@ const cellarSlice = createSlice({
       state.currentCellar = undefined
     },
     currentLocaleSet(state, action): void {
-      state.i18n = action.payload
+      state.currentLocale = action.payload
     },
   },
 })

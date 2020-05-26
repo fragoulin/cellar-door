@@ -9,6 +9,8 @@ import { Store } from '@reduxjs/toolkit'
 import { I18nextProvider } from 'react-i18next'
 import * as i18nConfig from '../localization/i18next.config'
 import { i18n as I18n } from 'i18next'
+import { currentLocaleSet } from '../src/redux/modules/cellar'
+import { CellarWin } from './preload'
 
 /**
  * Main element is the entry point of HTML content.
@@ -41,10 +43,39 @@ function createRoot(store: Store, i18n: I18n): void {
   ReactDOM.render(root, main)
 }
 
-// Promise for redux store and i18next initialization to be ready before creating root element.
-const promiseStore = CellarStore.whenReady()
-const promiseI18n = i18nConfig.whenReady()
+/**
+ * Listen for language change from i18next in order to set current locale in redux store.
+ *
+ * @param store - redux store.
+ * @param i18n - i18next instance.
+ */
+function listenForLanguageUpdate(store: Store, i18n: I18n): void {
+  i18n.on('languageChanged', (language) => {
+    store.dispatch(currentLocaleSet(language))
+  })
+}
 
-Promise.all([promiseStore, promiseI18n])
-  .then((values) => createRoot(values[0], values[1]))
+/**
+ * Notify main process regarding language retrieved from persisted state.
+ *
+ * @param language - language retrieved from persisted state.
+ */
+function notifyMainProcess(language: string): void {
+  ;(window as CellarWin).api.send('updateLanguage', language)
+}
+
+// Wait for store and i18next initialization before creating root element.
+CellarStore.whenReady()
+  .then((store) => {
+    const state = store.getState()
+    const language = state.cellar.currentLocale
+    i18nConfig
+      .whenReady(language)
+      .then((i18n) => {
+        notifyMainProcess(language)
+        listenForLanguageUpdate(store, i18n)
+        createRoot(store, i18n)
+      })
+      .catch(console.error)
+  })
   .catch(console.error)

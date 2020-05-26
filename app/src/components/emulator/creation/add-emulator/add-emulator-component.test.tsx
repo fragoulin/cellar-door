@@ -26,10 +26,7 @@ wrap()
       const initialState: RootState = {
         cellar: {
           currentCellar: {},
-          i18n: {
-            availableLocales: ['en', 'fr'],
-            currentLocale: 'en',
-          },
+          currentLocale: 'en',
         },
         emulators: {
           availableEmulatorNames: emulatorsService.buildAvailableEmulatorNamesList(),
@@ -76,10 +73,7 @@ wrap()
       const initialState: RootState = {
         cellar: {
           currentCellar: {},
-          i18n: {
-            availableLocales: ['en', 'fr'],
-            currentLocale: 'en',
-          },
+          currentLocale: 'en',
         },
         emulators: {
           availableEmulatorNames: emulatorsService.buildAvailableEmulatorNamesList(),
@@ -121,10 +115,7 @@ wrap()
       const initialState: RootState = {
         cellar: {
           currentCellar: {},
-          i18n: {
-            availableLocales: ['en', 'fr'],
-            currentLocale: 'en',
-          },
+          currentLocale: 'en',
         },
         emulators: {
           availableEmulatorNames: emulatorsService.buildAvailableEmulatorNamesList(),

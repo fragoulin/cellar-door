@@ -16,7 +16,7 @@ export interface DatabaseService {
 /**
  * User data path.
  */
-const userDataPath = app.getPath('userData')
+const dbPath = path.join(app.getPath('userData'), 'databases', 'cellar')
 
 /**
  * Nedb implementation of database service.
@@ -35,7 +35,7 @@ export class NedbService implements DatabaseService {
    */
   public constructor() {
     this.stateDb = new Nedb({
-      filename: path.join(userDataPath, 'state.db'),
+      filename: path.join(dbPath, 'state.db'),
       autoload: true,
       corruptAlertThreshold: 0,
     })

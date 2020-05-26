@@ -7,10 +7,7 @@ let mockResultState: RootState | null
 const stateFromDatabase: RootState = {
   cellar: {
     currentCellar: {},
-    i18n: {
-      availableLocales: ['en', 'fr'],
-      currentLocale: 'fr',
-    },
+    currentLocale: 'fr',
   },
   emulators: {
     availableEmulatorNames: [],

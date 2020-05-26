@@ -7,7 +7,6 @@ import { i18n as I18n } from 'i18next'
 import * as i18nConfig from '../localization/i18next.config'
 
 const isDev = process.env.NODE_ENV === 'development'
-const isMac = process.platform === 'darwin'
 
 /**
  * Path to main webpack entry.
@@ -51,11 +50,7 @@ function setCspHeaders(): void {
  */
 function createMenu(i18n: I18n): void {
   const menu = Menu.buildFromTemplate(menuTemplate(app, i18n))
-  if (isMac) {
-    Menu.setApplicationMenu(menu)
-  } else {
-    win.setMenu(menu)
-  }
+  Menu.setApplicationMenu(menu)
 }
 
 /**
@@ -83,13 +78,11 @@ function createWindow(): void {
   // and load the index.html of the app.
   win.loadURL(MAIN_WINDOW_WEBPACK_ENTRY)
 
-  // Hide default menu.
+  // Hide default menu (wait for i18n to be ready)
   Menu.setApplicationMenu(null)
 
   // Open the DevTools.
-  if (isDev) {
-    win.webContents.openDevTools()
-  }
+  win.webContents.openDevTools()
 }
 
 // This method will be called when Electron has finished
@@ -101,10 +94,10 @@ app.whenReady().then(createWindow).catch(console.error)
 app.on('window-all-closed', () => {
   // On macOS it is common for applications and their menu bar
   // to stay active until the user quits explicitly with Cmd + Q
-  if (process.platform !== 'darwin') {
-    app.quit()
-  } else {
+  if (process.platform === 'darwin') {
     i18nextBackend.clearMainBindings(ipcMain)
+  } else {
+    app.quit()
   }
 })
 
@@ -122,12 +115,15 @@ app.on('activate', () => {
 // Register IPC listeners for main process.
 ipcMainService.registerListeners()
 
-i18nConfig
-  .whenReady()
-  .then((i18n) => {
-    i18n.on('languageChanged', () => {
+// Listen for 'updateLanguage' event from renderer in order to initialize menu with correct language.
+ipcMain.on('updateLanguage', (_event, language: string) => {
+  i18nConfig
+    .whenReady(language)
+    .then((i18n) => {
+      i18n.on('languageChanged', () => {
+        createMenu(i18n)
+      })
       createMenu(i18n)
     })
-    createMenu(i18n)
-  })
-  .catch(console.error)
+    .catch(console.error)
+})
