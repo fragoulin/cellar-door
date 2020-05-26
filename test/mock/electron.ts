@@ -1,5 +1,6 @@
 export const app = {
   getAppPath: jest.fn(),
+  getPath: (): string => '',
 }
 
 export const ipcMain = {
