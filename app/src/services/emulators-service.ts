@@ -6,51 +6,17 @@ import {
 import Emulators from '../models/emulator/emulators'
 import { EmulatorIdsToName } from '../redux/modules/emulators'
 import _, { cloneDeep } from 'lodash'
-import { injectable } from 'inversify'
 import 'reflect-metadata'
-
-/**
- * Emulators service definition.
- */
-export interface EmulatorsService {
-  /**
-   * Build an array containing mapping of emulator Ids to their names.
-   */
-  buildAvailableEmulatorNamesList(): EmulatorIdsToName[]
-
-  /**
-   * Retrieve an array of available emulators.
-   *
-   * @returns an array of available emulators.
-   */
-  getEmulators(): Emulator[]
-
-  /**
-   * Retrieve a specific emulator from its Id.
-   *
-   * @param emulatorId - an emulator Id.
-   * @returns the emulator matching the specified Id, or undefined.
-   */
-  getEmulator(emulatorId: EmulatorId): Emulator | undefined
-
-  /**
-   * Return new array of emulator configurations updated with specified emulator configuration.
-   * If no update, new emulator configuration is added to the new array.
-   *
-   * @param configurations - array of configurations to update
-   * @param newConfiguration - new configuration to insert/update to array
-   */
-  updateConfiguration(
-    configurations: EmulatorConfiguration[],
-    newConfiguration: EmulatorConfiguration
-  ): EmulatorConfiguration[]
-}
+import { injectable } from 'inversify'
 
 /**
  * Cellar implementation for emulators service.
  */
 @injectable()
-export class CellarEmulatorsService implements EmulatorsService {
+export class EmulatorsService implements EmulatorsService {
+  /**
+   * Build an array containing mapping of emulator Ids to their names.
+   */
   public buildAvailableEmulatorNamesList(): EmulatorIdsToName[] {
     const data: EmulatorIdsToName[] = []
 
@@ -64,10 +30,21 @@ export class CellarEmulatorsService implements EmulatorsService {
     return data
   }
 
+  /**
+   * Retrieve an array of available emulators.
+   *
+   * @returns an array of available emulators.
+   */
   public getEmulators(): Emulator[] {
     return cloneDeep(Emulators)
   }
 
+  /**
+   * Retrieve a specific emulator from its Id.
+   *
+   * @param emulatorId - an emulator Id.
+   * @returns the emulator matching the specified Id, or undefined.
+   */
   public getEmulator(emulatorId: EmulatorId): Emulator | undefined {
     const emulator = this.getEmulators().find(
       (emulator) => emulatorId === emulator.Id
@@ -76,6 +53,13 @@ export class CellarEmulatorsService implements EmulatorsService {
     return cloneDeep(emulator)
   }
 
+  /**
+   * Return new array of emulator configurations updated with specified emulator configuration.
+   * If no update, new emulator configuration is added to the new array.
+   *
+   * @param configurations - array of configurations to update
+   * @param newConfiguration - new configuration to insert/update to array
+   */
   public updateConfiguration(
     configurations: EmulatorConfiguration[],
     configuration: EmulatorConfiguration

@@ -3,8 +3,6 @@ import { configureStore, Store } from '@reduxjs/toolkit'
 import logger from 'redux-logger'
 import cellarReducer from './modules/cellar'
 import emulatorsReducer from './modules/emulators'
-import { CellarWin } from '../../electron/preload'
-import _ from 'lodash'
 
 /**
  * Reducers combined.
@@ -19,15 +17,12 @@ const rootReducer = combineReducers({
  */
 export type RootState = ReturnType<typeof rootReducer>
 
-/**
- * Cellar window typed with api definition for IPC.
- */
-const win = window as CellarWin
+const localStorageStateKey = 'cellar.state'
 
 /**
  * Initialize store
  *
- * @param state - loaded state
+ * @param state - loaded state from local storage, or undefined in case of new installation.
  */
 const initializeStore = (state: RootState | undefined): Store => {
   const store = configureStore({
@@ -42,26 +37,27 @@ const initializeStore = (state: RootState | undefined): Store => {
 
   // Subscribe to redux state update
   store.subscribe(() => {
-    if (store) win.api.send('saveState', store.getState())
+    if (store) {
+      const stateJson = JSON.stringify(store.getState())
+      localStorage.setItem(localStorageStateKey, stateJson)
+    }
   })
 
   return store
 }
 
 /**
- * Callback when store is ready.
+ * Promise when store is ready.
  *
- * @param callback - function called when store is ready.
+ * @returns a promise when store is ready.
  */
 export const whenReady = (): Promise<Store<RootState>> => {
-  return new Promise((resolve, reject) => {
-    win.api.send('loadState')
-    win.api.receive(
-      'stateLoaded',
-      (err: Error | undefined, state: RootState | undefined) => {
-        if (err) reject(err)
-        else resolve(initializeStore(_.cloneDeep(state)))
-      }
-    )
+  return new Promise((resolve) => {
+    const stateJson = localStorage.getItem(localStorageStateKey)
+    let state: RootState | undefined
+    if (stateJson) {
+      state = JSON.parse(stateJson)
+    }
+    resolve(initializeStore(state))
   })
 }

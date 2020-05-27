@@ -36,6 +36,6 @@
     "noEmit": true
   },
   "include": [
-    "app/src/**/*", "test/**/*"
+    "app/**/*", "test/**/*"
   ]
 }

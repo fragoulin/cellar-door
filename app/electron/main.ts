@@ -120,9 +120,11 @@ ipcMain.on('updateLanguage', (_event, language: string) => {
   i18nConfig
     .whenReady(language)
     .then((i18n) => {
+      // Listen for languageChanged event on i18next, triggered from the menu 'languages'
       i18n.on('languageChanged', () => {
         createMenu(i18n)
       })
+      // Create menu immediately when language is available from renderer process.
       createMenu(i18n)
     })
     .catch(console.error)

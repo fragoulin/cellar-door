@@ -22,12 +22,7 @@ export type CellarWin = Window & typeof globalThis & Api
 contextBridge.exposeInMainWorld('api', {
   send: (channel: string, ...args: unknown[]) => {
     // whitelist channels
-    const validChannels = [
-      'dialogSync',
-      'saveState',
-      'loadState',
-      'updateLanguage',
-    ]
+    const validChannels = ['dialogSync', 'updateLanguage']
     if (validChannels.includes(channel)) {
       ipcRenderer.send(channel, ...args)
     } else {
@@ -35,7 +30,7 @@ contextBridge.exposeInMainWorld('api', {
     }
   },
   receive: (channel: string, func: Function) => {
-    const validChannels = ['dialogSyncResult', 'stateSaved', 'stateLoaded']
+    const validChannels = ['dialogSyncResult']
     if (validChannels.includes(channel)) {
       // Deliberately strip event as it includes `sender`
       ipcRenderer.on(channel, (_event, ...args) => func(...args))
