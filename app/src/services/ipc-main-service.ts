@@ -1,4 +1,4 @@
-import { ipcMain, dialog, BrowserWindow } from 'electron'
+import { ipcMain, dialog, app } from 'electron'
 import 'reflect-metadata'
 import { injectable } from 'inversify'
 
@@ -17,17 +17,18 @@ export class IpcMainService implements IpcMainService {
     ipcMain.on(
       'dialogSync',
       async (
-        _event,
+        event,
         inputId: string,
         properties: Electron.OpenDialogSyncOptions
       ) => {
         const files = dialog.showOpenDialogSync(properties)
-
-        // Retrieve main window and send result
-        const win = BrowserWindow.getFocusedWindow()
-        if (!win) return
-        win.webContents.send('dialogSyncResult', inputId, files)
+        event.reply('dialogSyncResult', inputId, files)
       }
     )
+
+    // Get app root
+    ipcMain.on('getResourcesPath', async (event) => {
+      event.returnValue = app.isPackaged ? process.resourcesPath : 'resources'
+    })
   }
 }

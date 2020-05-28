@@ -8,6 +8,7 @@ interface Api {
   api: {
     receive(name: string, ...args: unknown[]): void
     send(name: string, ...args: unknown[]): void
+    sendSync(name: string, ...args: unknown[]): unknown
     i18nextElectronBackend: typeof backend.preloadBindings
   }
 }
@@ -27,6 +28,16 @@ contextBridge.exposeInMainWorld('api', {
       ipcRenderer.send(channel, ...args)
     } else {
       console.error(`Invalid channel for send : ${channel}`)
+    }
+  },
+  sendSync: (channel: string, ...args: unknown[]): unknown => {
+    // whitelist channels
+    const validChannels = ['getResourcesPath']
+    if (validChannels.includes(channel)) {
+      return ipcRenderer.sendSync(channel, ...args)
+    } else {
+      console.error(`Invalid channel for send : ${channel}`)
+      return undefined
     }
   },
   receive: (channel: string, func: Function) => {

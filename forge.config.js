@@ -4,8 +4,9 @@ module.exports = {
   packagerConfig: {
     asar: true,
     icon: 'resources/icons/cellar-door',
-    appCategoryType: 'public.app-category.games',
     name: 'Cellar door',
+    appCategoryType: 'public.app-category.games',
+    appCopyright: 'Copyright (c) 2020 Fabrice Morin',
     platform: [
       'darwin',
       'linux',

@@ -6,12 +6,22 @@ import whitelist from './whitelist'
 
 const rendererProcess = typeof window !== 'undefined'
 
+let resourcesPath: string
+if (rendererProcess) {
+  resourcesPath = (window as CellarWin).api.sendSync(
+    'getResourcesPath'
+  ) as string
+} else {
+  const app = require('electron').app
+  resourcesPath = app.isPackaged ? process.resourcesPath : 'resources'
+}
+
 const options: InitOptions = {
   backend: {
     // path where resources get loaded from
-    loadPath: 'resources/locales/{{lng}}/{{ns}}.json',
+    loadPath: `${resourcesPath}/locales/{{lng}}/{{ns}}.json`,
     // path to post missing resources
-    addPath: 'resources/locales/{{lng}}/{{ns}}.missing.json',
+    addPath: `${resourcesPath}/locales/{{lng}}/{{ns}}.missing.json`,
     ipcRenderer: rendererProcess
       ? (window as CellarWin).api.i18nextElectronBackend
       : undefined,
@@ -60,7 +70,7 @@ export const whenReady = (language?: string): Promise<I18n> => {
         .use(initReactI18next)
 
       // Set default language if available
-      if (language) options.lng = language
+      options.lng = language
 
       // init i18next
       // for all options read: https://www.i18next.com/overview/configuration-options
