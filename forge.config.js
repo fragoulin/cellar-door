@@ -1,19 +1,19 @@
-const fs = require('fs-extra')
 const path = require('path')
 
 module.exports = {
-  hooks: {
-    packageAfterCopy: (_config, extractPath) => {
-      const resourcesPath = path.join(__dirname, 'resources')
-      const destinationPath = path.join(extractPath, '..')
-      fs.copy(resourcesPath, destinationPath)
-        .then(() => console.log('success!'))
-        .catch((err) => console.error(err))
-    },
-  },
   packagerConfig: {
     asar: true,
     icon: 'resources/icons/cellar-door',
+    appCategoryType: 'public.app-category.games',
+    name: 'Cellar door',
+    platform: [
+      'darwin',
+      'linux',
+      'win32'
+    ],
+    extraResource: [
+      path.join(__dirname, 'resources/locales')
+    ]
   },
   makers: [
     {
