@@ -4,6 +4,8 @@ import { injectable } from 'inversify'
 
 /**
  * Cellar implementation for IPC main service.
+ *
+ * Cannot be used in renderer process.
  */
 @injectable()
 export class IpcMainService implements IpcMainService {

@@ -9,9 +9,9 @@ const rendererProcess = typeof window !== 'undefined'
 const options: InitOptions = {
   backend: {
     // path where resources get loaded from
-    loadPath: './app/localization/locales/{{lng}}/{{ns}}.json',
+    loadPath: 'resources/locales/{{lng}}/{{ns}}.json',
     // path to post missing resources
-    addPath: './app/localization/locales/{{lng}}/{{ns}}.missing.json',
+    addPath: 'resources/locales/{{lng}}/{{ns}}.missing.json',
     ipcRenderer: rendererProcess
       ? (window as CellarWin).api.i18nextElectronBackend
       : undefined,

@@ -1,11 +1,11 @@
-const rules = require('./webpack.rules')
-const plugins = require('./webpack.plugins')
-
 module.exports = {
+  /**
+   * Webpack configuration for renderer process.
+   */
   module: {
-    rules
+    rules: require('./webpack.rules')
   },
-  plugins: plugins,
+  plugins: require('./webpack.plugins'),
   resolve: {
     extensions: ['.js', '.ts', '.jsx', '.tsx', '.css']
   }

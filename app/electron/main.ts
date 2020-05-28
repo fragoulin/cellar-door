@@ -6,7 +6,10 @@ import menuTemplate from './menu'
 import { i18n as I18n } from 'i18next'
 import * as i18nConfig from '../localization/i18next.config'
 
-const isDev = process.env.NODE_ENV === 'development'
+/**
+ * True if current mode is development.
+ */
+const isDev = !app.isPackaged
 
 /**
  * Path to main webpack entry.

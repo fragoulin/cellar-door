@@ -28,7 +28,7 @@
     "package": "electron-forge package",
     "make": "electron-forge make",
     "publish": "electron-forge publish",
-    "lint": "eslint --ext .js,.jsx,.ts,.tsx . --fix",
+    "lint": "eslint --ext .ts,.tsx . --fix",
     "test": "jest"
   },
   "config": {
@@ -82,6 +82,7 @@
     "identity-obj-proxy": "^3.0.0",
     "jest": "^26.0.1",
     "jest-wrap": "^1.7.0",
+    "node-fs-extra": "^0.8.2",
     "node-loader": "^0.6.0",
     "node-sass": "^4.14.0",
     "prettier": "^2.0.5",
@@ -115,6 +116,7 @@
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",
     "reflect-metadata": "^0.1.13",
+    "rollbar": "^2.16.2",
     "strongly-typed-events": "^1.6.11",
     "typeface-roboto": "^0.0.75",
     "uuid": "^8.0.0"
