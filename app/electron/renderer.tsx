@@ -1,9 +1,7 @@
 import ReactDOM from 'react-dom'
 import React, { ReactElement, Suspense } from 'react'
-import 'typeface-roboto'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import { Router } from '../src/components/router/router-component'
-import 'reflect-metadata'
 import * as CellarStore from '../src/redux/store'
 import { Store } from '@reduxjs/toolkit'
 import { I18nextProvider } from 'react-i18next'
@@ -11,6 +9,11 @@ import * as i18nConfig from '../localization/i18next.config'
 import { i18n as I18n } from 'i18next'
 import { currentLocaleSet } from '../src/redux/modules/cellar'
 import { CellarWin } from './preload'
+import WebFont from "webfontloader"
+
+// Load required fonts for material. Required font weights are 300, 400, 500 and 700
+// https://material-ui.com/components/typography/#general
+WebFont.load({google: {families: ["Roboto:300,400,500,700"]}});
 
 /**
  * Main element is the entry point of HTML content.
