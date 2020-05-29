@@ -17,7 +17,7 @@
     "removeComments": true,
     "alwaysStrict": true,
     "allowJs": true,
-    "module": "commonjs",
+    "module": "ES2020",
     "skipLibCheck": true,
     "esModuleInterop": true,
     "sourceMap": true,
