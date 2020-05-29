@@ -6,13 +6,17 @@ import whitelist from './whitelist'
 
 const rendererProcess = typeof window !== 'undefined'
 
+// Compute resources path to access locales.
 let resourcesPath: string
 if (rendererProcess) {
+  // In renderer process, use IPC to retrieve resources path.
   resourcesPath = (window as CellarWin).api.sendSync(
     'getResourcesPath'
   ) as string
 } else {
+  // In main process, use node process
   const app = require('electron').app
+  // If the app is not packaged (dev mode), the resources path references electron installation in node_modules directory.
   resourcesPath = app.isPackaged ? process.resourcesPath : 'resources'
 }
 

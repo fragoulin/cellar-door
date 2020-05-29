@@ -26,8 +26,9 @@ export class IpcMainService implements IpcMainService {
       }
     )
 
-    // Get app root
+    // Get resources path
     ipcMain.on('getResourcesPath', async (event) => {
+      // If the app is not packaged (dev mode), the resources path references electron installation in node_modules directory.
       event.returnValue = app.isPackaged ? process.resourcesPath : 'resources'
     })
   }
