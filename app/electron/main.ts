@@ -9,7 +9,7 @@ import * as i18nConfig from '../localization/i18next.config'
 /**
  * True if current mode is development.
  */
-const isDev = true
+const isDev = !app.isPackaged
 
 /**
  * Path to main webpack entry.
