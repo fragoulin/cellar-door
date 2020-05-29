@@ -1,4 +1,4 @@
-import './emulator-configuration-summary.css'
+import './emulator-configuration-summary.scss'
 import React from 'react'
 import { EmulatorConfiguration } from '../../../../models/emulator/types'
 import { withTranslation, WithTranslation } from 'react-i18next'

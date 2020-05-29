@@ -1,4 +1,4 @@
-import './emulators-select.css'
+import './emulators-select.scss'
 import * as React from 'react'
 import { Select, InputLabel, FormHelperText } from '@material-ui/core'
 import { EmulatorId } from '../../../../models/emulator/types'

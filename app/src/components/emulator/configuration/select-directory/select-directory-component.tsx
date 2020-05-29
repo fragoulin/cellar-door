@@ -1,4 +1,4 @@
-import './select-directory.css'
+import './select-directory.scss'
 import React from 'react'
 import { IconButton, TextField, FormHelperText } from '@material-ui/core'
 import FolderIcon from '@material-ui/icons/Folder'

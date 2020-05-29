@@ -1,5 +1,5 @@
 import * as React from 'react'
-import './welcome.css'
+import './welcome.scss'
 import { Cellar } from '../../../models/cellar'
 import EmulatorsList from '../emulators-list/emulators-list-component'
 import FreshInstallation from '../../../container/cellar/fresh-installation'

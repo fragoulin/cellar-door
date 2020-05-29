@@ -1,4 +1,4 @@
-import './configure-emulator.css'
+import './configure-emulator.scss'
 import React from 'react'
 import { Link, Redirect } from 'react-router-dom'
 import { Button, FormControl } from '@material-ui/core'

@@ -1,4 +1,4 @@
-import './create-emulator.css'
+import './create-emulator.scss'
 import React from 'react'
 import { Emulator } from '../../../../models/emulator/types'
 import { Button } from '@material-ui/core'
