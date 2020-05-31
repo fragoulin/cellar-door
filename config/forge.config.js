@@ -3,7 +3,7 @@ const path = require('path')
 module.exports = {
   packagerConfig: {
     asar: true,
-    icon: 'resources/icons/cellar-door',
+    icon: path.join(__dirname, '../resources/icons/cellar-door'),
     name: 'Cellar door',
     appCategoryType: 'public.app-category.games',
     appCopyright: 'Copyright (c) 2020 Fabrice Morin',
@@ -13,7 +13,7 @@ module.exports = {
       'win32'
     ],
     extraResource: [
-      path.join(__dirname, 'resources/locales')
+      path.join(__dirname, '../resources/locales')
     ]
   },
   makers: [
