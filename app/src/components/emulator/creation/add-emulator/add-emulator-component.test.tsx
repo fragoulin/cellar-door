@@ -1,15 +1,15 @@
 import React from 'react'
 import AddEmulator from './add-emulator-component'
 import { screen } from '@testing-library/react'
-import { createComponentWithProviderAndRouter } from 'test/createComponentsHelpers'
-import { buildAvailableEmulatorNamesList } from 'app/src/services/emulators-service'
+import { createComponentWithProviderAndRouter } from '../../../../../../test/createComponentsHelpers'
+import { buildAvailableEmulatorNamesList } from '../../../../services/emulators-service'
 import configureMockStore from 'redux-mock-store'
-import { CellarWin } from 'app/electron/preload'
+import { CellarWin } from '../../../../../electron/preload'
 import userEvent from '@testing-library/user-event'
 import wrap from 'jest-wrap'
-import { RootState } from 'app/src/redux/store'
-import Emulators from 'app/src/models/emulator/emulators/index'
-import { EmulatorId } from 'app/src/models/emulator/types'
+import { RootState } from '../../../../redux/store'
+import Emulators from '../../../../models/emulator/emulators/index'
+import { EmulatorId } from '../../../../models/emulator/types'
 
 const mockStore = configureMockStore()
 const mockWindow = window as CellarWin

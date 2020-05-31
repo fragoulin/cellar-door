@@ -1,9 +1,9 @@
 import React from 'react'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
-import Welcome from 'app/src/container/cellar/welcome'
-import AddEmulator from 'app/src/container/emulators/add-emulator'
-import ConfigureEmulator from 'app/src/container/emulators/configure-emulator'
-import CreateEmulator from 'app/src/container/emulators/create-emulator'
+import Welcome from '../../container/cellar/welcome'
+import AddEmulator from '../../container/emulators/add-emulator'
+import ConfigureEmulator from '../../container/emulators/configure-emulator'
+import CreateEmulator from '../../container/emulators/create-emulator'
 import { Provider } from 'react-redux'
 import { Store } from 'redux'
 

@@ -1,10 +1,10 @@
 import React from 'react'
 import EmulatorsSelect from './emulators-select-component'
 import { screen } from '@testing-library/react'
-import { createComponentWithRouter } from 'test/createComponentsHelpers'
-import { buildAvailableEmulatorNamesList } from 'app/src/services/emulators-service'
-import Emulators from 'app/src/models/emulator/emulators/index'
-import { EmulatorId } from 'app/src/models/emulator/types'
+import { createComponentWithRouter } from '../../../../../../test/createComponentsHelpers'
+import { buildAvailableEmulatorNamesList } from '../../../../services/emulators-service'
+import Emulators from '../../../../models/emulator/emulators/index'
+import { EmulatorId } from '../../../../models/emulator/types'
 import userEvent from '@testing-library/user-event'
 
 it('should correctly render emulators select', () => {

@@ -2,8 +2,8 @@ import './add-emulator.scss'
 import * as React from 'react'
 import { Button, FormControl } from '@material-ui/core'
 import { Link, Redirect } from 'react-router-dom'
-import EmulatorsSelect from 'app/src/container/emulators/emulators-select'
-import { EmulatorId } from 'app/src/models/emulator/types'
+import EmulatorsSelect from '../../../../container/emulators/emulators-select'
+import { EmulatorId } from '../../../../models/emulator/types'
 import { withTranslation, WithTranslation } from 'react-i18next'
 
 /**

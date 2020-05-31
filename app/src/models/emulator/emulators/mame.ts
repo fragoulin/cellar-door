@@ -3,7 +3,7 @@ import {
   EmulatorLicense,
   Emulator,
   EmulatorConfiguration,
-} from 'app/src/models/emulator/types'
+} from '../types'
 
 /**
  * Directory containing MAME executable. Mandatory.

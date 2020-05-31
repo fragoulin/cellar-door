@@ -1,8 +1,8 @@
 import './emulators-select.scss'
 import * as React from 'react'
 import { Select, InputLabel, FormHelperText } from '@material-ui/core'
-import { EmulatorId } from 'app/src/models/emulator/types'
-import { EmulatorIdsToName } from 'app/src/redux/modules/emulators'
+import { EmulatorId } from '../../../../models/emulator/types'
+import { EmulatorIdsToName } from '../../../../redux/modules/emulators'
 import { withTranslation, WithTranslation } from 'react-i18next'
 
 /**

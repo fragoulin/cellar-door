@@ -1,4 +1,4 @@
-import { EmulatorId } from 'app/src/models/emulator/types'
+import { EmulatorId } from '../types'
 import ScummVm from './scummvm'
 
 it('should have correct Id', () => {

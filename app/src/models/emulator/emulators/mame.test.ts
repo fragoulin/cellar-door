@@ -1,5 +1,5 @@
 import Mame from './mame'
-import { EmulatorId } from 'app/src/models/emulator/types'
+import { EmulatorId } from '../types'
 
 it('should have correct Id', () => {
   expect(Mame.Id).toBe(EmulatorId.MAME)

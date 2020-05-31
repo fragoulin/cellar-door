@@ -1,4 +1,4 @@
-import { Cellar } from 'app/src/models/cellar'
+import { Cellar } from '../../models/cellar'
 import { createSlice } from '@reduxjs/toolkit'
 
 /**

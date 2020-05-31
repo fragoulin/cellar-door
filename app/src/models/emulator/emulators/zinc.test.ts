@@ -1,4 +1,4 @@
-import { EmulatorId } from 'app/src/models/emulator/types'
+import { EmulatorId } from '../types'
 import Zinc from './zinc'
 
 it('should have correct Id', () => {

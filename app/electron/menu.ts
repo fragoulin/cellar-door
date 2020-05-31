@@ -1,6 +1,6 @@
 import { App, MenuItemConstructorOptions, MenuItem } from 'electron'
 import * as i18nBackend from 'i18next-electron-fs-backend'
-import Whitelist from 'app/src/localization/whitelist'
+import Whitelist from '../src/localization/whitelist'
 import { i18n as I18n } from 'i18next'
 
 const isMac = process.platform === 'darwin'
