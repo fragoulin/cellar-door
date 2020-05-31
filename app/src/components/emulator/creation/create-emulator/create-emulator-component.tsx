@@ -3,7 +3,7 @@ import React from 'react'
 import { Emulator } from 'app/src/models/emulator/types'
 import { Button } from '@material-ui/core'
 import { Link } from 'react-router-dom'
-import EmulatorSummary from 'app/src/components/emulator/creation/emulator-summary/emulator-summary-component'
+import EmulatorSummary from 'app/src/components/emulator-summary/emulator-summary-component'
 import { withTranslation, WithTranslation } from 'react-i18next'
 
 /**

@@ -47,7 +47,7 @@ const initializeStore = (state: RootState | undefined): Store => {
 }
 
 /**
- * Load state from storage and return promise.
+ * Promise when store is ready.
  *
  * @returns a promise when store is ready.
  */

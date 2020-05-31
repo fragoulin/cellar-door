@@ -1,7 +1,7 @@
 import React from 'react'
 import FreshInstallation from './fresh-installation-component'
 import { screen } from '@testing-library/react'
-import { createComponentWithRouter } from 'app/test/createComponentsHelpers'
+import { createComponentWithRouter } from 'test/createComponentsHelpers'
 
 it('should create cellar after component mount', (done) => {
   const callback = (): void => {

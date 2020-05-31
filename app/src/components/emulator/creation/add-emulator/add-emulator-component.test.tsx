@@ -1,7 +1,7 @@
 import React from 'react'
 import AddEmulator from './add-emulator-component'
 import { screen } from '@testing-library/react'
-import { createComponentWithProviderAndRouter } from 'app/test/createComponentsHelpers'
+import { createComponentWithProviderAndRouter } from 'test/createComponentsHelpers'
 import { buildAvailableEmulatorNamesList } from 'app/src/services/emulators-service'
 import configureMockStore from 'redux-mock-store'
 import { CellarWin } from 'app/electron/preload'

@@ -1,7 +1,7 @@
 import React from 'react'
 import EmulatorConfigurationSummary from './emulator-configuration-summary'
 import { screen } from '@testing-library/react'
-import { createComponentWithRouter } from 'app/test/createComponentsHelpers'
+import { createComponentWithRouter } from 'test/createComponentsHelpers'
 import Emulators from 'app/src/models/emulator/emulators/index'
 
 it('should correctly display configurations rows', () => {
