@@ -40,9 +40,9 @@ module.exports = {
     [
       '@electron-forge/plugin-webpack',
       {
-        mainConfig: './config/webpack.main.config.js',
+        mainConfig: './config/webpack/webpack.main.config.js',
         renderer: {
-          config: './config/webpack.renderer.config.js',
+          config: './config/webpack/webpack.renderer.config.js',
           entryPoints: [
             {
               html: './app/src/index.html',

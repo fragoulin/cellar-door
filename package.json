@@ -29,10 +29,10 @@
     "make": "electron-forge make",
     "publish": "electron-forge publish",
     "lint": "eslint --ext .ts,.tsx . --fix",
-    "test": "jest"
+    "test": "jest --config ./config/jest.config.js"
   },
   "config": {
-    "forge": "./forge.config.js"
+    "forge": "./config/forge.config.js"
   },
   "devDependencies": {
     "@babel/core": "^7.9.6",
