@@ -2,7 +2,7 @@ import React from 'react'
 import AddEmulator from './add-emulator-component'
 import { screen } from '@testing-library/react'
 import { createComponentWithProviderAndRouter } from '../../../../../../test/createComponentsHelpers'
-import { emulatorsService } from '../../../../inversify/rendererDependencies'
+import { buildAvailableEmulatorNamesList } from '../../../../services/emulators-service'
 import configureMockStore from 'redux-mock-store'
 import { CellarWin } from '../../../../../electron/preload'
 import userEvent from '@testing-library/user-event'
@@ -30,7 +30,7 @@ wrap()
           currentLocale: 'en',
         },
         emulators: {
-          availableEmulatorNames: emulatorsService.buildAvailableEmulatorNamesList(),
+          availableEmulatorNames: buildAvailableEmulatorNamesList(),
           emulatorsInCellar: [],
           wizard: {
             emulatorCurrentlyConfigured: undefined,
@@ -77,7 +77,7 @@ wrap()
           currentLocale: 'en',
         },
         emulators: {
-          availableEmulatorNames: emulatorsService.buildAvailableEmulatorNamesList(),
+          availableEmulatorNames: buildAvailableEmulatorNamesList(),
           emulatorsInCellar: [],
           wizard: {
             emulatorCurrentlyConfigured: mame,
@@ -119,7 +119,7 @@ wrap()
           currentLocale: 'en',
         },
         emulators: {
-          availableEmulatorNames: emulatorsService.buildAvailableEmulatorNamesList(),
+          availableEmulatorNames: buildAvailableEmulatorNamesList(),
           emulatorsInCellar: [],
           wizard: {
             emulatorCurrentlyConfigured: mame,

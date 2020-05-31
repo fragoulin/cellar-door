@@ -2,13 +2,13 @@ import React from 'react'
 import EmulatorsSelect from './emulators-select-component'
 import { screen } from '@testing-library/react'
 import { createComponentWithRouter } from '../../../../../../test/createComponentsHelpers'
-import { emulatorsService } from '../../../../inversify/rendererDependencies'
+import { buildAvailableEmulatorNamesList } from '../../../../services/emulators-service'
 import Emulators from '../../../../models/emulator/emulators/index'
 import { EmulatorId } from '../../../../models/emulator/types'
 import userEvent from '@testing-library/user-event'
 
 it('should correctly render emulators select', () => {
-  const emulatorsIdsToNames = emulatorsService.buildAvailableEmulatorNamesList()
+  const emulatorsIdsToNames = buildAvailableEmulatorNamesList()
 
   createComponentWithRouter(
     <EmulatorsSelect
@@ -36,7 +36,7 @@ it('should call setSelectedEmulatorId() method when MAME is selected', (done) =>
     done()
   }
 
-  const emulatorsIdsToNames = emulatorsService.buildAvailableEmulatorNamesList()
+  const emulatorsIdsToNames = buildAvailableEmulatorNamesList()
 
   createComponentWithRouter(
     <EmulatorsSelect

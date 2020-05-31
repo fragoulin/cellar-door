@@ -30,7 +30,7 @@
       "dom.iterable",
       "ES2019"
     ],
-    "types": ["reflect-metadata", "jest", "node"],
+    "types": ["jest", "node"],
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
     "noEmit": true

@@ -7,7 +7,7 @@ import {
   EmulatorConfiguration,
 } from '../../../../models/emulator/types'
 import SelectDirectory from '../select-directory/select-directory-component'
-import { emulatorsService } from '../../../../inversify/rendererDependencies'
+import { updateConfiguration } from '../../../../services/emulators-service'
 import { withTranslation, WithTranslation } from 'react-i18next'
 
 /**
@@ -69,10 +69,11 @@ class ConfigureEmulator extends React.PureComponent<
     mandatory: boolean
   ): void => {
     this.setState((state) => ({
-      configurations: emulatorsService.updateConfiguration(
-        state.configurations,
-        { name, value, mandatory }
-      ),
+      configurations: updateConfiguration(state.configurations, {
+        name,
+        value,
+        mandatory,
+      }),
     }))
   }
 

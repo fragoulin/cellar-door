@@ -1,6 +1,9 @@
 import { EmulatorId, Emulator } from '../../models/emulator/types'
 import { createSlice } from '@reduxjs/toolkit'
-import { emulatorsService } from '../../inversify/rendererDependencies'
+import {
+  buildAvailableEmulatorNamesList,
+  getEmulator,
+} from '../../services/emulators-service'
 
 /**
  * Maps emulator Ids to emulator names.
@@ -44,7 +47,7 @@ const emulatorsSlice = createSlice({
   initialState: initialState,
   reducers: {
     availableEmulatorNamesListBuilt(state): void {
-      state.availableEmulatorNames = emulatorsService.buildAvailableEmulatorNamesList()
+      state.availableEmulatorNames = buildAvailableEmulatorNamesList()
     },
     selectedEmulatorIdSet(state, action): void {
       state.wizard.selectedEmulatorId = action.payload
@@ -53,13 +56,11 @@ const emulatorsSlice = createSlice({
       state.wizard.hasError = action.payload
     },
     emulatorCreated(state, action): void {
-      state.wizard.emulatorCurrentlyConfigured = emulatorsService.getEmulator(
-        action.payload
-      )
+      state.wizard.emulatorCurrentlyConfigured = getEmulator(action.payload)
     },
     emulatorConfigurationUpdated(state, action): void {
       if (!state.wizard.emulatorCurrentlyConfigured) return
-      const newEmulator = emulatorsService.getEmulator(
+      const newEmulator = getEmulator(
         state.wizard.emulatorCurrentlyConfigured.Id
       )
       if (!newEmulator) return

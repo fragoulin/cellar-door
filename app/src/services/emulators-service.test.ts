@@ -3,10 +3,15 @@ import { EmulatorId, EmulatorConfiguration } from '../models/emulator/types'
 import MAME from '../models/emulator/emulators/mame'
 import ScummVM from '../models/emulator/emulators/scummvm'
 import ZiNc from '../models/emulator/emulators/zinc'
-import { emulatorsService } from '../inversify/rendererDependencies'
+import {
+  buildAvailableEmulatorNamesList,
+  getEmulator,
+  getEmulators,
+  updateConfiguration,
+} from '../services/emulators-service'
 
 it('should build available emulators names list', () => {
-  const listToTest = emulatorsService.buildAvailableEmulatorNamesList()
+  const listToTest = buildAvailableEmulatorNamesList()
   Emulators.forEach((emulator) => {
     expect(listToTest).toContainEqual({
       id: emulator.Id,
@@ -16,31 +21,31 @@ it('should build available emulators names list', () => {
 })
 
 it('should get emulators cloned', () => {
-  const emulators = emulatorsService.getEmulators()
+  const emulators = getEmulators()
   expect(emulators).toEqual(Emulators)
   expect(emulators).not.toBe(Emulators)
 })
 
 it('should get MAME emulator cloned', () => {
-  const emulator = emulatorsService.getEmulator(EmulatorId.MAME)
+  const emulator = getEmulator(EmulatorId.MAME)
   expect(emulator).toEqual(MAME)
   expect(emulator).not.toBe(MAME)
 })
 
 it('should get ScummVM emulator cloned', () => {
-  const emulator = emulatorsService.getEmulator(EmulatorId.ScummVM)
+  const emulator = getEmulator(EmulatorId.ScummVM)
   expect(emulator).toEqual(ScummVM)
   expect(emulator).not.toBe(ScummVM)
 })
 
 it('should get ZiNc emulator cloned', () => {
-  const emulator = emulatorsService.getEmulator(EmulatorId.ZiNc)
+  const emulator = getEmulator(EmulatorId.ZiNc)
   expect(emulator).toEqual(ZiNc)
   expect(emulator).not.toBe(ZiNc)
 })
 
 it('should get unknown emulator', () => {
-  const emulator = emulatorsService.getEmulator(EmulatorId.Unknown)
+  const emulator = getEmulator(EmulatorId.Unknown)
   expect(emulator).toBeUndefined()
 })
 
@@ -51,10 +56,7 @@ it('should correctly update configurations with an empty array', () => {
     value: 'testValue',
     mandatory: true,
   }
-  const newConfigurations = emulatorsService.updateConfiguration(
-    configurations,
-    configuration
-  )
+  const newConfigurations = updateConfiguration(configurations, configuration)
 
   expect(newConfigurations).toHaveLength(1)
   expect(newConfigurations[0]).toEqual(configuration)
@@ -82,7 +84,7 @@ it('should correctly update configurations with a non-empty array (1st position)
     mandatory: true,
   }
 
-  const newConfigurations = emulatorsService.updateConfiguration(
+  const newConfigurations = updateConfiguration(
     configurations,
     newConfiguration
   )
@@ -115,7 +117,7 @@ it('should correctly update configurations with a non-empty array (2nd position)
     mandatory: true,
   }
 
-  const newConfigurations = emulatorsService.updateConfiguration(
+  const newConfigurations = updateConfiguration(
     configurations,
     newConfiguration
   )

@@ -1,5 +1,5 @@
 import { app, BrowserWindow, Menu, session, ipcMain } from 'electron'
-import { ipcMainService } from '../src/inversify/mainDependencies'
+import { registerListeners } from '../src/services/ipc-main-service'
 import * as i18nextBackend from 'i18next-electron-fs-backend'
 import fs from 'fs'
 import menuTemplate from './menu'
@@ -116,7 +116,7 @@ app.on('activate', () => {
 // code. You can also put them in separate files and require them here.
 
 // Register IPC listeners for main process.
-ipcMainService.registerListeners()
+registerListeners()
 
 // Listen for 'updateLanguage' event from renderer in order to initialize menu with correct language.
 ipcMain.on('updateLanguage', (_event, language: string) => {
@@ -132,3 +132,8 @@ ipcMain.on('updateLanguage', (_event, language: string) => {
     })
     .catch(console.error)
 })
+
+// Initialize rollbar for production mode
+if (!isDev) {
+  require('../src/services/rollbar-service')
+}

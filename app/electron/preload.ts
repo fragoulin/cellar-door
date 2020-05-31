@@ -32,7 +32,7 @@ contextBridge.exposeInMainWorld('api', {
   },
   sendSync: (channel: string, ...args: unknown[]): unknown => {
     // whitelist channels
-    const validChannels = ['getResourcesPath']
+    const validChannels = ['getResourcesPath', 'isDev']
     if (validChannels.includes(channel)) {
       return ipcRenderer.sendSync(channel, ...args)
     } else {
