@@ -6,7 +6,7 @@ import {
   Emulator,
   EmulatorConfiguration,
 } from 'app/src/models/emulator/types'
-import SelectDirectory from 'app/select-directory/select-directory-component'
+import SelectDirectory from 'app/src/components/emulator/configuration/select-directory/select-directory-component'
 import { updateConfiguration } from 'app/src/services/emulators-service'
 import { withTranslation, WithTranslation } from 'react-i18next'
 

@@ -25,9 +25,6 @@
     "paths": {
       "app/*": [
         "./app/*"
-      ],
-      "test/*": [
-        "./test/*"
       ]
     },
     "outDir": "dist",
