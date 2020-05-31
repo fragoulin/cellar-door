@@ -22,6 +22,14 @@
     "esModuleInterop": true,
     "sourceMap": true,
     "baseUrl": ".",
+    "paths": {
+      "app/*": [
+        "./app/*"
+      ],
+      "test/*": [
+        "./test/*"
+      ]
+    },
     "outDir": "dist",
     "moduleResolution": "node",
     "resolveJsonModule": true,
@@ -34,8 +42,5 @@
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
     "noEmit": true
-  },
-  "include": [
-    "app/**/*", "test/**/*"
-  ]
+  }
 }

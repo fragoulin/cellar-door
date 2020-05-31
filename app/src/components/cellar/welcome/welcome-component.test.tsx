@@ -1,12 +1,12 @@
 import React from 'react'
 import Welcome from './welcome-component'
 import { screen } from '@testing-library/react'
-import { createComponentWithProviderAndRouter } from '../../../../../test/createComponentsHelpers'
-import { Cellar } from '../../../models/cellar'
-import { Emulator } from '../../../models/emulator/types'
+import { createComponentWithProviderAndRouter } from 'test/createComponentsHelpers'
+import { Cellar } from 'app/src/models/cellar'
+import { Emulator } from 'app/src/models/emulator/types'
 import configureMockStore from 'redux-mock-store'
-import { testComponents } from '../fresh-installation/fresh-installation-component.test'
-import Emulators from '../../../models/emulator/emulators/index'
+import { testComponents } from 'app/fresh-installation/fresh-installation-component.test'
+import Emulators from 'app/src/models/emulator/emulators/index'
 
 const mockStore = configureMockStore()
 

@@ -1,9 +1,9 @@
 import React from 'react'
 import SelectDirectory from './select-directory-component'
 import { screen } from '@testing-library/react'
-import { createComponentWithProviderAndRouter } from '../../../../../../test/createComponentsHelpers'
+import { createComponentWithProviderAndRouter } from 'test/createComponentsHelpers'
 import configureMockStore from 'redux-mock-store'
-import { CellarWin } from '../../../../../electron/preload'
+import { CellarWin } from 'app/electron/preload'
 import userEvent from '@testing-library/user-event'
 import wrap from 'jest-wrap'
 

@@ -1,4 +1,4 @@
-import { registerListeners } from '../services/ipc-main-service'
+import { registerListeners } from 'app/src/services/ipc-main-service'
 import { ipcMain } from 'electron'
 
 it('should correctly register listeners', () => {

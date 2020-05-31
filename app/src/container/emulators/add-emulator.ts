@@ -2,14 +2,14 @@ import { connect } from 'react-redux'
 import AddEmulator, {
   AddEmulatorComponentStateProperties,
   AddEmulatorComponentDispatchProperties,
-} from '../../components/emulator/creation/add-emulator/add-emulator-component'
-import { RootState } from '../../redux/store'
-import { EmulatorId } from '../../models/emulator/types'
+} from 'app/src/components/emulator/creation/add-emulator/add-emulator-component'
+import { RootState } from 'app/src/redux/store'
+import { EmulatorId } from 'app/src/models/emulator/types'
 import {
   availableEmulatorNamesListBuilt,
   wizardStatusSet,
   emulatorCreated,
-} from '../../redux/modules/emulators'
+} from 'app/src/redux/modules/emulators'
 
 /**
  * Provides part of redux state to component properties.

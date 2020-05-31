@@ -1,8 +1,8 @@
 import React from 'react'
 import EmulatorConfigurationSummary from './emulator-configuration-summary'
 import { screen } from '@testing-library/react'
-import { createComponentWithRouter } from '../../../../../../test/createComponentsHelpers'
-import Emulators from '../../../../models/emulator/emulators/index'
+import { createComponentWithRouter } from 'test/createComponentsHelpers'
+import Emulators from 'app/src/models/emulator/emulators/index'
 
 it('should correctly display configurations rows', () => {
   const mame = Emulators[0]

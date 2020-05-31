@@ -1,9 +1,9 @@
 import './create-emulator.scss'
 import React from 'react'
-import { Emulator } from '../../../../models/emulator/types'
+import { Emulator } from 'app/src/models/emulator/types'
 import { Button } from '@material-ui/core'
 import { Link } from 'react-router-dom'
-import EmulatorSummary from '../emulator-summary/emulator-summary-component'
+import EmulatorSummary from 'app/src/components/emulator-summary/emulator-summary-component'
 import { withTranslation, WithTranslation } from 'react-i18next'
 
 /**

@@ -1,5 +1,5 @@
 import { ipcMain, dialog, app } from 'electron'
-import { getResourcesPath } from '../services/app-service'
+import { getResourcesPath } from 'app/src/services/app-service'
 
 function registerListeners(): void {
   // Open dialog sync request

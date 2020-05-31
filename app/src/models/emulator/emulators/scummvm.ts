@@ -3,7 +3,7 @@ import {
   EmulatorLicense,
   Emulator,
   EmulatorConfiguration,
-} from '../types'
+} from 'app/src/models/emulator/types'
 
 /**
  * Directory containing ScummVM executable.

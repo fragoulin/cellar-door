@@ -5,9 +5,9 @@ import { Button, FormControl } from '@material-ui/core'
 import {
   Emulator,
   EmulatorConfiguration,
-} from '../../../../models/emulator/types'
-import SelectDirectory from '../select-directory/select-directory-component'
-import { updateConfiguration } from '../../../../services/emulators-service'
+} from 'app/src/models/emulator/types'
+import SelectDirectory from 'app/select-directory/select-directory-component'
+import { updateConfiguration } from 'app/src/services/emulators-service'
 import { withTranslation, WithTranslation } from 'react-i18next'
 
 /**

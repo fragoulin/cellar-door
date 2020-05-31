@@ -1,6 +1,6 @@
 import React from 'react'
 import EmulatorSummary from './emulator-summary-component'
-import Emulators from '../../../../models/emulator/emulators/index'
+import Emulators from 'app/src/models/emulator/emulators/index'
 import { render, screen } from '@testing-library/react'
 
 it('should correctly render component', () => {

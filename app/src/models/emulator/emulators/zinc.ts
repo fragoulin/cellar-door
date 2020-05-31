@@ -1,4 +1,4 @@
-import { EmulatorId, Emulator, EmulatorConfiguration } from '../types'
+import { EmulatorId, Emulator, EmulatorConfiguration } from 'app/src/models/emulator/types'
 
 /**
  * Directory containing ZiNc executable.
