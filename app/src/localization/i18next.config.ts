@@ -1,7 +1,7 @@
 import i18n, { i18n as I18n, InitOptions } from 'i18next'
 import i18nBackend from 'i18next-electron-fs-backend'
 import { initReactI18next } from 'react-i18next'
-import { CellarWin } from '../electron/preload'
+import { CellarWin } from '../../electron/preload'
 import whitelist from './whitelist'
 
 const rendererProcess = typeof window !== 'undefined'

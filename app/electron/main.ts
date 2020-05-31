@@ -4,7 +4,7 @@ import * as i18nextBackend from 'i18next-electron-fs-backend'
 import fs from 'fs'
 import menuTemplate from './menu'
 import { i18n as I18n } from 'i18next'
-import * as i18nConfig from '../localization/i18next.config'
+import * as i18nConfig from '../src/localization/i18next.config'
 
 /**
  * True if current mode is development.
