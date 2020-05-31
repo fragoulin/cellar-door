@@ -1,4 +1,5 @@
 import { ipcMain, dialog, app } from 'electron'
+import { getResourcesPath } from '../services/app-service'
 
 function registerListeners(): void {
   // Open dialog sync request
@@ -16,8 +17,7 @@ function registerListeners(): void {
 
   // Get resources path
   ipcMain.on('getResourcesPath', async (event) => {
-    // If the app is not packaged (dev mode), the resources path references electron installation in node_modules directory.
-    event.returnValue = app.isPackaged ? process.resourcesPath : 'resources'
+    event.returnValue = getResourcesPath()
   })
 
   // Check for dev mode

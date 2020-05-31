@@ -3,22 +3,12 @@ import i18nBackend from 'i18next-electron-fs-backend'
 import { initReactI18next } from 'react-i18next'
 import { CellarWin } from '../../electron/preload'
 import whitelist from './whitelist'
+import { getResourcesPath, isDev } from '../services/app-service'
 
 const rendererProcess = typeof window !== 'undefined'
 
-// Compute resources path to access locales.
-let resourcesPath: string
-if (rendererProcess) {
-  // In renderer process, use IPC to retrieve resources path.
-  resourcesPath = (window as CellarWin).api.sendSync(
-    'getResourcesPath'
-  ) as string
-} else {
-  // In main process, use node process
-  const app = require('electron').app
-  // If the app is not packaged (dev mode), the resources path references electron installation in node_modules directory.
-  resourcesPath = app.isPackaged ? process.resourcesPath : 'resources'
-}
+// Retrieve resources path to access locales.
+const resourcesPath = getResourcesPath()
 
 const options: InitOptions = {
   backend: {

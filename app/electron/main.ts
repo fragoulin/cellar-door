@@ -5,11 +5,7 @@ import fs from 'fs'
 import menuTemplate from './menu'
 import { i18n as I18n } from 'i18next'
 import * as i18nConfig from '../src/localization/i18next.config'
-
-/**
- * True if current mode is development.
- */
-const isDev = !app.isPackaged
+import { isDev } from '../src/services/app-service'
 
 /**
  * Path to main webpack entry.
@@ -33,7 +29,7 @@ let win: BrowserWindow
  * Set CSP header for packaged (production) application.
  */
 function setCspHeaders(): void {
-  if (isDev) return
+  if (isDev()) return
   session.defaultSession.webRequest.onHeadersReceived(
     (details, callbackHeaders) => {
       callbackHeaders({
@@ -69,7 +65,7 @@ function createWindow(): void {
     title: 'Cellar door',
     webPreferences: {
       contextIsolation: true,
-      devTools: isDev,
+      devTools: isDev(),
       enableRemoteModule: false,
       preload: MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY,
     },
@@ -134,6 +130,6 @@ ipcMain.on('updateLanguage', (_event, language: string) => {
 })
 
 // Initialize rollbar for production mode
-if (!isDev) {
+if (!isDev()) {
   require('../src/services/rollbar-service')
 }
