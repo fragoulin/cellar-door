@@ -5,7 +5,7 @@ import { Emulator } from '../../models/emulator/types'
 /**
  * Cellar state definition.
  */
-interface CellarState {
+export interface CellarState {
   currentCellar: Cellar | undefined
   currentLocale: string
   emulatorsInCellar: Emulator[]

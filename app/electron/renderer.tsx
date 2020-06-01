@@ -86,14 +86,16 @@ function notifyMainProcess(language: string): void {
 }
 
 // Wait for i18next initialization before creating root element.
-const state = store.getState()
-const language = state.cellar.currentLocale
-i18nConfig
-  .whenReady(language)
-  .then((i18n) => {
-    notifyMainProcess(language)
-    listenForLanguageUpdate(store, i18n)
-    listenForMenuClick(store)
-    createRoot(store, i18n)
-  })
-  .catch(console.error)
+persistor.subscribe(() => {
+  const state = store.getState()
+  const language = state.cellar.currentLocale
+  i18nConfig
+    .whenReady(language)
+    .then((i18n) => {
+      notifyMainProcess(language)
+      listenForLanguageUpdate(store, i18n)
+      listenForMenuClick(store)
+      createRoot(store, i18n)
+    })
+    .catch(console.error)
+})

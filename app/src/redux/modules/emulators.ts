@@ -16,7 +16,7 @@ export interface EmulatorIdsToName {
 /**
  * Emulators state definition.
  */
-interface EmulatorsState {
+export interface EmulatorsState {
   availableEmulatorNames: EmulatorIdsToName[]
   wizard: {
     hasError: boolean
