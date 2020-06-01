@@ -23,7 +23,7 @@ export interface ConfigureEmulatorComponentStateProperties {
  */
 export interface ConfigureEmulatorComponentDispatchProperties {
   setWizardStatus(status: boolean): void
-  updateEmulatorConfiguration(configurations: EmulatorConfiguration[]): void
+  updateEmulatorConfiguration(configuration: EmulatorConfiguration[]): void
 }
 
 /**
@@ -31,7 +31,7 @@ export interface ConfigureEmulatorComponentDispatchProperties {
  */
 interface ComponentState {
   redirect: boolean
-  configurations: EmulatorConfiguration[]
+  configuration: EmulatorConfiguration[]
 }
 
 /**
@@ -57,8 +57,8 @@ class ConfigureEmulator extends React.PureComponent<
 
     this.state = {
       redirect: false,
-      configurations: this.props.emulator
-        ? this.props.emulator.configurations
+      configuration: this.props.emulator
+        ? this.props.emulator.configuration
         : [],
     }
   }
@@ -69,7 +69,7 @@ class ConfigureEmulator extends React.PureComponent<
     mandatory: boolean
   ): void => {
     this.setState((state) => ({
-      configurations: updateConfiguration(state.configurations, {
+      configuration: updateConfiguration(state.configuration, {
         name,
         value,
         mandatory,
@@ -79,7 +79,7 @@ class ConfigureEmulator extends React.PureComponent<
 
   private isConfigurationValueSet(name: string): boolean {
     return (
-      this.state.configurations.find(
+      this.state.configuration.find(
         (configuration) => configuration.name === name && configuration.value
       ) !== undefined
     )
@@ -88,7 +88,7 @@ class ConfigureEmulator extends React.PureComponent<
   private isConfigurationMissing(): boolean {
     if (!this.props.emulator) return false
     return (
-      this.props.emulator.configurations.find(
+      this.props.emulator.configuration.find(
         (configuration) =>
           configuration.mandatory &&
           !this.isConfigurationValueSet(configuration.name)
@@ -103,7 +103,7 @@ class ConfigureEmulator extends React.PureComponent<
     this.props.setWizardStatus(!validConfiguration)
 
     if (validConfiguration) {
-      this.props.updateEmulatorConfiguration(this.state.configurations)
+      this.props.updateEmulatorConfiguration(this.state.configuration)
     }
 
     this.setState({
@@ -131,7 +131,7 @@ class ConfigureEmulator extends React.PureComponent<
         </h1>
         <div>
           <FormControl required error={this.props.hasError}>
-            {this.props.emulator.configurations.map(
+            {this.props.emulator.configuration.map(
               (configuration: EmulatorConfiguration) => {
                 return (
                   <SelectDirectory

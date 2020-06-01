@@ -116,9 +116,12 @@
     "react-router-dom": "^5.1.2",
     "redux": "^4.0.5",
     "redux-logger": "^3.0.6",
+    "redux-persist": "^6.0.0",
     "redux-thunk": "^2.3.0",
     "rollbar": "^2.16.2",
+    "rxjs": "^6.5.5",
     "strongly-typed-events": "^1.6.11",
+    "svg-loader": "^0.0.2",
     "uuid": "^8.0.0",
     "webfontloader": "^1.6.28"
   }

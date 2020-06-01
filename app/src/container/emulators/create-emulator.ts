@@ -5,7 +5,7 @@ import CreateEmulator, {
   CreateEmulatorComponentDispatchProperties,
 } from '../../components/emulator/creation/create-emulator/create-emulator-component'
 import { Emulator } from '../../models/emulator/types'
-import { emulatorAddedToCellar } from '../../redux/modules/emulators'
+import { emulatorAddedToCellar } from '../../redux/modules/cellar'
 
 /**
  * Provides part of redux state to component properties.

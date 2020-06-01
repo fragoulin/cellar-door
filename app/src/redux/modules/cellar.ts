@@ -1,5 +1,6 @@
 import { Cellar } from '../../models/cellar'
 import { createSlice } from '@reduxjs/toolkit'
+import { Emulator } from '../../models/emulator/types'
 
 /**
  * Cellar state definition.
@@ -7,6 +8,7 @@ import { createSlice } from '@reduxjs/toolkit'
 interface CellarState {
   currentCellar: Cellar | undefined
   currentLocale: string
+  emulatorsInCellar: Emulator[]
 }
 
 /**
@@ -15,6 +17,7 @@ interface CellarState {
 const initialState: CellarState = {
   currentCellar: undefined,
   currentLocale: 'en',
+  emulatorsInCellar: [],
 }
 
 /**
@@ -26,12 +29,22 @@ const cellarSlice = createSlice({
   reducers: {
     cellarCreated(state): void {
       state.currentCellar = {}
+      state.emulatorsInCellar = []
     },
     cellarClosed(state): void {
       state.currentCellar = undefined
+      state.emulatorsInCellar = []
     },
     currentLocaleSet(state, action): void {
       state.currentLocale = action.payload
+    },
+    emulatorAddedToCellar(state, action): void {
+      state.emulatorsInCellar.push(action.payload)
+    },
+    emulatorRemovedFromCellar(state, action): void {
+      state.emulatorsInCellar = state.emulatorsInCellar.filter((emulator) => {
+        return emulator.Id !== action.payload.Id
+      })
     },
   },
 })
@@ -43,6 +56,8 @@ export const {
   cellarCreated,
   cellarClosed,
   currentLocaleSet,
+  emulatorAddedToCellar,
+  emulatorRemovedFromCellar,
 } = cellarSlice.actions
 
 /**

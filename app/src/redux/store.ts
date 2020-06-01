@@ -1,8 +1,10 @@
 import { combineReducers } from 'redux'
-import { configureStore, Store } from '@reduxjs/toolkit'
+import { configureStore } from '@reduxjs/toolkit'
 import logger from 'redux-logger'
 import cellarReducer from './modules/cellar'
 import emulatorsReducer from './modules/emulators'
+import { persistStore, persistReducer } from 'redux-persist'
+import storage from 'redux-persist/lib/storage'
 
 /**
  * Reducers combined.
@@ -17,47 +19,19 @@ const rootReducer = combineReducers({
  */
 export type RootState = ReturnType<typeof rootReducer>
 
-const localStorageStateKey = 'cellar.state'
-
 /**
- * Initialize store
- *
- * @param state - loaded state from local storage, or undefined in case of new installation.
+ * Persistence configuration.
  */
-const initializeStore = (state: RootState | undefined): Store => {
-  const store = configureStore({
-    reducer: rootReducer,
-    middleware: [logger],
-    ...(state
-      ? {
-          preloadedState: state,
-        }
-      : {}),
-  })
-
-  // Subscribe to redux state update
-  store.subscribe(() => {
-    if (store) {
-      const stateJson = JSON.stringify(store.getState())
-      localStorage.setItem(localStorageStateKey, stateJson)
-    }
-  })
-
-  return store
+const persistConfig = {
+  key: 'root',
+  storage,
 }
+const persistedReducer = persistReducer(persistConfig, rootReducer)
 
-/**
- * Promise when store is ready.
- *
- * @returns a promise when store is ready.
- */
-export const whenReady = (): Promise<Store<RootState>> => {
-  return new Promise((resolve) => {
-    const stateJson = localStorage.getItem(localStorageStateKey)
-    let state: RootState | undefined
-    if (stateJson) {
-      state = JSON.parse(stateJson)
-    }
-    resolve(initializeStore(state))
-  })
-}
+const store = configureStore({
+  reducer: persistedReducer,
+  middleware: [logger],
+})
+const persistor = persistStore(store)
+
+export { store, persistor }

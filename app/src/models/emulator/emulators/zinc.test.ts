@@ -23,14 +23,14 @@ it('should have correct URL', () => {
   expect(Zinc.URL).toBe('http://www.emulator-zone.com/doc.php/arcade/zinc.html')
 })
 
-it('should have correct configurations', () => {
-  expect(Zinc.configurations).toHaveLength(2)
-  expect(Zinc.configurations[0].name).toBe('zincDirectory')
-  expect(Zinc.configurations[0].value).toBeUndefined()
-  expect(Zinc.configurations[0].mandatory).toBe(true)
-  expect(Zinc.configurations[1].name).toBe('romsDirectory')
-  expect(Zinc.configurations[1].value).toBeUndefined()
-  expect(Zinc.configurations[1].mandatory).toBe(true)
+it('should have correct configuration', () => {
+  expect(Zinc.configuration).toHaveLength(2)
+  expect(Zinc.configuration[0].name).toBe('zincDirectory')
+  expect(Zinc.configuration[0].value).toBeUndefined()
+  expect(Zinc.configuration[0].mandatory).toBe(true)
+  expect(Zinc.configuration[1].name).toBe('romsDirectory')
+  expect(Zinc.configuration[1].value).toBeUndefined()
+  expect(Zinc.configuration[1].mandatory).toBe(true)
 })
 
 it('should have no licences', () => {

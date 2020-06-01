@@ -86,7 +86,7 @@ wrap()
       )
 
       const textboxes = screen.getAllByRole('textbox')
-      expect(textboxes).toHaveLength(mame.configurations.length)
+      expect(textboxes).toHaveLength(mame.configuration.length)
     })
 
     it('should call api.send() when clicking on select directory buttons', (done) => {
@@ -111,12 +111,12 @@ wrap()
         expect(type).toEqual('dialogSync')
         expect(properties.properties[0]).toEqual('openDirectory')
         expect(properties.properties[1]).toEqual('dontAddToRecent')
-        if (++sendCalls === mame.configurations.length) {
+        if (++sendCalls === mame.configuration.length) {
           done()
         }
       }
 
-      mame.configurations.forEach((configuration) => {
+      mame.configuration.forEach((configuration) => {
         const button = screen.getByRole(configuration.name)
         userEvent.click(button)
       })

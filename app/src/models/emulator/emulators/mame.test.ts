@@ -22,17 +22,17 @@ it('should have correct URL', () => {
   expect(Mame.URL).toBe('https://www.mamedev.org/')
 })
 
-it('should have correct configurations', () => {
-  expect(Mame.configurations).toHaveLength(3)
-  expect(Mame.configurations[0].name).toBe('mameDirectory')
-  expect(Mame.configurations[0].value).toBeUndefined()
-  expect(Mame.configurations[0].mandatory).toBe(true)
-  expect(Mame.configurations[1].name).toBe('extrasDirectory')
-  expect(Mame.configurations[1].value).toBeUndefined()
-  expect(Mame.configurations[1].mandatory).toBe(false)
-  expect(Mame.configurations[2].name).toBe('multimediaDirectory')
-  expect(Mame.configurations[2].value).toBeUndefined()
-  expect(Mame.configurations[2].mandatory).toBe(false)
+it('should have correct configuration', () => {
+  expect(Mame.configuration).toHaveLength(3)
+  expect(Mame.configuration[0].name).toBe('mameDirectory')
+  expect(Mame.configuration[0].value).toBeUndefined()
+  expect(Mame.configuration[0].mandatory).toBe(true)
+  expect(Mame.configuration[1].name).toBe('extrasDirectory')
+  expect(Mame.configuration[1].value).toBeUndefined()
+  expect(Mame.configuration[1].mandatory).toBe(false)
+  expect(Mame.configuration[2].name).toBe('multimediaDirectory')
+  expect(Mame.configuration[2].value).toBeUndefined()
+  expect(Mame.configuration[2].mandatory).toBe(false)
 })
 
 it('should have correct licences', () => {

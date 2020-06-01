@@ -29,8 +29,8 @@ const mapStateToProps = (
  */
 const mapDispatchToProps: ConfigureEmulatorComponentDispatchProperties = {
   setWizardStatus: (error: boolean) => wizardStatusSet(error),
-  updateEmulatorConfiguration: (configurations: EmulatorConfiguration[]) =>
-    emulatorConfigurationUpdated(configurations),
+  updateEmulatorConfiguration: (configuration: EmulatorConfiguration[]) =>
+    emulatorConfigurationUpdated(configuration),
 }
 
 /**

@@ -49,21 +49,24 @@ it('should get unknown emulator', () => {
   expect(emulator).toBeUndefined()
 })
 
-it('should correctly update configurations with an empty array', () => {
-  const configurations: EmulatorConfiguration[] = []
+it('should correctly update configuration with an empty array', () => {
+  const configurationToUpdate: EmulatorConfiguration[] = []
   const configuration: EmulatorConfiguration = {
     name: 'testName',
     value: 'testValue',
     mandatory: true,
   }
-  const newConfigurations = updateConfiguration(configurations, configuration)
+  const newConfiguration = updateConfiguration(
+    configurationToUpdate,
+    configuration
+  )
 
-  expect(newConfigurations).toHaveLength(1)
-  expect(newConfigurations[0]).toEqual(configuration)
-  expect(newConfigurations[0]).not.toBe(configuration)
+  expect(newConfiguration).toHaveLength(1)
+  expect(newConfiguration[0]).toEqual(configuration)
+  expect(newConfiguration[0]).not.toBe(configuration)
 })
 
-it('should correctly update configurations with a non-empty array (1st position)', () => {
+it('should correctly update configuration with a non-empty array (1st position)', () => {
   const configToReplace: EmulatorConfiguration = {
     name: 'testName',
     value: 'testValue1',
@@ -76,7 +79,7 @@ it('should correctly update configurations with a non-empty array (1st position)
     mandatory: false,
   }
 
-  const configurations: EmulatorConfiguration[] = [configToReplace, config1]
+  const configuration: EmulatorConfiguration[] = [configToReplace, config1]
 
   const newConfiguration: EmulatorConfiguration = {
     name: 'testName',
@@ -84,10 +87,7 @@ it('should correctly update configurations with a non-empty array (1st position)
     mandatory: true,
   }
 
-  const newConfigurations = updateConfiguration(
-    configurations,
-    newConfiguration
-  )
+  const newConfigurations = updateConfiguration(configuration, newConfiguration)
 
   expect(newConfigurations).toHaveLength(2)
   expect(newConfigurations[0]).toEqual(newConfiguration)
@@ -96,7 +96,7 @@ it('should correctly update configurations with a non-empty array (1st position)
   expect(newConfigurations[1]).not.toBe(config1)
 })
 
-it('should correctly update configurations with a non-empty array (2nd position)', () => {
+it('should correctly update configuration with a non-empty array (2nd position)', () => {
   const configToReplace: EmulatorConfiguration = {
     name: 'testName',
     value: 'testValue1',
@@ -109,7 +109,7 @@ it('should correctly update configurations with a non-empty array (2nd position)
     mandatory: false,
   }
 
-  const configurations: EmulatorConfiguration[] = [config1, configToReplace]
+  const configuration: EmulatorConfiguration[] = [config1, configToReplace]
 
   const newConfiguration: EmulatorConfiguration = {
     name: 'testName',
@@ -117,10 +117,7 @@ it('should correctly update configurations with a non-empty array (2nd position)
     mandatory: true,
   }
 
-  const newConfigurations = updateConfiguration(
-    configurations,
-    newConfiguration
-  )
+  const newConfigurations = updateConfiguration(configuration, newConfiguration)
 
   expect(newConfigurations).toHaveLength(2)
   expect(newConfigurations[0]).toEqual(config1)

@@ -18,7 +18,6 @@ export interface EmulatorIdsToName {
  */
 interface EmulatorsState {
   availableEmulatorNames: EmulatorIdsToName[]
-  emulatorsInCellar: Emulator[]
   wizard: {
     hasError: boolean
     selectedEmulatorId: EmulatorId | undefined
@@ -36,7 +35,6 @@ const initialState: EmulatorsState = {
     selectedEmulatorId: undefined,
     emulatorCurrentlyConfigured: undefined,
   },
-  emulatorsInCellar: [],
 }
 
 /**
@@ -64,16 +62,8 @@ const emulatorsSlice = createSlice({
         state.wizard.emulatorCurrentlyConfigured.Id
       )
       if (!newEmulator) return
-      newEmulator.configurations = action.payload
+      newEmulator.configuration = action.payload
       state.wizard.emulatorCurrentlyConfigured = newEmulator
-    },
-    emulatorAddedToCellar(state, action): void {
-      state.emulatorsInCellar.push(action.payload)
-    },
-    emulatorRemovedFromCellar(state, action): void {
-      state.emulatorsInCellar = state.emulatorsInCellar.filter((emulator) => {
-        return emulator.Id !== action.payload.Id
-      })
     },
   },
 })
@@ -87,8 +77,6 @@ export const {
   wizardStatusSet,
   emulatorCreated,
   emulatorConfigurationUpdated,
-  emulatorAddedToCellar,
-  emulatorRemovedFromCellar,
 } = emulatorsSlice.actions
 
 /**

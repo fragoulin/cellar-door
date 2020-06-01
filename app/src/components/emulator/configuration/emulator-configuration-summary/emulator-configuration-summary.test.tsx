@@ -4,15 +4,15 @@ import { screen } from '@testing-library/react'
 import { createComponentWithRouter } from '../../../../../../test/createComponentsHelpers'
 import Emulators from '../../../../models/emulator/emulators/index'
 
-it('should correctly display configurations rows', () => {
+it('should correctly display configuration rows', () => {
   const mame = Emulators[0]
   createComponentWithRouter(
-    <EmulatorConfigurationSummary configurations={mame.configurations} />
+    <EmulatorConfigurationSummary configuration={mame.configuration} />
   )
 
   const rows = screen.getAllByRole('row')
-  expect(rows).toHaveLength(mame.configurations.length)
-  mame.configurations.forEach((configuration, i) => {
+  expect(rows).toHaveLength(mame.configuration.length)
+  mame.configuration.forEach((configuration, i) => {
     expect(rows[i].textContent).toEqual(configuration.name)
   })
 })

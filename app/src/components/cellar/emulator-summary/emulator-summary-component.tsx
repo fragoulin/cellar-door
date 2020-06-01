@@ -19,7 +19,7 @@ class EmulatorSummary extends React.PureComponent<
   EmulatorSummaryComponentProperties & WithTranslation
 > {
   /**
-   * Render title and a summary of emulator configurations.
+   * Render title and a summary of emulator configuration.
    *
    * @returns the newly created node.
    */
@@ -28,7 +28,7 @@ class EmulatorSummary extends React.PureComponent<
       <>
         <h2>{this.props.emulator.shortName}</h2>
         <EmulatorConfigurationSummary
-          configurations={this.props.emulator.configurations}
+          configuration={this.props.emulator.configuration}
         />
       </>
     )

@@ -3,7 +3,7 @@ import i18nBackend from 'i18next-electron-fs-backend'
 import { initReactI18next } from 'react-i18next'
 import { CellarWin } from '../../electron/preload'
 import whitelist from './whitelist'
-import { getResourcesPath, isDev } from '../services/app-service'
+import { getResourcesPath } from '../services/app-service'
 
 const rendererProcess = typeof window !== 'undefined'
 

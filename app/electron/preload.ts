@@ -41,7 +41,7 @@ contextBridge.exposeInMainWorld('api', {
     }
   },
   receive: (channel: string, func: Function) => {
-    const validChannels = ['dialogSyncResult']
+    const validChannels = ['dialogSyncResult', 'menuClick']
     if (validChannels.includes(channel)) {
       // Deliberately strip event as it includes `sender`
       ipcRenderer.on(channel, (_event, ...args) => func(...args))

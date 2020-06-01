@@ -25,14 +25,14 @@ it('should have correct URL', () => {
   expect(ScummVm.URL).toBe('https://www.scummvm.org/')
 })
 
-it('should have correct configurations', () => {
-  expect(ScummVm.configurations).toHaveLength(2)
-  expect(ScummVm.configurations[0].name).toBe('scummvmDirectory')
-  expect(ScummVm.configurations[0].value).toBeUndefined()
-  expect(ScummVm.configurations[0].mandatory).toBe(true)
-  expect(ScummVm.configurations[1].name).toBe('gamesDirectory')
-  expect(ScummVm.configurations[1].value).toBeUndefined()
-  expect(ScummVm.configurations[1].mandatory).toBe(true)
+it('should have correct configuration', () => {
+  expect(ScummVm.configuration).toHaveLength(2)
+  expect(ScummVm.configuration[0].name).toBe('scummvmDirectory')
+  expect(ScummVm.configuration[0].value).toBeUndefined()
+  expect(ScummVm.configuration[0].mandatory).toBe(true)
+  expect(ScummVm.configuration[1].name).toBe('gamesDirectory')
+  expect(ScummVm.configuration[1].value).toBeUndefined()
+  expect(ScummVm.configuration[1].mandatory).toBe(true)
 })
 
 it('should have correct licences', () => {

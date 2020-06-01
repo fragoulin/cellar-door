@@ -17,7 +17,7 @@ class EmulatorSummary extends React.PureComponent<
   EmulatorSummaryComponentProperties & WithTranslation
 > {
   /**
-   * Render title and configurations from specified emulator.
+   * Render title and configuration from specified emulator.
    *
    * @returns the newly created node.
    */
@@ -25,7 +25,7 @@ class EmulatorSummary extends React.PureComponent<
     return (
       <>
         <EmulatorConfigurationSummary
-          configurations={this.props.emulator.configurations}
+          configuration={this.props.emulator.configuration}
         />
       </>
     )

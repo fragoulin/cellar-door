@@ -28,10 +28,10 @@ wrap()
         cellar: {
           currentCellar: {},
           currentLocale: 'en',
+          emulatorsInCellar: [],
         },
         emulators: {
           availableEmulatorNames: buildAvailableEmulatorNamesList(),
-          emulatorsInCellar: [],
           wizard: {
             emulatorCurrentlyConfigured: undefined,
             hasError: false,
@@ -75,10 +75,10 @@ wrap()
         cellar: {
           currentCellar: {},
           currentLocale: 'en',
+          emulatorsInCellar: [],
         },
         emulators: {
           availableEmulatorNames: buildAvailableEmulatorNamesList(),
-          emulatorsInCellar: [],
           wizard: {
             emulatorCurrentlyConfigured: mame,
             hasError: false,
@@ -117,10 +117,10 @@ wrap()
         cellar: {
           currentCellar: {},
           currentLocale: 'en',
+          emulatorsInCellar: [],
         },
         emulators: {
           availableEmulatorNames: buildAvailableEmulatorNamesList(),
-          emulatorsInCellar: [],
           wizard: {
             emulatorCurrentlyConfigured: mame,
             hasError: false,

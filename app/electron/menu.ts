@@ -1,4 +1,9 @@
-import { App, MenuItemConstructorOptions, MenuItem } from 'electron'
+import {
+  App,
+  MenuItemConstructorOptions,
+  MenuItem,
+  BrowserWindow,
+} from 'electron'
 import * as i18nBackend from 'i18next-electron-fs-backend'
 import Whitelist from '../src/localization/whitelist'
 import { i18n as I18n } from 'i18next'
@@ -32,36 +37,52 @@ const macSystemMenuFragment = (
 ]
 
 /**
+ * Handle menu click.
+ *
+ * @param menuItem - menu item user clicked on.
+ * @param browserWindow - current browser window.
+ */
+function handleClick(menuItem: MenuItem, browserWindow: BrowserWindow): void {
+  browserWindow.webContents.send('menuClick', menuItem.id)
+}
+
+/**
  * Main menu (like file) for all OS.
  *
  * @returns cellar menu for all OS.
  */
-const cellarMenuFragment = (i18n: I18n): MenuItemConstructorOptions => {
+function cellarMenuFragment(i18n: I18n): MenuItemConstructorOptions {
   return {
     label: i18n.t('menu.cellar.label'),
     submenu: [
-      { label: i18n.t('menu.cellar.newCellar') },
-      { label: i18n.t('menu.cellar.newEmulator') },
+      {
+        id: 'newCellar',
+        label: i18n.t('menu.cellar.newCellar'),
+        click: handleClick,
+      },
+      { label: i18n.t('menu.cellar.newEmulator'), click: handleClick },
       { type: 'separator' },
-      { label: i18n.t('menu.cellar.open') },
-      { label: i18n.t('menu.cellar.openRecent') },
+      { label: i18n.t('menu.cellar.open'), click: handleClick },
+      { label: i18n.t('menu.cellar.openRecent'), click: handleClick },
       { type: 'separator' },
-      { label: i18n.t('menu.cellar.save') },
-      { label: i18n.t('menu.cellar.saveAs') },
+      { label: i18n.t('menu.cellar.save'), click: handleClick },
+      { label: i18n.t('menu.cellar.saveAs'), click: handleClick },
       { type: 'separator' },
-      { label: i18n.t('menu.cellar.closeEmulator') },
+      { label: i18n.t('menu.cellar.closeEmulator'), click: handleClick },
       { type: 'separator' },
       ...(isMac
         ? [
             {
               role: 'close',
               label: i18n.t('menu.cellar.close'),
+              click: handleClick,
             } as MenuItemConstructorOptions,
           ]
         : [
             {
               role: 'quit',
               label: i18n.t('menu.cellar.quit'),
+              click: handleClick,
             } as MenuItemConstructorOptions,
           ]),
     ],
@@ -73,7 +94,7 @@ const cellarMenuFragment = (i18n: I18n): MenuItemConstructorOptions => {
  *
  * @returns preferences menu for all OS.
  */
-const preferencesMenuFragment = (i18n: I18n): MenuItemConstructorOptions => {
+function preferencesMenuFragment(i18n: I18n): MenuItemConstructorOptions {
   return {
     label: i18n.t('menu.preferences.label'),
     submenu: [
@@ -93,11 +114,13 @@ const preferencesMenuFragment = (i18n: I18n): MenuItemConstructorOptions => {
  *
  * @returns help menu for all OS.
  */
-const helpMenuFragment = (i18n: I18n): MenuItemConstructorOptions => {
+function helpMenuFragment(i18n: I18n): MenuItemConstructorOptions {
   return {
     role: 'help',
     label: i18n.t('menu.help.label'),
-    submenu: [{ role: 'about', label: i18n.t('menu.help.about') }],
+    submenu: [
+      { role: 'about', label: i18n.t('menu.help.about'), click: handleClick },
+    ],
   }
 }
 

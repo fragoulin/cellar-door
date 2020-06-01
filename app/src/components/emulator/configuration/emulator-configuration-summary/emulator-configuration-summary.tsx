@@ -7,17 +7,17 @@ import { withTranslation, WithTranslation } from 'react-i18next'
  * Properties definition for this component.
  */
 interface EmulatorConfigurationSummaryProperties {
-  configurations: EmulatorConfiguration[]
+  configuration: EmulatorConfiguration[]
 }
 
 /**
- * Emulator configuration summary component displays the specified emulator configurations.
+ * Emulator configuration summary component displays the specified emulator configuration.
  */
 class EmulatorConfigurationSummary extends React.Component<
   EmulatorConfigurationSummaryProperties & WithTranslation
 > {
   /**
-   * Renders the configurations specified in the properties using a table.
+   * Renders the configuration specified in the properties using a table.
    *
    * @returns the newly created node.
    */
@@ -25,7 +25,7 @@ class EmulatorConfigurationSummary extends React.Component<
     return (
       <table>
         <tbody>
-          {this.props.configurations.map(
+          {this.props.configuration.map(
             (configuration: EmulatorConfiguration) => {
               return (
                 <tr key={configuration.name}>
