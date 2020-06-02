@@ -3,8 +3,8 @@ import {
   EmulatorLicense,
   Emulator,
   EmulatorConfiguration,
-} from '../types'
-import logo from '../../../../../resources/logos/mame.svg'
+} from 'models/emulator/types'
+import logo from 'resources/logos/mame.svg'
 
 /**
  * Directory containing MAME executable. Mandatory.

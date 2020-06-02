@@ -1,11 +1,11 @@
 import { app, BrowserWindow, Menu, session, ipcMain } from 'electron'
-import { registerListeners } from '../src/services/ipc-main-service'
+import { registerListeners } from 'services/ipc-main-service'
 import * as i18nextBackend from 'i18next-electron-fs-backend'
 import fs from 'fs'
 import menuTemplate from './menu'
 import { i18n as I18n } from 'i18next'
-import * as i18nConfig from '../src/localization/i18next.config'
-import { isDev } from '../src/services/app-service'
+import * as i18nConfig from 'localization/i18next.config'
+import { isDev } from 'services/app-service'
 import contextMenu from 'electron-context-menu'
 import { contextMenuOptions } from './context-menu'
 import { UpdateLanguageChannel } from './constants'
@@ -160,5 +160,5 @@ ipcMain.on(UpdateLanguageChannel, (_event, language: string) => {
 
 // Initialize rollbar for production mode
 if (!isDev()) {
-  require('../src/services/rollbar-service')
+  require('services/rollbar-service')
 }

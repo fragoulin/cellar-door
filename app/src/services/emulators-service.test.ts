@@ -1,14 +1,14 @@
-import Emulators from '../models/emulator/emulators'
-import { EmulatorId, EmulatorConfiguration } from '../models/emulator/types'
-import MAME from '../models/emulator/emulators/mame'
-import ScummVM from '../models/emulator/emulators/scummvm'
-import ZiNc from '../models/emulator/emulators/zinc'
+import Emulators from 'models/emulator/emulators'
+import { EmulatorId, EmulatorConfiguration } from 'models/emulator/types'
+import MAME from 'models/emulator/emulators/mame'
+import ScummVM from 'models/emulator/emulators/scummvm'
+import ZiNc from 'models/emulator/emulators/zinc'
 import {
   buildAvailableEmulatorNamesList,
   getEmulator,
   getEmulators,
   updateConfiguration,
-} from '../services/emulators-service'
+} from 'services/emulators-service'
 
 it('should build available emulators names list', () => {
   const listToTest = buildAvailableEmulatorNamesList()

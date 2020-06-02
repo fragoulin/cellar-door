@@ -3,8 +3,8 @@ import {
   EmulatorLicense,
   Emulator,
   EmulatorConfiguration,
-} from '../types'
-import logo from '../../../../../resources/logos/scummvm.svg'
+} from 'models/emulator/types'
+import logo from 'resources/logos/scummvm.svg'
 
 /**
  * Directory containing ScummVM executable.

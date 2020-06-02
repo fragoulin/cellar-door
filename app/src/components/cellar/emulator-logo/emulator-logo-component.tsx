@@ -1,6 +1,6 @@
 import './emulator-logo.scss'
 import React from 'react'
-import { Emulator } from 'app/src/models/emulator/types'
+import { Emulator } from 'models/emulator/types'
 
 /**
  * Properties definition for this component.

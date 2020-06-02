@@ -3,8 +3,8 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { Button } from '@material-ui/core'
 import { withTranslation, WithTranslation } from 'react-i18next'
-import { Emulator } from 'app/src/models/emulator/types'
-import EmulatorLogoComponent from '../emulator-logo/emulator-logo-component'
+import { Emulator } from 'models/emulator/types'
+import EmulatorLogoComponent from 'components/cellar/emulator-logo/emulator-logo-component'
 
 /**
  * Properties definition for this component.

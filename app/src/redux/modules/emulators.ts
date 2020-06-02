@@ -1,9 +1,9 @@
-import { EmulatorId, Emulator } from '../../models/emulator/types'
+import { EmulatorId, Emulator } from 'models/emulator/types'
 import { createSlice } from '@reduxjs/toolkit'
 import {
   buildAvailableEmulatorNamesList,
   getEmulator,
-} from '../../services/emulators-service'
+} from 'services/emulators-service'
 
 /**
  * Maps emulator Ids to emulator names.

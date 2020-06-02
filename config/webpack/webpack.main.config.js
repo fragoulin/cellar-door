@@ -1,3 +1,5 @@
+const { TsConfigPathsPlugin } = require('awesome-typescript-loader');
+
 module.exports = {
   /**
    * This is the main entry point for your application, it's the first file
@@ -8,7 +10,11 @@ module.exports = {
   module: {
     rules: require('./webpack.rules')
   },
+  plugins: require('./webpack.plugins'),
   resolve: {
-    extensions: ['.js', '.ts', '.jsx', '.tsx', '.css', '.scss', '.json']
+    extensions: ['.js', '.ts', '.jsx', '.tsx', '.css', '.scss', '.json'],
+    plugins: [
+      new TsConfigPathsPlugin()
+    ]
   }
 }

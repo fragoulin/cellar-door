@@ -1,5 +1,5 @@
-const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
+const HardSourceWebpackPlugin = require('hard-source-webpack-plugin')
 
 module.exports = [
-  new ForkTsCheckerWebpackPlugin(),
+  new HardSourceWebpackPlugin()
 ]

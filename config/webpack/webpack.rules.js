@@ -18,8 +18,9 @@ module.exports = [
     test: /\.tsx?$/,
     exclude: /(node_modules|\.webpack)/,
     use: {
-      loader: 'ts-loader',
+      loader: 'awesome-typescript-loader',
       options: {
+        useCache: true,
         transpileOnly: true
       }
     }

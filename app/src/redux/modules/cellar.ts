@@ -1,6 +1,6 @@
-import { Cellar } from '../../models/cellar'
+import { Cellar } from 'models/cellar'
 import { createSlice } from '@reduxjs/toolkit'
-import { Emulator } from '../../models/emulator/types'
+import { Emulator } from 'models/emulator/types'
 
 /**
  * Cellar state definition.

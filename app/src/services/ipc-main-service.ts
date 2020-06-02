@@ -1,11 +1,11 @@
 import { ipcMain, dialog, app } from 'electron'
-import { getResourcesPath } from '../services/app-service'
+import { getResourcesPath } from 'services/app-service'
 import {
   DialogSyncChannel,
   getResourcesPathChannel,
   DialogSyncResultChannel,
   isDevChannel,
-} from 'app/electron/constants'
+} from 'electron/constants'
 
 function registerListeners(): void {
   // Open dialog sync request

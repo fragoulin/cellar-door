@@ -2,9 +2,9 @@ import {
   Emulator,
   EmulatorId,
   EmulatorConfiguration,
-} from '../models/emulator/types'
-import Emulators from '../models/emulator/emulators'
-import { EmulatorIdsToName } from '../redux/modules/emulators'
+} from 'models/emulator/types'
+import Emulators from 'models/emulator/emulators'
+import { EmulatorIdsToName } from 'redux/modules/emulators'
 import { cloneDeep } from 'lodash'
 
 /**

@@ -1,11 +1,11 @@
 import { connect } from 'react-redux'
-import { RootState } from '../../redux/store'
+import { RootState } from 'redux/store'
 import CreateEmulator, {
   CreateEmulatorComponentStateProperties,
   CreateEmulatorComponentDispatchProperties,
-} from '../../components/emulator/creation/create-emulator/create-emulator-component'
-import { Emulator } from '../../models/emulator/types'
-import { emulatorAddedToCellar } from '../../redux/modules/cellar'
+} from 'components/emulator/creation/create-emulator/create-emulator-component'
+import { Emulator } from 'models/emulator/types'
+import { emulatorAddedToCellar } from 'redux/modules/cellar'
 
 /**
  * Provides part of redux state to component properties.

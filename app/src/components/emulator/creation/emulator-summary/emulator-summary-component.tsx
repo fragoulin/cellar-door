@@ -1,6 +1,6 @@
 import React from 'react'
-import { Emulator } from '../../../../models/emulator/types'
-import EmulatorConfigurationSummary from '../../configuration/emulator-configuration-summary/emulator-configuration-summary'
+import { Emulator } from 'models/emulator/types'
+import EmulatorConfigurationSummary from 'components/emulator/configuration/emulator-configuration-summary/emulator-configuration-summary'
 import { withTranslation, WithTranslation } from 'react-i18next'
 
 /**

@@ -1,8 +1,5 @@
 import { Store } from 'redux'
-import {
-  cellarCreated,
-  emulatorRemovedFromCellar,
-} from '../src/redux/modules/cellar'
+import { cellarCreated, emulatorRemovedFromCellar } from 'redux/modules/cellar'
 import { NewCellarId, RemoveEmulatorId } from './constants'
 
 /**

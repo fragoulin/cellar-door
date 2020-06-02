@@ -1,8 +1,8 @@
 import { connect } from 'react-redux'
-import { RootState } from '../../redux/store'
+import { RootState } from 'redux/store'
 import Welcome, {
   WelcomeComponentStateProperties,
-} from '../../components/cellar/welcome/welcome-component'
+} from 'components/cellar/welcome/welcome-component'
 
 /**
  * Provides part of redux state to component properties.

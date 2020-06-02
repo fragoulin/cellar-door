@@ -1,5 +1,5 @@
-import { CellarWin } from 'app/electron/preload'
-import { getResourcesPathChannel, isDevChannel } from '../../electron/constants'
+import { CellarWin } from 'electron/preload'
+import { getResourcesPathChannel, isDevChannel } from 'electron/constants'
 
 const rendererProcess = typeof window !== 'undefined'
 

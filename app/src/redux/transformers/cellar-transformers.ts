@@ -1,8 +1,8 @@
 import { createTransform } from 'redux-persist'
-import { CellarState } from '../modules/cellar'
+import { CellarState } from 'redux/modules/cellar'
 import { pick, cloneDeep } from 'lodash'
-import { Emulator } from '../../models/emulator/types'
-import { getEmulator } from '../../services/emulators-service'
+import { Emulator } from 'models/emulator/types'
+import { getEmulator } from 'services/emulators-service'
 
 const CellarTransform = createTransform(
   // Keep only Id and configuration when persisting emulators

@@ -1,8 +1,8 @@
 import React from 'react'
 import EmulatorLogo from './emulator-logo-component'
 import { screen } from '@testing-library/react'
-import { createComponentWithRouter } from '../../../../../test/createComponentsHelpers'
-import Emulators from '../../../../src/models/emulator/emulators/index'
+import { createComponentWithRouter } from 'test/createComponentsHelpers'
+import Emulators from 'models/emulator/emulators/index'
 
 it('should correctly display logo for emulators having one', () => {
   const emulator = Emulators[0]

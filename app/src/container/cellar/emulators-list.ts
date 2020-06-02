@@ -1,8 +1,8 @@
 import { connect } from 'react-redux'
-import { RootState } from '../../redux/store'
+import { RootState } from 'redux/store'
 import EmulatorsList, {
   EmulatorsListComponentStateProperties,
-} from '../../components/cellar/emulators-list/emulators-list-component'
+} from 'components/cellar/emulators-list/emulators-list-component'
 
 /**
  * Provides part of redux state to component properties.

@@ -1,3 +1,5 @@
+const { TsConfigPathsPlugin } = require('awesome-typescript-loader');
+
 module.exports = {
   /**
    * Webpack configuration for renderer process.
@@ -7,6 +9,9 @@ module.exports = {
   },
   plugins: require('./webpack.plugins'),
   resolve: {
-    extensions: ['.js', '.ts', '.jsx', '.tsx', '.css', '.scss']
+    extensions: ['.js', '.ts', '.jsx', '.tsx', '.css', '.scss'],
+    plugins: [
+      new TsConfigPathsPlugin()
+    ]
   }
 }

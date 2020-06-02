@@ -1,11 +1,11 @@
 import { connect } from 'react-redux'
-import { RootState } from '../../redux/store'
+import { RootState } from 'redux/store'
 import EmulatorsSelect, {
   EmulatorsSelectComponentStateProperties,
   EmulatorSelectComponentDispatchProperties,
-} from '../../components/emulator/configuration/emulators-select/emulators-select-component'
-import { EmulatorId } from '../../models/emulator/types'
-import { selectedEmulatorIdSet } from '../../redux/modules/emulators'
+} from 'components/emulator/configuration/emulators-select/emulators-select-component'
+import { EmulatorId } from 'models/emulator/types'
+import { selectedEmulatorIdSet } from 'redux/modules/emulators'
 
 /**
  * Provides part of redux state to component properties.

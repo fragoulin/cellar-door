@@ -1,5 +1,5 @@
 import { createTransform } from 'redux-persist'
-import { EmulatorsState } from '../modules/emulators'
+import { EmulatorsState } from 'redux/modules/emulators'
 
 const EmulatorsTransform = createTransform(
   // transform state on its way to being serialized and persisted.

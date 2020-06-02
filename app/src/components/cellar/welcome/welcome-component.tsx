@@ -1,9 +1,9 @@
 import * as React from 'react'
 import './welcome.scss'
-import { Cellar } from '../../../models/cellar'
-import EmulatorsList from '../../../container/cellar/emulators-list'
-import FreshInstallation from '../../../container/cellar/fresh-installation'
-import { Emulator } from '../../../models/emulator/types'
+import { Cellar } from 'models/cellar'
+import EmulatorsList from 'container/cellar/emulators-list'
+import FreshInstallation from 'container/cellar/fresh-installation'
+import { Emulator } from 'models/emulator/types'
 import { withTranslation, WithTranslation } from 'react-i18next'
 
 /**
