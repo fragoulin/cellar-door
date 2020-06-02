@@ -75,7 +75,7 @@ function listenForMenuClick(store: Store): void {
   ;(window as CellarWin).api.receive(
     MenuClickChannel,
     (menuId: string, ...args: unknown[]) => {
-      handleMenuClick(store, menuId, args)
+      handleMenuClick(store, menuId, ...args)
     }
   )
 }
