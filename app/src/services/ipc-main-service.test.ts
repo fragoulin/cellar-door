@@ -1,6 +1,10 @@
 import { registerListeners } from '../services/ipc-main-service'
 import { ipcMain } from 'electron'
-import { DialogSyncChannel, getResourcesPathChannel, isDevChannel } from 'app/electron/constants'
+import {
+  DialogSyncChannel,
+  getResourcesPathChannel,
+  isDevChannel,
+} from 'app/electron/constants'
 
 it('should correctly register listeners', () => {
   const spy = jest.spyOn(ipcMain, 'on')

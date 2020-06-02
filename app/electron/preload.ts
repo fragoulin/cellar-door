@@ -1,6 +1,13 @@
 import { contextBridge, ipcRenderer } from 'electron'
 import * as backend from 'i18next-electron-fs-backend'
-import { DialogSyncChannel, UpdateLanguageChannel, getResourcesPathChannel, isDevChannel, DialogSyncResultChannel, MenuClickChannel } from './constants'
+import {
+  DialogSyncChannel,
+  UpdateLanguageChannel,
+  getResourcesPathChannel,
+  isDevChannel,
+  DialogSyncResultChannel,
+  MenuClickChannel,
+} from './constants'
 
 /**
  * Custom interface to type Window object with IPC functionalities.

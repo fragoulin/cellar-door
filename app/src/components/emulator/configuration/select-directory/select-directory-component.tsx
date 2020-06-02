@@ -5,7 +5,10 @@ import FolderIcon from '@material-ui/icons/Folder'
 import { v4 as uuidv4 } from 'uuid'
 import { CellarWin } from '../../../../../electron/preload'
 import { withTranslation, WithTranslation } from 'react-i18next'
-import { DialogSyncChannel, DialogSyncResultChannel } from '../../../../../electron/constants'
+import {
+  DialogSyncChannel,
+  DialogSyncResultChannel,
+} from '../../../../../electron/constants'
 
 /**
  * Properties definition for this component.
