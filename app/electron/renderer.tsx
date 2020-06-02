@@ -71,9 +71,12 @@ function listenForLanguageUpdate(store: Store, i18n: I18n): void {
  * @param store - redux store.
  */
 function listenForMenuClick(store: Store): void {
-  ;(window as CellarWin).api.receive('menuClick', (menuId: string) => {
-    handleMenuClick(store, menuId)
-  })
+  ;(window as CellarWin).api.receive(
+    'menuClick',
+    (menuId: string, ...args: unknown[]) => {
+      handleMenuClick(store, menuId, args)
+    }
+  )
 }
 
 /**

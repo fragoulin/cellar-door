@@ -1,8 +1,10 @@
+import './emulators-list.scss'
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { Button } from '@material-ui/core'
 import { withTranslation, WithTranslation } from 'react-i18next'
 import { Emulator } from 'app/src/models/emulator/types'
+import EmulatorLogoComponent from '../emulator-logo/emulator-logo-component'
 
 /**
  * Properties definition for this component.
@@ -27,11 +29,15 @@ class EmulatorsList extends React.PureComponent<
       <>
         <h2>{this.props.t('emulatorsList.title')}</h2>
         <div>
-          {/*
-          this.props.emulatorsInCellar.map(emulator => (
-            <Button key={emulator.Id} component={Link} to={`/emulator/${emulator.Id}`}><svg>{emulator.logo}</svg></Button>
-          ))
-          */}
+          {this.props.emulatorsInCellar.map((emulator) => (
+            <Button
+              key={emulator.Id}
+              component={Link}
+              to={`/emulator/${emulator.Id}`}
+            >
+              <EmulatorLogoComponent emulator={emulator} />
+            </Button>
+          ))}
         </div>
         <Button color="primary" component={Link} to="/add-emulator/">
           {this.props.t('freshInstallation.buttonText')}

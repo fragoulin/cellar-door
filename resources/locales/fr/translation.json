@@ -11,7 +11,8 @@
     "notFound": "Emulateur introuvable"
   },
   "emulatorsList": {
-    "title": "Liste des émulateurs"
+    "title": "Liste des émulateurs",
+    "removeEmulator": "Enlever l'émulateur"
   },
   "emulatorSelect": {
     "label": "Emulateur",

@@ -42,8 +42,9 @@ const cellarSlice = createSlice({
       state.emulatorsInCellar.push(action.payload)
     },
     emulatorRemovedFromCellar(state, action): void {
+      console.log(action, 'emulatorRemovedFromCellar')
       state.emulatorsInCellar = state.emulatorsInCellar.filter((emulator) => {
-        return emulator.Id !== action.payload.Id
+        return emulator.Id !== action.payload
       })
     },
   },

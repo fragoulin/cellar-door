@@ -1,10 +1,31 @@
 import { Store } from 'redux'
-import { cellarCreated } from '../src/redux/modules/cellar'
+import {
+  cellarCreated,
+  emulatorRemovedFromCellar,
+} from '../src/redux/modules/cellar'
 
-function handleMenuClick(store: Store, menuId: string): void {
+export const NewCellarId = 'newCellar'
+export const RemoveEmulatorId = 'removeEmulator'
+
+/**
+ * Handle menu click on renderer side.
+ *
+ * @param store - redux store.
+ * @param menuId - menu Id clicked.
+ * @param args - command arguments.
+ */
+function handleMenuClick(
+  store: Store,
+  menuId: string,
+  ...args: unknown[]
+): void {
   switch (menuId) {
-    case 'newCellar':
+    case NewCellarId:
       store.dispatch(cellarCreated())
+      break
+    case RemoveEmulatorId:
+      store.dispatch(emulatorRemovedFromCellar(args[0]))
+      break
   }
 }
 

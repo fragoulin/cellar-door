@@ -6,6 +6,8 @@ import menuTemplate from './menu'
 import { i18n as I18n } from 'i18next'
 import * as i18nConfig from '../src/localization/i18next.config'
 import { isDev } from '../src/services/app-service'
+import contextMenu from 'electron-context-menu'
+import { contextMenuOptions } from './context-menu'
 
 /**
  * Path to main webpack entry.
@@ -24,6 +26,9 @@ declare const MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY: string
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let win: BrowserWindow
+
+// Reference on function to dispose context menu.
+let disposeContextMenu: () => void | undefined
 
 /**
  * Set CSP header for packaged (production) application.
@@ -50,6 +55,28 @@ function setCspHeaders(): void {
 function createMenu(i18n: I18n): void {
   const menu = Menu.buildFromTemplate(menuTemplate(app, i18n))
   Menu.setApplicationMenu(menu)
+}
+
+/**
+ * Create context menu.
+ */
+function createContextMenu(i18n: I18n): void {
+  // Dispose resources in case of previous context menu
+  if (disposeContextMenu) {
+    disposeContextMenu()
+  }
+
+  disposeContextMenu = contextMenu(contextMenuOptions(i18n))
+}
+
+/**
+ * Create application menu and context menu.
+ *
+ * @param i18n - i18n instance to translate menu items.
+ */
+function createMenus(i18n: I18n): void {
+  createMenu(i18n)
+  createContextMenu(i18n)
 }
 
 /**
@@ -95,6 +122,7 @@ app.on('window-all-closed', () => {
   // to stay active until the user quits explicitly with Cmd + Q
   if (process.platform === 'darwin') {
     i18nextBackend.clearMainBindings(ipcMain)
+    disposeContextMenu()
   } else {
     app.quit()
   }
@@ -121,10 +149,10 @@ ipcMain.on('updateLanguage', (_event, language: string) => {
     .then((i18n) => {
       // Listen for languageChanged event on i18next, triggered from the menu 'languages'
       i18n.on('languageChanged', () => {
-        createMenu(i18n)
+        createMenus(i18n)
       })
       // Create menu immediately when language is available from renderer process.
-      createMenu(i18n)
+      createMenus(i18n)
     })
     .catch(console.error)
 })

@@ -11,7 +11,8 @@
     "notFound": "Emulator not found"
   },
   "emulatorsList": {
-    "title": "Emulators list"
+    "title": "Emulators list",
+    "removeEmulator": "Remove emulator"
   },
   "emulatorSelect": {
     "label": "Emulator",
