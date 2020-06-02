@@ -13,6 +13,7 @@ import { handleMenuClick } from './menu-handler'
 import { Provider } from 'react-redux'
 import { PersistGate } from 'redux-persist/integration/react'
 import { store, persistor } from '../src/redux/store'
+import { UpdateLanguageChannel, MenuClickChannel } from './constants'
 
 // Load required fonts for material. Required font weights are 300, 400, 500 and 700
 // https://material-ui.com/components/typography/#general
@@ -72,7 +73,7 @@ function listenForLanguageUpdate(store: Store, i18n: I18n): void {
  */
 function listenForMenuClick(store: Store): void {
   ;(window as CellarWin).api.receive(
-    'menuClick',
+    MenuClickChannel,
     (menuId: string, ...args: unknown[]) => {
       handleMenuClick(store, menuId, args)
     }
@@ -85,7 +86,7 @@ function listenForMenuClick(store: Store): void {
  * @param language - language retrieved from persisted state.
  */
 function notifyMainProcess(language: string): void {
-  ;(window as CellarWin).api.send('updateLanguage', language)
+  ;(window as CellarWin).api.send(UpdateLanguageChannel, language)
 }
 
 // Wait for i18next initialization before creating root element.

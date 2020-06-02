@@ -7,6 +7,7 @@ import {
 import * as i18nBackend from 'i18next-electron-fs-backend'
 import Whitelist from '../src/localization/whitelist'
 import { i18n as I18n } from 'i18next'
+import { MenuClickChannel, NewCellarId } from './constants'
 
 const isMac = process.platform === 'darwin'
 
@@ -43,7 +44,7 @@ const macSystemMenuFragment = (
  * @param browserWindow - current browser window.
  */
 function handleClick(menuItem: MenuItem, browserWindow: BrowserWindow): void {
-  browserWindow.webContents.send('menuClick', menuItem.id)
+  browserWindow.webContents.send(MenuClickChannel, menuItem.id)
 }
 
 /**
@@ -56,7 +57,7 @@ function cellarMenuFragment(i18n: I18n): MenuItemConstructorOptions {
     label: i18n.t('menu.cellar.label'),
     submenu: [
       {
-        id: 'newCellar',
+        id: NewCellarId,
         label: i18n.t('menu.cellar.newCellar'),
         click: handleClick,
       },

@@ -1,5 +1,6 @@
 import { contextBridge, ipcRenderer } from 'electron'
 import * as backend from 'i18next-electron-fs-backend'
+import { DialogSyncChannel, UpdateLanguageChannel, getResourcesPathChannel, isDevChannel, DialogSyncResultChannel, MenuClickChannel } from './constants'
 
 /**
  * Custom interface to type Window object with IPC functionalities.
@@ -23,7 +24,7 @@ export type CellarWin = Window & typeof globalThis & Api
 contextBridge.exposeInMainWorld('api', {
   send: (channel: string, ...args: unknown[]) => {
     // whitelist channels
-    const validChannels = ['dialogSync', 'updateLanguage']
+    const validChannels = [DialogSyncChannel, UpdateLanguageChannel]
     if (validChannels.includes(channel)) {
       ipcRenderer.send(channel, ...args)
     } else {
@@ -32,7 +33,7 @@ contextBridge.exposeInMainWorld('api', {
   },
   sendSync: (channel: string, ...args: unknown[]): unknown => {
     // whitelist channels
-    const validChannels = ['getResourcesPath', 'isDev']
+    const validChannels = [getResourcesPathChannel, isDevChannel]
     if (validChannels.includes(channel)) {
       return ipcRenderer.sendSync(channel, ...args)
     } else {
@@ -41,7 +42,7 @@ contextBridge.exposeInMainWorld('api', {
     }
   },
   receive: (channel: string, func: Function) => {
-    const validChannels = ['dialogSyncResult', 'menuClick']
+    const validChannels = [DialogSyncResultChannel, MenuClickChannel]
     if (validChannels.includes(channel)) {
       // Deliberately strip event as it includes `sender`
       ipcRenderer.on(channel, (_event, ...args) => func(...args))

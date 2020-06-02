@@ -5,6 +5,7 @@ import FolderIcon from '@material-ui/icons/Folder'
 import { v4 as uuidv4 } from 'uuid'
 import { CellarWin } from '../../../../../electron/preload'
 import { withTranslation, WithTranslation } from 'react-i18next'
+import { DialogSyncChannel, DialogSyncResultChannel } from '../../../../../electron/constants'
 
 /**
  * Properties definition for this component.
@@ -58,13 +59,13 @@ class SelectDirectory extends React.PureComponent<
    * Set callback for dialog select directory result
    */
   componentDidMount(): void {
-    win.api.receive('dialogSyncResult', this.dialogResult)
+    win.api.receive(DialogSyncResultChannel, this.dialogResult)
   }
 
   private openDialog = (): void => {
     // Invoke dialog sync from main thread
     const properties = { properties: ['openDirectory', 'dontAddToRecent'] }
-    win.api.send('dialogSync', this.state.inputId, properties)
+    win.api.send(DialogSyncChannel, this.state.inputId, properties)
   }
 
   /*

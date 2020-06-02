@@ -8,6 +8,7 @@ import * as i18nConfig from '../src/localization/i18next.config'
 import { isDev } from '../src/services/app-service'
 import contextMenu from 'electron-context-menu'
 import { contextMenuOptions } from './context-menu'
+import { UpdateLanguageChannel } from './constants'
 
 /**
  * Path to main webpack entry.
@@ -143,7 +144,7 @@ app.on('activate', () => {
 registerListeners()
 
 // Listen for 'updateLanguage' event from renderer in order to initialize menu with correct language.
-ipcMain.on('updateLanguage', (_event, language: string) => {
+ipcMain.on(UpdateLanguageChannel, (_event, language: string) => {
   i18nConfig
     .whenReady(language)
     .then((i18n) => {

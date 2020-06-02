@@ -1,4 +1,5 @@
 import { CellarWin } from 'app/electron/preload'
+import { getResourcesPathChannel, isDevChannel } from '../../electron/constants'
 
 const rendererProcess = typeof window !== 'undefined'
 
@@ -11,7 +12,7 @@ let _resourcesPath: string | undefined
 function isDev(): boolean {
   if (_isDev === undefined) {
     if (rendererProcess) {
-      _isDev = (window as CellarWin).api.sendSync('isDev') as boolean
+      _isDev = (window as CellarWin).api.sendSync(isDevChannel) as boolean
     } else {
       const app = require('electron').app
       _isDev = !app.isPackaged
@@ -28,7 +29,7 @@ function getResourcesPath(): string {
   if (_resourcesPath === undefined) {
     if (rendererProcess) {
       _resourcesPath = (window as CellarWin).api.sendSync(
-        'getResourcesPath'
+        getResourcesPathChannel
       ) as string
     } else {
       _resourcesPath = isDev() ? 'resources' : process.resourcesPath

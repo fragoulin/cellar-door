@@ -3,9 +3,7 @@ import {
   cellarCreated,
   emulatorRemovedFromCellar,
 } from '../src/redux/modules/cellar'
-
-export const NewCellarId = 'newCellar'
-export const RemoveEmulatorId = 'removeEmulator'
+import { NewCellarId, RemoveEmulatorId } from './constants'
 
 /**
  * Handle menu click on renderer side.
