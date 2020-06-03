@@ -16,7 +16,8 @@
   },
   "emulatorSelect": {
     "label": "Emulator",
-    "errorRequired": "Emulator is required"
+    "errorRequired": "Emulator is required",
+    "errorAlreadyConfigured": "Emulator is already configured"
   },
   "selectDirectory": {
     "label": "Select directory",

@@ -5,10 +5,7 @@ import ConfigureEmulator, {
   ConfigureEmulatorComponentDispatchProperties,
 } from 'components/emulator/configuration/configure-emulator/configure-emulator-component'
 import { EmulatorConfiguration } from 'models/emulator/types'
-import {
-  wizardStatusSet,
-  emulatorConfigurationUpdated,
-} from 'redux/modules/emulators'
+import { emulatorConfigurationUpdated } from 'redux/modules/emulators'
 
 /**
  * Provides part of redux state to component properties.
@@ -20,7 +17,6 @@ const mapStateToProps = (
 ): ConfigureEmulatorComponentStateProperties => {
   return {
     emulator: state.emulators.wizard.emulatorCurrentlyConfigured,
-    hasError: state.emulators.wizard.hasError,
   }
 }
 
@@ -28,7 +24,6 @@ const mapStateToProps = (
  * Dispatch some functions to component properties.
  */
 const mapDispatchToProps: ConfigureEmulatorComponentDispatchProperties = {
-  setWizardStatus: (error: boolean) => wizardStatusSet(error),
   updateEmulatorConfiguration: (configuration: EmulatorConfiguration[]) =>
     emulatorConfigurationUpdated(configuration),
 }

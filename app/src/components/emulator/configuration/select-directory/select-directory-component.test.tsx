@@ -26,9 +26,9 @@ wrap()
       createComponentWithProviderAndRouter(
         <SelectDirectory
           name={name}
-          hasError={false}
           mandatory={true}
           onDirectorySelected={jest.fn()}
+          hasError={false}
         />,
         mockStore()
       )
@@ -50,9 +50,9 @@ wrap()
       createComponentWithProviderAndRouter(
         <SelectDirectory
           name={name}
-          hasError={false}
           mandatory={true}
           onDirectorySelected={jest.fn()}
+          hasError={false}
         />,
         mockStore()
       )
@@ -78,9 +78,9 @@ wrap()
       createComponentWithProviderAndRouter(
         <SelectDirectory
           name={name}
-          hasError={true}
           mandatory={true}
           onDirectorySelected={jest.fn()}
+          hasError={true}
         />,
         mockStore()
       )

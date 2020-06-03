@@ -17,7 +17,6 @@ const mapStateToProps = (
 ): EmulatorsSelectComponentStateProperties => {
   return {
     availableEmulatorNames: state.emulators.availableEmulatorNames,
-    hasError: state.emulators.wizard.hasError,
   }
 }
 

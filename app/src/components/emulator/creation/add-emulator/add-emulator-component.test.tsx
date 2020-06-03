@@ -34,7 +34,6 @@ wrap()
           availableEmulatorNames: buildAvailableEmulatorNamesList(),
           wizard: {
             emulatorCurrentlyConfigured: undefined,
-            hasError: false,
             selectedEmulatorId: undefined,
           },
         },
@@ -44,10 +43,9 @@ wrap()
       createComponentWithProviderAndRouter(
         <AddEmulator
           selectedEmulatorId={undefined}
-          hasError={false}
           buildAvailableEmulatorNamesList={jest.fn()}
           createEmulator={jest.fn()}
-          setWizardStatus={jest.fn()}
+          emulatorsInCellar={[]}
         />,
         store
       )
@@ -81,7 +79,6 @@ wrap()
           availableEmulatorNames: buildAvailableEmulatorNamesList(),
           wizard: {
             emulatorCurrentlyConfigured: mame,
-            hasError: false,
             selectedEmulatorId: mame.Id,
           },
         },
@@ -96,10 +93,9 @@ wrap()
       createComponentWithProviderAndRouter(
         <AddEmulator
           selectedEmulatorId={mame.Id}
-          hasError={false}
           buildAvailableEmulatorNamesList={jest.fn()}
           createEmulator={callback}
-          setWizardStatus={jest.fn()}
+          emulatorsInCellar={[]}
         />,
         store
       )
@@ -123,7 +119,6 @@ wrap()
           availableEmulatorNames: buildAvailableEmulatorNamesList(),
           wizard: {
             emulatorCurrentlyConfigured: mame,
-            hasError: false,
             selectedEmulatorId: mame.Id,
           },
         },
@@ -133,10 +128,9 @@ wrap()
       createComponentWithProviderAndRouter(
         <AddEmulator
           selectedEmulatorId={mame.Id}
-          hasError={false}
           buildAvailableEmulatorNamesList={jest.fn()}
           createEmulator={jest.fn()}
-          setWizardStatus={jest.fn()}
+          emulatorsInCellar={[]}
         />,
         store
       )

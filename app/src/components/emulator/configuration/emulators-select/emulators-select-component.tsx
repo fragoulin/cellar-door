@@ -6,11 +6,18 @@ import { EmulatorIdsToName } from 'redux/modules/emulators'
 import { withTranslation, WithTranslation } from 'react-i18next'
 
 /**
+ * Properties definition for this component.
+ */
+export interface EmulatorSelectComponentProperties {
+  hasError: boolean
+  errorMessage?: string
+}
+
+/**
  * Properties definition for this component (from redux state).
  */
 export interface EmulatorsSelectComponentStateProperties {
   availableEmulatorNames: EmulatorIdsToName[]
-  hasError: boolean
 }
 
 /**
@@ -31,7 +38,8 @@ interface EmulatorSelectComponentState {
  * Emulators select component displays a list of selectable emulators.
  */
 class EmulatorsSelect extends React.PureComponent<
-  EmulatorsSelectComponentStateProperties &
+  EmulatorSelectComponentProperties &
+    EmulatorsSelectComponentStateProperties &
     EmulatorSelectComponentDispatchProperties &
     WithTranslation,
   EmulatorSelectComponentState
@@ -42,7 +50,8 @@ class EmulatorsSelect extends React.PureComponent<
    * @param props - component properties.
    */
   constructor(
-    props: EmulatorsSelectComponentStateProperties &
+    props: EmulatorSelectComponentProperties &
+      EmulatorsSelectComponentStateProperties &
       EmulatorSelectComponentDispatchProperties &
       WithTranslation
   ) {
@@ -91,9 +100,7 @@ class EmulatorsSelect extends React.PureComponent<
           ))}
         </Select>
         {this.props.hasError && (
-          <FormHelperText>
-            {this.props.t('emulatorSelect.errorRequired')}
-          </FormHelperText>
+          <FormHelperText>{this.props.errorMessage}</FormHelperText>
         )}
       </>
     )

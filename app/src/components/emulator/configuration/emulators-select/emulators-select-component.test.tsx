@@ -13,8 +13,8 @@ it('should correctly render emulators select', () => {
   createComponentWithRouter(
     <EmulatorsSelect
       availableEmulatorNames={emulatorsIdsToNames}
-      hasError={false}
       setSelectedEmulatorId={jest.fn()}
+      hasError={false}
     />
   )
 
@@ -41,8 +41,8 @@ it('should call setSelectedEmulatorId() method when MAME is selected', (done) =>
   createComponentWithRouter(
     <EmulatorsSelect
       availableEmulatorNames={emulatorsIdsToNames}
-      hasError={false}
       setSelectedEmulatorId={callback}
+      hasError={false}
     />
   )
 

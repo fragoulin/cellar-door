@@ -12,14 +12,12 @@ import { withTranslation, WithTranslation } from 'react-i18next'
  */
 export interface ConfigureEmulatorComponentStateProperties {
   emulator: Emulator | undefined
-  hasError: boolean
 }
 
 /**
  * Properties definition for this component (from redux reducer).
  */
 export interface ConfigureEmulatorComponentDispatchProperties {
-  setWizardStatus(status: boolean): void
   updateEmulatorConfiguration(configuration: EmulatorConfiguration[]): void
 }
 
@@ -28,6 +26,7 @@ export interface ConfigureEmulatorComponentDispatchProperties {
  */
 interface ComponentState {
   redirect: boolean
+  hasError: boolean
   configuration: EmulatorConfiguration[]
 }
 
@@ -54,6 +53,7 @@ class ConfigureEmulator extends React.PureComponent<
 
     this.state = {
       redirect: false,
+      hasError: false,
       configuration: this.props.emulator
         ? this.props.emulator.configuration
         : [],
@@ -96,15 +96,15 @@ class ConfigureEmulator extends React.PureComponent<
   private handleSubmit = (e: React.SyntheticEvent): void => {
     e.preventDefault()
 
-    const validConfiguration = !this.isConfigurationMissing()
-    this.props.setWizardStatus(!validConfiguration)
+    const error = this.isConfigurationMissing()
 
-    if (validConfiguration) {
+    if (!error) {
       this.props.updateEmulatorConfiguration(this.state.configuration)
     }
 
     this.setState({
-      redirect: validConfiguration,
+      redirect: !error,
+      hasError: error,
     })
   }
 
@@ -127,12 +127,12 @@ class ConfigureEmulator extends React.PureComponent<
           })}
         </h1>
         <div>
-          <FormControl required error={this.props.hasError}>
+          <FormControl required error={this.state.hasError}>
             {this.props.emulator.configuration.map(
               (configuration: EmulatorConfiguration) => {
                 return (
                   <SelectDirectory
-                    hasError={this.props.hasError}
+                    hasError={this.state.hasError}
                     key={configuration.name}
                     name={configuration.name}
                     mandatory={configuration.mandatory}

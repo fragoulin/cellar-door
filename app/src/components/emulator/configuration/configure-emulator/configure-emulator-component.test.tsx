@@ -25,8 +25,6 @@ wrap()
       createComponentWithProviderAndRouter(
         <ConfigureEmulator
           emulator={undefined}
-          hasError={false}
-          setWizardStatus={jest.fn()}
           updateEmulatorConfiguration={jest.fn()}
         />,
         mockStore()
@@ -41,8 +39,6 @@ wrap()
       createComponentWithProviderAndRouter(
         <ConfigureEmulator
           emulator={mame}
-          hasError={false}
-          setWizardStatus={jest.fn()}
           updateEmulatorConfiguration={jest.fn()}
         />,
         mockStore()
@@ -60,8 +56,6 @@ wrap()
       createComponentWithProviderAndRouter(
         <ConfigureEmulator
           emulator={mame}
-          hasError={false}
-          setWizardStatus={jest.fn()}
           updateEmulatorConfiguration={jest.fn()}
         />,
         mockStore()
@@ -79,8 +73,6 @@ wrap()
       createComponentWithProviderAndRouter(
         <ConfigureEmulator
           emulator={mame}
-          hasError={false}
-          setWizardStatus={jest.fn()}
           updateEmulatorConfiguration={jest.fn()}
         />,
         mockStore()
@@ -96,8 +88,6 @@ wrap()
       createComponentWithProviderAndRouter(
         <ConfigureEmulator
           emulator={mame}
-          hasError={false}
-          setWizardStatus={jest.fn()}
           updateEmulatorConfiguration={jest.fn()}
         />,
         mockStore()

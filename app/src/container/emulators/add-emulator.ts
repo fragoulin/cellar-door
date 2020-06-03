@@ -7,7 +7,6 @@ import { RootState } from 'redux/store'
 import { EmulatorId } from 'models/emulator/types'
 import {
   availableEmulatorNamesListBuilt,
-  wizardStatusSet,
   emulatorCreated,
 } from 'redux/modules/emulators'
 
@@ -21,7 +20,7 @@ const mapStateToProps = (
 ): AddEmulatorComponentStateProperties => {
   return {
     selectedEmulatorId: state.emulators.wizard.selectedEmulatorId,
-    hasError: state.emulators.wizard.hasError,
+    emulatorsInCellar: state.cellar.emulatorsInCellar,
   }
 }
 
@@ -30,7 +29,6 @@ const mapStateToProps = (
  */
 const mapDispatchToProps: AddEmulatorComponentDispatchProperties = {
   buildAvailableEmulatorNamesList: () => availableEmulatorNamesListBuilt(),
-  setWizardStatus: (error: boolean) => wizardStatusSet(error),
   createEmulator: (emulatorId: EmulatorId) => emulatorCreated(emulatorId),
 }
 
