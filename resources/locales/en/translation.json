@@ -56,6 +56,11 @@
       "close": "Close",
       "quit": "Quit"
     },
+    "edit": {
+      "label": "Edit",
+      "undo": "Undo",
+      "redo": "Redo"
+    },
     "preferences": {
       "label": "Preferences",
       "language": "Language"

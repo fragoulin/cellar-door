@@ -1,24 +1,28 @@
 import './configure-emulator.scss'
 import React from 'react'
-import { Link, Redirect } from 'react-router-dom'
+import { Link, Redirect, RouteComponentProps } from 'react-router-dom'
 import { Button, FormControl } from '@material-ui/core'
-import { Emulator, EmulatorConfiguration } from 'models/emulator/types'
+import {
+  Emulator,
+  EmulatorConfiguration,
+  EmulatorId,
+} from 'models/emulator/types'
 import SelectDirectory from 'components/emulator/configuration/select-directory/select-directory-component'
-import { updateConfiguration } from 'services/emulators-service'
+import { updateConfiguration, getEmulator } from 'services/emulators-service'
 import { withTranslation, WithTranslation } from 'react-i18next'
-
-/**
- * Properties definition for this component (from redux state).
- */
-export interface ConfigureEmulatorComponentStateProperties {
-  emulator: Emulator | undefined
-}
 
 /**
  * Properties definition for this component (from redux reducer).
  */
 export interface ConfigureEmulatorComponentDispatchProperties {
-  updateEmulatorConfiguration(configuration: EmulatorConfiguration[]): void
+  addEmulatorToCellar: (emulator: Emulator) => void
+}
+
+/**
+ * Additional properties definition to retrieve emulator Id from URL parameters.
+ */
+interface MatchParams {
+  id: string
 }
 
 /**
@@ -27,15 +31,15 @@ export interface ConfigureEmulatorComponentDispatchProperties {
 interface ComponentState {
   redirect: boolean
   hasError: boolean
-  configuration: EmulatorConfiguration[]
+  emulator: Emulator
 }
 
 /**
  * Configure emulator component displays a basic form to pre-configure an emulator with basic properties (mainly mandatories directories).
  */
 class ConfigureEmulator extends React.PureComponent<
-  ConfigureEmulatorComponentStateProperties &
-    ConfigureEmulatorComponentDispatchProperties &
+  ConfigureEmulatorComponentDispatchProperties &
+    RouteComponentProps<MatchParams> &
     WithTranslation,
   ComponentState
 > {
@@ -45,18 +49,20 @@ class ConfigureEmulator extends React.PureComponent<
    * @param props - component properties.
    */
   constructor(
-    props: ConfigureEmulatorComponentStateProperties &
-      ConfigureEmulatorComponentDispatchProperties &
+    props: ConfigureEmulatorComponentDispatchProperties &
+      RouteComponentProps<MatchParams> &
       WithTranslation
   ) {
     super(props)
 
-    this.state = {
-      redirect: false,
-      hasError: false,
-      configuration: this.props.emulator
-        ? this.props.emulator.configuration
-        : [],
+    const emulator = getEmulator(this.props.match.params.id as EmulatorId)
+
+    if (emulator) {
+      this.state = {
+        redirect: false,
+        hasError: false,
+        emulator: emulator,
+      }
     }
   }
 
@@ -65,27 +71,29 @@ class ConfigureEmulator extends React.PureComponent<
     value: string,
     mandatory: boolean
   ): void => {
-    this.setState((state) => ({
-      configuration: updateConfiguration(state.configuration, {
-        name,
-        value,
-        mandatory,
-      }),
-    }))
+    const emulator = this.state.emulator
+    emulator.configuration = updateConfiguration(emulator, {
+      name,
+      value,
+      mandatory,
+    })
+    this.setState({
+      emulator: emulator,
+    })
   }
 
   private isConfigurationValueSet(name: string): boolean {
     return (
-      this.state.configuration.find(
+      this.state.emulator.configuration.find(
         (configuration) => configuration.name === name && configuration.value
       ) !== undefined
     )
   }
 
   private isConfigurationMissing(): boolean {
-    if (!this.props.emulator) return false
+    if (!this.state.emulator) return false
     return (
-      this.props.emulator.configuration.find(
+      this.state.emulator.configuration.find(
         (configuration) =>
           configuration.mandatory &&
           !this.isConfigurationValueSet(configuration.name)
@@ -99,7 +107,7 @@ class ConfigureEmulator extends React.PureComponent<
     const error = this.isConfigurationMissing()
 
     if (!error) {
-      this.props.updateEmulatorConfiguration(this.state.configuration)
+      this.props.addEmulatorToCellar(this.state.emulator)
     }
 
     this.setState({
@@ -115,7 +123,7 @@ class ConfigureEmulator extends React.PureComponent<
    * @returns the newly created node.
    */
   public render(): React.ReactNode {
-    if (!this.props.emulator)
+    if (!this.state.emulator)
       return <div>{this.props.t('configureEmulator.notFound')}</div>
     if (this.state.redirect) return <Redirect to="/create-emulator/" />
 
@@ -123,12 +131,12 @@ class ConfigureEmulator extends React.PureComponent<
       <form className="ConfigureEmulator" onSubmit={this.handleSubmit}>
         <h1>
           {this.props.t('configureEmulator.title', {
-            name: this.props.emulator.shortName,
+            name: this.state.emulator.shortName,
           })}
         </h1>
         <div>
           <FormControl required error={this.state.hasError}>
-            {this.props.emulator.configuration.map(
+            {this.state.emulator.configuration.map(
               (configuration: EmulatorConfiguration) => {
                 return (
                   <SelectDirectory

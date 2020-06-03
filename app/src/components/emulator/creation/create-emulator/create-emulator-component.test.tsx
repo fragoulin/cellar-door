@@ -6,7 +6,6 @@ import configureMockStore from 'redux-mock-store'
 import { CellarWin } from 'electron/preload'
 import wrap from 'jest-wrap'
 import Emulators from 'models/emulator/emulators/index'
-import { Emulator } from 'models/emulator/types'
 
 const mockStore = configureMockStore()
 const mockWindow = window as CellarWin
@@ -24,7 +23,7 @@ wrap()
       const mame = Emulators[0]
 
       createComponentWithProviderAndRouter(
-        <CreateEmulator emulator={mame} addEmulatorToCellar={jest.fn()} />,
+        <CreateEmulator emulator={mame} />,
         mockStore()
       )
 
@@ -45,31 +44,5 @@ wrap()
           })
           .getAttribute('href')
       ).toMatch('/add-emulator/')
-    })
-
-    it('should call addEmulatorToCellar() method', (done) => {
-      const mame = Emulators[0]
-      const callback = (emulator: Emulator): void => {
-        expect(emulator.Id).toEqual(mame.Id)
-        done()
-      }
-
-      createComponentWithProviderAndRouter(
-        <CreateEmulator emulator={mame} addEmulatorToCellar={callback} />,
-        mockStore()
-      )
-    })
-
-    it('should correctly handle undefined emulator', (done) => {
-      const callback = (): void => {
-        done.fail('Should not be called')
-      }
-
-      createComponentWithProviderAndRouter(
-        <CreateEmulator emulator={undefined} addEmulatorToCellar={callback} />,
-        mockStore()
-      )
-
-      done()
     })
   })

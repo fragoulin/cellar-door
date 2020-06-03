@@ -1,6 +1,7 @@
 import { Store } from 'redux'
 import { cellarCreated, emulatorRemovedFromCellar } from 'redux/modules/cellar'
-import { NewCellarId, RemoveEmulatorId } from './constants'
+import { NewCellarId, RemoveEmulatorId, UndoId, RedoId } from './constants'
+import { ActionCreators } from 'redux-undo'
 
 /**
  * Handle menu click on renderer side.
@@ -20,6 +21,12 @@ function handleMenuClick(
       break
     case RemoveEmulatorId:
       store.dispatch(emulatorRemovedFromCellar(args[0]))
+      break
+    case UndoId:
+      store.dispatch(ActionCreators.undo())
+      break
+    case RedoId:
+      store.dispatch(ActionCreators.redo())
       break
   }
 }

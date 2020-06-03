@@ -26,27 +26,20 @@ wrap()
     it('should correctly render components', () => {
       const initialState: RootState = {
         cellar: {
-          currentCellar: {},
-          currentLocale: 'en',
-          emulatorsInCellar: [],
-        },
-        emulators: {
-          availableEmulatorNames: buildAvailableEmulatorNamesList(),
-          wizard: {
-            emulatorCurrentlyConfigured: undefined,
-            selectedEmulatorId: undefined,
+          present: {
+            currentCellar: {},
+            currentLocale: 'en',
+            emulatorsInCellar: [],
+            availableEmulatorNames: buildAvailableEmulatorNamesList(),
           },
+          past: [],
+          future: [],
         },
       }
       const store = mockStore(initialState)
 
       createComponentWithProviderAndRouter(
-        <AddEmulator
-          selectedEmulatorId={undefined}
-          buildAvailableEmulatorNamesList={jest.fn()}
-          createEmulator={jest.fn()}
-          emulatorsInCellar={[]}
-        />,
+        <AddEmulator emulatorsInCellar={[]} />,
         store
       )
 
@@ -66,75 +59,51 @@ wrap()
       ).toEqual('submit')
     })
 
-    it('should call createEmulator() method on submit', (done) => {
+    xit('should redirect to configure emulator component on submit', () => {
+      // TODO
       const mame = Emulators[0]
+      const scummvm = Emulators[1]
+      const zinc = Emulators[2]
 
       const initialState: RootState = {
         cellar: {
-          currentCellar: {},
-          currentLocale: 'en',
-          emulatorsInCellar: [],
-        },
-        emulators: {
-          availableEmulatorNames: buildAvailableEmulatorNamesList(),
-          wizard: {
-            emulatorCurrentlyConfigured: mame,
-            selectedEmulatorId: mame.Id,
+          present: {
+            currentCellar: {},
+            currentLocale: 'en',
+            emulatorsInCellar: [],
+            availableEmulatorNames: buildAvailableEmulatorNamesList(),
           },
-        },
-      }
-      const store = mockStore(initialState)
-
-      const callback = (emulatorId: EmulatorId): void => {
-        expect(emulatorId).toEqual(mame.Id)
-        done()
-      }
-
-      createComponentWithProviderAndRouter(
-        <AddEmulator
-          selectedEmulatorId={mame.Id}
-          buildAvailableEmulatorNamesList={jest.fn()}
-          createEmulator={callback}
-          emulatorsInCellar={[]}
-        />,
-        store
-      )
-
-      const submitButton = screen.getByRole('button', {
-        name: 'common.confirm',
-      })
-      userEvent.click(submitButton)
-    })
-
-    it('should redirect to configure emulator component on submit', () => {
-      const mame = Emulators[0]
-
-      const initialState: RootState = {
-        cellar: {
-          currentCellar: {},
-          currentLocale: 'en',
-          emulatorsInCellar: [],
-        },
-        emulators: {
-          availableEmulatorNames: buildAvailableEmulatorNamesList(),
-          wizard: {
-            emulatorCurrentlyConfigured: mame,
-            selectedEmulatorId: mame.Id,
-          },
+          past: [],
+          future: [],
         },
       }
       const store = mockStore(initialState)
 
       createComponentWithProviderAndRouter(
-        <AddEmulator
-          selectedEmulatorId={mame.Id}
-          buildAvailableEmulatorNamesList={jest.fn()}
-          createEmulator={jest.fn()}
-          emulatorsInCellar={[]}
-        />,
+        <AddEmulator emulatorsInCellar={[]} />,
         store
       )
 
+      // Select MAME option
+      const select = screen.getByRole('combobox')
+      userEvent.selectOptions(select, mame.shortName)
+      expect(
+        (screen.getByRole('option', {
+          name: mame.shortName,
+        }) as HTMLOptionElement).selected
+      ).toBe(true)
+      expect(
+        (screen.getByRole('option', {
+          name: scummvm.shortName,
+        }) as HTMLOptionElement).selected
+      ).toBe(false)
+      expect(
+        (screen.getByRole('option', {
+          name: zinc.shortName,
+        }) as HTMLOptionElement).selected
+      ).toBe(false)
+
+      // Submit
       const submitButton = screen.getByRole('button', {
         name: 'common.confirm',
       })

@@ -2,7 +2,7 @@ import './emulators-select.scss'
 import * as React from 'react'
 import { Select, InputLabel, FormHelperText } from '@material-ui/core'
 import { EmulatorId } from 'models/emulator/types'
-import { EmulatorIdsToName } from 'redux/modules/emulators'
+import { EmulatorIdsToName } from 'redux/modules/cellar'
 import { withTranslation, WithTranslation } from 'react-i18next'
 
 /**
@@ -11,6 +11,7 @@ import { withTranslation, WithTranslation } from 'react-i18next'
 export interface EmulatorSelectComponentProperties {
   hasError: boolean
   errorMessage?: string
+  onEmulatorSelected: (emulatorId: EmulatorId) => void
 }
 
 /**
@@ -18,13 +19,6 @@ export interface EmulatorSelectComponentProperties {
  */
 export interface EmulatorsSelectComponentStateProperties {
   availableEmulatorNames: EmulatorIdsToName[]
-}
-
-/**
- * Properties definition for this component (from redux reducer).
- */
-export interface EmulatorSelectComponentDispatchProperties {
-  setSelectedEmulatorId(emulatorId: EmulatorId): void
 }
 
 /**
@@ -40,7 +34,6 @@ interface EmulatorSelectComponentState {
 class EmulatorsSelect extends React.PureComponent<
   EmulatorSelectComponentProperties &
     EmulatorsSelectComponentStateProperties &
-    EmulatorSelectComponentDispatchProperties &
     WithTranslation,
   EmulatorSelectComponentState
 > {
@@ -52,7 +45,6 @@ class EmulatorsSelect extends React.PureComponent<
   constructor(
     props: EmulatorSelectComponentProperties &
       EmulatorsSelectComponentStateProperties &
-      EmulatorSelectComponentDispatchProperties &
       WithTranslation
   ) {
     super(props)
@@ -69,9 +61,7 @@ class EmulatorsSelect extends React.PureComponent<
     this.setState({
       selectedEmulatorId: emulatorId,
     })
-
-    // Update selected emulator in store
-    this.props.setSelectedEmulatorId(emulatorId)
+    this.props.onEmulatorSelected(emulatorId)
   }
 
   /**

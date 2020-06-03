@@ -13,7 +13,7 @@ it('should correctly render emulators select', () => {
   createComponentWithRouter(
     <EmulatorsSelect
       availableEmulatorNames={emulatorsIdsToNames}
-      setSelectedEmulatorId={jest.fn()}
+      onEmulatorSelected={jest.fn()}
       hasError={false}
     />
   )
@@ -28,7 +28,7 @@ it('should correctly render emulators select', () => {
     })
 })
 
-it('should call setSelectedEmulatorId() method when MAME is selected', (done) => {
+it('should call onEmulatorSelected() method when MAME is selected', (done) => {
   const mameId = Emulators[0].Id
 
   const callback = (emulatorId: EmulatorId): void => {
@@ -41,7 +41,7 @@ it('should call setSelectedEmulatorId() method when MAME is selected', (done) =>
   createComponentWithRouter(
     <EmulatorsSelect
       availableEmulatorNames={emulatorsIdsToNames}
-      setSelectedEmulatorId={callback}
+      onEmulatorSelected={callback}
       hasError={false}
     />
   )

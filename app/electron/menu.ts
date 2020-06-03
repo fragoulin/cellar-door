@@ -7,7 +7,7 @@ import {
 import * as i18nBackend from 'i18next-electron-fs-backend'
 import Whitelist from 'localization/whitelist'
 import { i18n as I18n } from 'i18next'
-import { MenuClickChannel, NewCellarId } from './constants'
+import { MenuClickChannel, NewCellarId, UndoId, RedoId } from './constants'
 
 const isMac = process.platform === 'darwin'
 
@@ -15,6 +15,7 @@ const isMac = process.platform === 'darwin'
  * The system menu fragment for mac OS.
  *
  * @param appName - application name
+ * @param i18n - i18n instance to translate menu items.
  * @returns system menu fragment for mac OS.
  */
 const macSystemMenuFragment = (
@@ -50,6 +51,7 @@ function handleClick(menuItem: MenuItem, browserWindow: BrowserWindow): void {
 /**
  * Main menu (like file) for all OS.
  *
+ * @param i18n - i18n instance to translate menu items.
  * @returns cellar menu for all OS.
  */
 function cellarMenuFragment(i18n: I18n): MenuItemConstructorOptions {
@@ -91,8 +93,35 @@ function cellarMenuFragment(i18n: I18n): MenuItemConstructorOptions {
 }
 
 /**
+ *
+ * @param i18n - i18n instance to translate menu items.
+ * @returns edit menu for all OS.
+ */
+function editMenuFragment(i18n: I18n): MenuItemConstructorOptions {
+  return {
+    label: i18n.t('menu.edit.label'),
+    role: 'editMenu',
+    submenu: [
+      {
+        id: UndoId,
+        accelerator: 'CmdOrCtrl+Z',
+        label: i18n.t('menu.edit.undo'),
+        click: handleClick,
+      },
+      {
+        id: RedoId,
+        accelerator: 'CmdOrCtrl+Y',
+        label: i18n.t('menu.edit.redo'),
+        click: handleClick,
+      },
+    ],
+  }
+}
+
+/**
  * Preferences menu for all OS.
  *
+ * @param i18n - i18n instance to translate menu items.
  * @returns preferences menu for all OS.
  */
 function preferencesMenuFragment(i18n: I18n): MenuItemConstructorOptions {
@@ -134,6 +163,7 @@ export default (
 ): Array<MenuItemConstructorOptions | MenuItem> => [
   ...(isMac ? macSystemMenuFragment(app.name, i18n) : []),
   cellarMenuFragment(i18n),
+  editMenuFragment(i18n),
   preferencesMenuFragment(i18n),
   helpMenuFragment(i18n),
 ]

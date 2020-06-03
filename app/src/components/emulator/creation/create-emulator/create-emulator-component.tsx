@@ -14,29 +14,11 @@ export interface CreateEmulatorComponentStateProperties {
 }
 
 /**
- * Properties definition for this component (from redux reducer).
- */
-export interface CreateEmulatorComponentDispatchProperties {
-  addEmulatorToCellar(emulator: Emulator): void
-}
-
-/**
  * Create emulator component is the result page after an emulator has been created.
  */
 class CreateEmulator extends React.PureComponent<
-  CreateEmulatorComponentStateProperties &
-    CreateEmulatorComponentDispatchProperties &
-    WithTranslation
+  CreateEmulatorComponentStateProperties & WithTranslation
 > {
-  /**
-   * Add emulator to cellar when component is mounted.
-   */
-  componentDidMount(): void {
-    if (this.props.emulator) {
-      this.props.addEmulatorToCellar(this.props.emulator)
-    }
-  }
-
   /**
    * Render emulator summary and control buttons to go back to cellar or create another emulator.
    *

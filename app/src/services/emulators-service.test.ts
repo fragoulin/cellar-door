@@ -50,20 +50,20 @@ it('should get unknown emulator', () => {
 })
 
 it('should correctly update configuration with an empty array', () => {
+  const emulator = getEmulator(EmulatorId.MAME)
   const configurationToUpdate: EmulatorConfiguration[] = []
-  const configuration: EmulatorConfiguration = {
-    name: 'testName',
-    value: 'testValue',
-    mandatory: true,
+  if (emulator) {
+    emulator.configuration = configurationToUpdate
+    const configuration: EmulatorConfiguration = {
+      name: 'testName',
+      value: 'testValue',
+      mandatory: true,
+    }
+    const newConfiguration = updateConfiguration(emulator, configuration)
+    expect(newConfiguration).toHaveLength(1)
+    expect(newConfiguration[0]).toEqual(configuration)
+    expect(newConfiguration[0]).not.toBe(configuration)
   }
-  const newConfiguration = updateConfiguration(
-    configurationToUpdate,
-    configuration
-  )
-
-  expect(newConfiguration).toHaveLength(1)
-  expect(newConfiguration[0]).toEqual(configuration)
-  expect(newConfiguration[0]).not.toBe(configuration)
 })
 
 it('should correctly update configuration with a non-empty array (1st position)', () => {
@@ -87,13 +87,17 @@ it('should correctly update configuration with a non-empty array (1st position)'
     mandatory: true,
   }
 
-  const newConfigurations = updateConfiguration(configuration, newConfiguration)
+  const emulator = getEmulator(EmulatorId.MAME)
+  if (emulator) {
+    emulator.configuration = configuration
+    const newConfigurations = updateConfiguration(emulator, newConfiguration)
 
-  expect(newConfigurations).toHaveLength(2)
-  expect(newConfigurations[0]).toEqual(newConfiguration)
-  expect(newConfigurations[0]).not.toBe(newConfiguration)
-  expect(newConfigurations[1]).toEqual(config1)
-  expect(newConfigurations[1]).not.toBe(config1)
+    expect(newConfigurations).toHaveLength(2)
+    expect(newConfigurations[0]).toEqual(newConfiguration)
+    expect(newConfigurations[0]).not.toBe(newConfiguration)
+    expect(newConfigurations[1]).toEqual(config1)
+    expect(newConfigurations[1]).not.toBe(config1)
+  }
 })
 
 it('should correctly update configuration with a non-empty array (2nd position)', () => {
@@ -117,11 +121,15 @@ it('should correctly update configuration with a non-empty array (2nd position)'
     mandatory: true,
   }
 
-  const newConfigurations = updateConfiguration(configuration, newConfiguration)
+  const emulator = getEmulator(EmulatorId.MAME)
+  if (emulator) {
+    emulator.configuration = configuration
+    const newConfigurations = updateConfiguration(emulator, newConfiguration)
 
-  expect(newConfigurations).toHaveLength(2)
-  expect(newConfigurations[0]).toEqual(config1)
-  expect(newConfigurations[0]).not.toBe(config1)
-  expect(newConfigurations[1]).toEqual(newConfiguration)
-  expect(newConfigurations[1]).not.toBe(newConfiguration)
+    expect(newConfigurations).toHaveLength(2)
+    expect(newConfigurations[0]).toEqual(config1)
+    expect(newConfigurations[0]).not.toBe(config1)
+    expect(newConfigurations[1]).toEqual(newConfiguration)
+    expect(newConfigurations[1]).not.toBe(newConfiguration)
+  }
 })

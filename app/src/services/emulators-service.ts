@@ -4,7 +4,7 @@ import {
   EmulatorConfiguration,
 } from 'models/emulator/types'
 import Emulators from 'models/emulator/emulators'
-import { EmulatorIdsToName } from 'redux/modules/emulators'
+import { EmulatorIdsToName } from 'redux/modules/cellar'
 import { cloneDeep } from 'lodash'
 
 /**
@@ -48,14 +48,14 @@ function getEmulator(emulatorId: EmulatorId): Emulator | undefined {
  * Return new array of emulator configuration updated with specified emulator configuration.
  * If no update, new emulator configuration is added to the new array.
  *
- * @param configuration - array of configuration to update
+ * @param param  - emulator with configuration to update
  * @param newConfiguration - new configuration to insert/update to array
  */
 function updateConfiguration(
-  configurationToUpdate: EmulatorConfiguration[],
+  emulator: Emulator,
   configuration: EmulatorConfiguration
 ): EmulatorConfiguration[] {
-  const newConfigurationToUpdate = cloneDeep(configurationToUpdate)
+  const newConfigurationToUpdate = cloneDeep(emulator.configuration)
   const newConfiguration = cloneDeep(configuration)
 
   const index = newConfigurationToUpdate.findIndex(

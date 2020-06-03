@@ -29,6 +29,7 @@ export type CellarWin = Window & typeof globalThis & Api
 // Expose protected methods that allow the renderer process to use
 // the ipcRenderer without exposing the entire object
 contextBridge.exposeInMainWorld('api', {
+  // Send asynchronous messages from renderer to main process
   send: (channel: string, ...args: unknown[]) => {
     // whitelist channels
     const validChannels = [DialogSyncChannel, UpdateLanguageChannel]
@@ -38,6 +39,7 @@ contextBridge.exposeInMainWorld('api', {
       console.error(`Invalid channel for send : ${channel}`)
     }
   },
+  // Send synchronous messages from renderer to main process
   sendSync: (channel: string, ...args: unknown[]): unknown => {
     // whitelist channels
     const validChannels = [getResourcesPathChannel, isDevChannel]
@@ -48,6 +50,7 @@ contextBridge.exposeInMainWorld('api', {
       return undefined
     }
   },
+  // Send asynchronous messages from main to renderer process
   receive: (channel: string, func: Function) => {
     const validChannels = [DialogSyncResultChannel, MenuClickChannel]
     if (validChannels.includes(channel)) {

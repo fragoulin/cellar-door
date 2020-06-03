@@ -16,7 +16,8 @@
   },
   "emulatorSelect": {
     "label": "Emulateur",
-    "errorRequired": "L'émulateur est requis"
+    "errorRequired": "L'émulateur est requis",
+    "errorAlreadyConfigured": "L'émulateur est déjà configuré"
   },
   "selectDirectory": {
     "label": "Sélectionner un répertoire",
@@ -54,6 +55,11 @@
       "closeEmulator": "Fermer l'émulateur",
       "close": "Fermer",
       "quit": "Quitter"
+    },
+    "edit": {
+      "label": "Edition",
+      "undo": "Défaire",
+      "redo": "Refaire"
     },
     "preferences": {
       "label": "Préférences",

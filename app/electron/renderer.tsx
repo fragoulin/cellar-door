@@ -92,7 +92,7 @@ function notifyMainProcess(language: string): void {
 // Wait for i18next initialization before creating root element.
 persistor.subscribe(() => {
   const state = store.getState()
-  const language = state.cellar.currentLocale
+  const language = state.cellar.present.currentLocale
   i18nConfig
     .whenReady(language)
     .then((i18n) => {

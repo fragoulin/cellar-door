@@ -10,16 +10,7 @@ import { withTranslation, WithTranslation } from 'react-i18next'
  * Properties definition for this component (from redux state).
  */
 export interface AddEmulatorComponentStateProperties {
-  selectedEmulatorId: EmulatorId | undefined
   emulatorsInCellar: Emulator[]
-}
-
-/**
- * Properties definition for this component (from redux reducer).
- */
-export interface AddEmulatorComponentDispatchProperties {
-  buildAvailableEmulatorNamesList(): void
-  createEmulator(emulatorId: EmulatorId): void
 }
 
 /**
@@ -29,6 +20,7 @@ interface AddEmulatorComponentState {
   redirect: boolean
   hasError: boolean
   errorMessage?: string
+  selectedEmulatorId?: EmulatorId
 }
 
 /**
@@ -36,9 +28,7 @@ interface AddEmulatorComponentState {
  * It displays the list of available emulators and back/submit buttons.
  */
 class AddEmulator extends React.PureComponent<
-  AddEmulatorComponentStateProperties &
-    AddEmulatorComponentDispatchProperties &
-    WithTranslation,
+  AddEmulatorComponentStateProperties & WithTranslation,
   AddEmulatorComponentState
 > {
   /**
@@ -46,11 +36,7 @@ class AddEmulator extends React.PureComponent<
    *
    * @param props - component properties.
    */
-  constructor(
-    props: AddEmulatorComponentStateProperties &
-      AddEmulatorComponentDispatchProperties &
-      WithTranslation
-  ) {
+  constructor(props: AddEmulatorComponentStateProperties & WithTranslation) {
     super(props)
 
     this.state = {
@@ -59,20 +45,13 @@ class AddEmulator extends React.PureComponent<
     }
   }
 
-  /**
-   * Build available emulators list when component is mounted.
-   */
-  componentDidMount(): void {
-    this.props.buildAvailableEmulatorNamesList()
-  }
-
   private handleSubmit = (e: React.SyntheticEvent): void => {
     e.preventDefault()
 
     let errorMessage: string | undefined
 
     // Check if an emulator has been selected
-    const emulatorIdDefined = this.props.selectedEmulatorId !== undefined
+    const emulatorIdDefined = this.state.selectedEmulatorId !== undefined
     if (!emulatorIdDefined)
       errorMessage = this.props.t('emulatorSelect.errorRequired')
 
@@ -83,11 +62,6 @@ class AddEmulator extends React.PureComponent<
 
     // Form is in error is no emulator has been selected or if selected emulator is already configured
     const error = !emulatorIdDefined || emulatorAlreadyConfigured
-
-    if (!error && this.props.selectedEmulatorId) {
-      // Create emulator
-      this.props.createEmulator(this.props.selectedEmulatorId)
-    }
 
     this.setState({
       redirect: !error,
@@ -104,8 +78,19 @@ class AddEmulator extends React.PureComponent<
    */
   private emulatorAlreadyPresentInCellar(): boolean {
     return !!this.props.emulatorsInCellar.find(
-      (emulator) => this.props.selectedEmulatorId === emulator.Id
+      (emulator) => this.state.selectedEmulatorId === emulator.Id
     )
+  }
+
+  /**
+   * Handle emulator selection from child component.
+   *
+   * @param emulatorId - selected emulator Id.
+   */
+  private handleEmulatorSelection = (emulatorId: EmulatorId): void => {
+    this.setState({
+      selectedEmulatorId: emulatorId,
+    })
   }
 
   /**
@@ -124,6 +109,7 @@ class AddEmulator extends React.PureComponent<
             <EmulatorsSelect
               hasError={this.state.hasError}
               errorMessage={this.state.errorMessage}
+              onEmulatorSelected={this.handleEmulatorSelection}
             />
           </FormControl>
         </div>
@@ -135,7 +121,7 @@ class AddEmulator extends React.PureComponent<
         </Button>
       </form>
     ) : (
-      <Redirect to="/configure-emulator/" />
+      <Redirect to={`/configure-emulator/${this.state.selectedEmulatorId}`} />
     )
   }
 }

@@ -33,15 +33,3 @@ it('should render fresh installation component if cellar is empty', () => {
 
   testComponents()
 })
-
-xit('should render emulators list component if cellar contains emulators', () => {
-  const cellar: Cellar = {}
-  const emulatorsInCellar: Emulator[] = Emulators
-
-  createComponentWithProviderAndRouter(
-    <Welcome cellar={cellar} emulatorsInCellar={emulatorsInCellar} />,
-    mockStore()
-  )
-
-  // TODO
-})

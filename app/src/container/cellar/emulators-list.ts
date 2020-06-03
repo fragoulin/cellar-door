@@ -13,7 +13,7 @@ const mapStateToProps = (
   state: RootState
 ): EmulatorsListComponentStateProperties => {
   return {
-    emulatorsInCellar: state.cellar.emulatorsInCellar,
+    emulatorsInCellar: state.cellar.present.emulatorsInCellar,
   }
 }
 

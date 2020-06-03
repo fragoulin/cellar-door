@@ -1,6 +1,15 @@
 import { Cellar } from 'models/cellar'
 import { createSlice } from '@reduxjs/toolkit'
-import { Emulator } from 'models/emulator/types'
+import { Emulator, EmulatorId } from 'models/emulator/types'
+import { buildAvailableEmulatorNamesList } from 'services/emulators-service'
+
+/**
+ * Maps emulator Ids to emulator names.
+ */
+export interface EmulatorIdsToName {
+  id: EmulatorId
+  name: string
+}
 
 /**
  * Cellar state definition.
@@ -9,17 +18,19 @@ export interface CellarState {
   currentCellar: Cellar | undefined
   currentLocale: string
   emulatorsInCellar: Emulator[]
+  availableEmulatorNames: EmulatorIdsToName[]
 }
 
 /**
  * Initial state for cellar state.
  */
-const initialState: CellarState = {
+export const initialState: CellarState = {
   currentCellar: undefined,
   currentLocale: 'en',
   emulatorsInCellar: [],
+  availableEmulatorNames: [],
 }
-
+console.log(initialState, 'initial state')
 /**
  * Redux slice for cellar store.
  */
@@ -30,6 +41,7 @@ const cellarSlice = createSlice({
     cellarCreated(state): void {
       state.currentCellar = {}
       state.emulatorsInCellar = []
+      state.availableEmulatorNames = buildAvailableEmulatorNamesList()
     },
     cellarClosed(state): void {
       state.currentCellar = undefined
@@ -42,10 +54,9 @@ const cellarSlice = createSlice({
       state.emulatorsInCellar.push(action.payload)
     },
     emulatorRemovedFromCellar(state, action): void {
-      console.log(action, 'emulatorRemovedFromCellar')
-      state.emulatorsInCellar = state.emulatorsInCellar.filter((emulator) => {
-        return emulator.Id !== action.payload
-      })
+      state.emulatorsInCellar = state.emulatorsInCellar.filter(
+        (emulator) => emulator.Id !== action.payload
+      )
     },
   },
 })
