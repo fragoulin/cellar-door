@@ -1,7 +1,15 @@
 import { Store } from 'redux'
 import { cellarCreated, emulatorRemovedFromCellar } from 'redux/modules/cellar'
-import { NewCellarId, RemoveEmulatorId, UndoId, RedoId } from './constants'
+import {
+  NewCellarId,
+  RemoveEmulatorId,
+  UndoId,
+  RedoId,
+  EnableMenuItem,
+} from './constants'
 import { ActionCreators } from 'redux-undo'
+import { RootState } from 'redux/store'
+import { CellarWin } from './preload'
 
 /**
  * Handle menu click on renderer side.
@@ -31,4 +39,19 @@ function handleMenuClick(
   }
 }
 
-export { handleMenuClick }
+/**
+ * Callback to alter menu after state update.
+ */
+function handleMenuAfterStateUpdate(state: RootState): void {
+  const past = state.cellar.past
+  const future = state.cellar.future
+  const win = window as CellarWin
+
+  // Enable or disable undo
+  win.api.send(EnableMenuItem, UndoId, past.length > 0)
+
+  // Enable or disable redo
+  win.api.send(EnableMenuItem, RedoId, future.length > 0)
+}
+
+export { handleMenuClick, handleMenuAfterStateUpdate }

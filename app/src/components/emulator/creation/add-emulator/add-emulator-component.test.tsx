@@ -9,7 +9,6 @@ import userEvent from '@testing-library/user-event'
 import wrap from 'jest-wrap'
 import { RootState } from 'redux/store'
 import Emulators from 'models/emulator/emulators/index'
-import { EmulatorId } from 'models/emulator/types'
 
 const mockStore = configureMockStore()
 const mockWindow = window as CellarWin

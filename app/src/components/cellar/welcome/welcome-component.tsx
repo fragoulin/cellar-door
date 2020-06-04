@@ -26,13 +26,14 @@ export interface WelcomeComponentDispatchProperties {
  * It displays either the list of emulators of the current cellar (if available) or simply renders the fresh installation component.
  */
 class Welcome extends React.PureComponent<
-  WelcomeComponentStateProperties & WithTranslation,
-  WelcomeComponentDispatchProperties
+  WelcomeComponentStateProperties &
+    WelcomeComponentDispatchProperties &
+    WithTranslation
 > {
   componentDidMount(): void {
     // Create cellar if needed
     if (undefined === this.props.cellar) {
-      this.state.createCellar()
+      this.props.createCellar()
     }
   }
 

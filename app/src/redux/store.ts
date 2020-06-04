@@ -2,20 +2,32 @@ import { combineReducers } from 'redux'
 import { configureStore } from '@reduxjs/toolkit'
 import logger from 'redux-logger'
 import cellarReducer, {
-  initialState as cellarInitialState,
+  currentLocaleSet,
+  cellarCreated,
 } from './modules/cellar'
-import { persistStore, persistReducer } from 'redux-persist'
-import storage from 'redux-persist/lib/storage'
-import { PersistConfig } from 'redux-persist/es/types'
-import CellarTransform from './transformers/cellar-transformers'
-import autoMergeLevel2 from 'redux-persist/lib/stateReconciler/autoMergeLevel2'
 import undoable from 'redux-undo'
+import * as localStorage from 'services/local-storage-service'
+import { handleMenuAfterStateUpdate } from 'electron/menu-handler'
+import {
+  getStateBeforeStoringToStorage,
+  getStateAfterGetingFromStorage,
+} from '../storage/cellar-transformers'
+import { StateKey } from 'electron/constants'
 
 /**
- * Reducers combined.
+ * Reducers combined with undo.
  */
 const rootReducer = combineReducers({
-  cellar: undoable(cellarReducer),
+  cellar: undoable(cellarReducer, {
+    filter: function filterAction(action) {
+      // Ignore some actions in undo/redo history
+      const actionTypesToIgnore = [cellarCreated.type, currentLocaleSet.type]
+      return (
+        actionTypesToIgnore.find((actionType) => actionType === action.type) ===
+        undefined
+      )
+    },
+  }),
 })
 
 /**
@@ -23,28 +35,29 @@ const rootReducer = combineReducers({
  */
 export type RootState = ReturnType<typeof rootReducer>
 
-/**
- * Persistence configuration.
- */
-const persistReducerConfig: PersistConfig<RootState> = {
-  key: 'root',
-  storage,
-  transforms: [CellarTransform],
-  stateReconciler: autoMergeLevel2,
+// Try to retrieve state from storage
+let preloadedState = localStorage.get<RootState>(StateKey)
+if (preloadedState) {
+  preloadedState = getStateAfterGetingFromStorage(preloadedState)
 }
-const persistedReducer = persistReducer(persistReducerConfig, rootReducer)
 
+/**
+ * Create redux store.
+ */
 const store = configureStore({
-  reducer: persistedReducer,
+  reducer: rootReducer,
   middleware: [logger],
-  preloadedState: {
-    cellar: {
-      past: [],
-      present: cellarInitialState,
-      future: [],
-    },
-  },
+  preloadedState: preloadedState,
 })
-const persistor = persistStore(store)
 
-export { store, persistor }
+// Listen for state update to alter menu items.
+store.subscribe(() => {
+  // Update menu items
+  handleMenuAfterStateUpdate(store.getState())
+
+  // Persist state
+  const storeToPersist = getStateBeforeStoringToStorage(store.getState())
+  localStorage.store(StateKey, storeToPersist)
+})
+
+export default store

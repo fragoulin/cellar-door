@@ -1,13 +1,21 @@
 import {
   App,
+  Menu,
   MenuItemConstructorOptions,
   MenuItem,
   BrowserWindow,
+  ipcMain,
 } from 'electron'
 import * as i18nBackend from 'i18next-electron-fs-backend'
 import Whitelist from 'localization/whitelist'
 import { i18n as I18n } from 'i18next'
-import { MenuClickChannel, NewCellarId, UndoId, RedoId } from './constants'
+import {
+  MenuClickChannel,
+  NewCellarId,
+  UndoId,
+  RedoId,
+  EnableMenuItem,
+} from './constants'
 
 const isMac = process.platform === 'darwin'
 
@@ -93,6 +101,20 @@ function cellarMenuFragment(i18n: I18n): MenuItemConstructorOptions {
 }
 
 /**
+ * Enable or disable a menu item.
+ *
+ * @param menuItemId - Id of menu item to enable/disable
+ * @param checked - true to enable menu item, else false.
+ */
+function enableMenuItem(menuItemId: string, checked: boolean): void {
+  const menu = Menu.getApplicationMenu()
+  if (menu) {
+    const menuItem = menu.getMenuItemById(menuItemId)
+    menuItem.enabled = checked
+  }
+}
+
+/**
  *
  * @param i18n - i18n instance to translate menu items.
  * @returns edit menu for all OS.
@@ -107,12 +129,14 @@ function editMenuFragment(i18n: I18n): MenuItemConstructorOptions {
         accelerator: 'CmdOrCtrl+Z',
         label: i18n.t('menu.edit.undo'),
         click: handleClick,
+        enabled: false,
       },
       {
         id: RedoId,
         accelerator: 'CmdOrCtrl+Y',
         label: i18n.t('menu.edit.redo'),
         click: handleClick,
+        enabled: false,
       },
     ],
   }
@@ -153,6 +177,11 @@ function helpMenuFragment(i18n: I18n): MenuItemConstructorOptions {
     ],
   }
 }
+
+// Listen for menu item enable/disable actions from renderer
+ipcMain.on(EnableMenuItem, (_event, menuItemId: string, checked: boolean) => {
+  enableMenuItem(menuItemId, checked)
+})
 
 /**
  * Build menu for all OS.

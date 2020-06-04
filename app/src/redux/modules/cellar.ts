@@ -30,7 +30,7 @@ export const initialState: CellarState = {
   emulatorsInCellar: [],
   availableEmulatorNames: [],
 }
-console.log(initialState, 'initial state')
+
 /**
  * Redux slice for cellar store.
  */

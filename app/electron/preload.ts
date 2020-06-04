@@ -7,6 +7,7 @@ import {
   isDevChannel,
   DialogSyncResultChannel,
   MenuClickChannel,
+  EnableMenuItem,
 } from './constants'
 
 /**
@@ -32,7 +33,11 @@ contextBridge.exposeInMainWorld('api', {
   // Send asynchronous messages from renderer to main process
   send: (channel: string, ...args: unknown[]) => {
     // whitelist channels
-    const validChannels = [DialogSyncChannel, UpdateLanguageChannel]
+    const validChannels = [
+      DialogSyncChannel,
+      UpdateLanguageChannel,
+      EnableMenuItem,
+    ]
     if (validChannels.includes(channel)) {
       ipcRenderer.send(channel, ...args)
     } else {

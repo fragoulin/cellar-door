@@ -15,7 +15,11 @@ it('should correctly display heading', () => {
   const emulatorsInCellar: Emulator[] = []
 
   createComponentWithProviderAndRouter(
-    <Welcome cellar={cellar} emulatorsInCellar={emulatorsInCellar} />,
+    <Welcome
+      cellar={cellar}
+      emulatorsInCellar={emulatorsInCellar}
+      createCellar={jest.fn()}
+    />,
     mockStore()
   )
 
@@ -27,7 +31,11 @@ it('should render fresh installation component if cellar is empty', () => {
   const emulatorsInCellar: Emulator[] = []
 
   createComponentWithProviderAndRouter(
-    <Welcome cellar={cellar} emulatorsInCellar={emulatorsInCellar} />,
+    <Welcome
+      cellar={cellar}
+      emulatorsInCellar={emulatorsInCellar}
+      createCellar={jest.fn()}
+    />,
     mockStore()
   )
 

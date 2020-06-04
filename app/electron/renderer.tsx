@@ -11,8 +11,7 @@ import { CellarWin } from './preload'
 import WebFont from 'webfontloader'
 import { handleMenuClick } from './menu-handler'
 import { Provider } from 'react-redux'
-import { PersistGate } from 'redux-persist/integration/react'
-import { store, persistor } from 'redux/store'
+import store from 'redux/store'
 import { UpdateLanguageChannel, MenuClickChannel } from './constants'
 
 // Load required fonts for material. Required font weights are 300, 400, 500 and 700
@@ -39,11 +38,9 @@ function createRoot(store: Store, i18n: I18n): void {
         <I18nextProvider i18n={i18n}>
           <Suspense fallback="loading">
             <Provider store={store}>
-              <PersistGate loading={null} persistor={persistor}>
-                <header></header>
-                <Router />
-                <footer></footer>
-              </PersistGate>
+              <header></header>
+              <Router />
+              <footer></footer>
             </Provider>
           </Suspense>
         </I18nextProvider>
@@ -90,16 +87,14 @@ function notifyMainProcess(language: string): void {
 }
 
 // Wait for i18next initialization before creating root element.
-persistor.subscribe(() => {
-  const state = store.getState()
-  const language = state.cellar.present.currentLocale
-  i18nConfig
-    .whenReady(language)
-    .then((i18n) => {
-      notifyMainProcess(language)
-      listenForLanguageUpdate(store, i18n)
-      listenForMenuClick(store)
-      createRoot(store, i18n)
-    })
-    .catch(console.error)
-})
+const state = store.getState()
+const language = state.cellar.present.currentLocale
+i18nConfig
+  .whenReady(language)
+  .then((i18n) => {
+    notifyMainProcess(language)
+    listenForLanguageUpdate(store, i18n)
+    listenForMenuClick(store)
+    createRoot(store, i18n)
+  })
+  .catch(console.error)
