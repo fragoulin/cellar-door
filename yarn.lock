@@ -9243,7 +9243,7 @@ rx-lite@*, rx-lite@^4.0.8:
   resolved "https://registry.yarnpkg.com/rx-lite/-/rx-lite-4.0.8.tgz#0b1e11af8bc44836f04a6407e92da42467b79444"
   integrity sha1-Cx4Rr4vESDbwSmQH6S2kJGe3lEQ=
 
-rxjs@^6.3.1, rxjs@^6.5.3, rxjs@^6.5.5:
+rxjs@^6.3.1, rxjs@^6.5.3:
   version "6.5.5"
   resolved "https://registry.yarnpkg.com/rxjs/-/rxjs-6.5.5.tgz#c5c884e3094c8cfee31bf27eb87e54ccfc87f9ec"
   integrity sha512-WfQI+1gohdf0Dai/Bbmk5L5ItH5tYqm3ki2c5GdWhKjalzjg93N3avFjVStyZZz+A2Em+ZxKH5bNghw9UeylGQ==
@@ -9790,32 +9790,6 @@ stdout-stream@^1.4.0:
   dependencies:
     readable-stream "^2.0.1"
 
-ste-core@^1.6.10:
-  version "1.6.11"
-  resolved "https://registry.yarnpkg.com/ste-core/-/ste-core-1.6.11.tgz#3d07c480d122a0fb2139264860a8d3d6681ce148"
-  integrity sha512-hY/HiY8h7AC0dozwUTcVIjKf9QqyipLZ+5FS8VKOpm5yx38zRgtJ81KJmG162efAUqbNiijOWq/MccO1Zgx1bg==
-
-ste-events@^1.6.10:
-  version "1.6.11"
-  resolved "https://registry.yarnpkg.com/ste-events/-/ste-events-1.6.11.tgz#ab6e8616c3bd2728c2c1593973afcf6c79c95d4e"
-  integrity sha512-seOP2iRYQNOJbhSgGN5ZWHnvAUCJ9tOUpiKoahQ+x69Nm/Rr0NFksMjnce7TJd7n1j6SUaWAUEuY0cw4AS/a+Q==
-  dependencies:
-    ste-core "^1.6.10"
-
-ste-signals@^1.6.10:
-  version "1.6.11"
-  resolved "https://registry.yarnpkg.com/ste-signals/-/ste-signals-1.6.11.tgz#3338cbb4a82b6e859325d352e2260e3f6656bf7b"
-  integrity sha512-R/PpeHMdaTCbtNIfkrO/vbnwRa9PxcOVOCYJRL00TIhfsbD7azRDRma1lIzP5rQHqpGr+iTuDbprVcMCvjZr4g==
-  dependencies:
-    ste-core "^1.6.10"
-
-ste-simple-events@^1.6.10:
-  version "1.6.11"
-  resolved "https://registry.yarnpkg.com/ste-simple-events/-/ste-simple-events-1.6.11.tgz#47408cda0b0fe2a872baa668179d31e69faec307"
-  integrity sha512-u12WI/7p3GGk1Y32BPM4chYuk5Hq6EW6yAbBnlSWqZPv//hzhcpxMOEOTeT3M2di+EpVcwjmtE8ELLW+Tu60EQ==
-  dependencies:
-    ste-core "^1.6.10"
-
 stealthy-require@^1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/stealthy-require/-/stealthy-require-1.1.1.tgz#35b09875b4ff49f26a777e509b3090a3226bf24b"
@@ -10027,16 +10001,6 @@ strip-json-comments@^3.0.1:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/strip-json-comments/-/strip-json-comments-3.1.0.tgz#7638d31422129ecf4457440009fba03f9f9ac180"
   integrity sha512-e6/d0eBu7gHtdCqFt0xJr642LdToM5/cN4Qb9DbHjVx1CP5RyeM+zH7pbecEmDv/lBqb0QH+6Uqq75rxFPkM0w==
-
-strongly-typed-events@^1.6.11:
-  version "1.6.11"
-  resolved "https://registry.yarnpkg.com/strongly-typed-events/-/strongly-typed-events-1.6.11.tgz#0109d267414497cfd3806c733ea90897285e2fef"
-  integrity sha512-MpFClTaPVXDvR1rzmc5vjKKGH+WyBHc3nmFSdURLTBbiHJMCA7ZwY8mP9tRnI369fYJ5VeEYU+tCplr1VXF6jA==
-  dependencies:
-    ste-core "^1.6.10"
-    ste-events "^1.6.10"
-    ste-signals "^1.6.10"
-    ste-simple-events "^1.6.10"
 
 style-loader@^1.2.0:
   version "1.2.1"
