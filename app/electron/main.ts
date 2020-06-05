@@ -9,7 +9,7 @@ import { isDev } from 'services/app-service'
 import contextMenu from 'electron-context-menu'
 import { contextMenuOptions } from './menu/context-menu'
 import { UpdateLanguageChannel } from './constants'
-import { pkginfo } from "./package-info"
+import { pkginfo } from './package-info'
 
 /**
  * Path to main webpack entry.
@@ -89,7 +89,7 @@ function customizeAboutMenu(): void {
     applicationName: pkginfo.productName,
     applicationVersion: `Version: ${pkginfo.version}`,
     website: pkginfo.homepage,
-    copyright: `© ${pkginfo.author}`
+    copyright: `© ${pkginfo.author}`,
   })
 }
 

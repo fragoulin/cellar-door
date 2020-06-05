@@ -1,6 +1,6 @@
-import { join } from 'path';
-import { readFileSync } from 'fs';
-import { rootPath } from 'electron-root-path';
+import { join } from 'path'
+import { readFileSync } from 'fs'
+import { rootPath } from 'electron-root-path'
 
 // This file is only valid for the main process
 
@@ -17,11 +17,11 @@ export interface PackageInfo {
   license: string
 }
 
-declare var PKG_INFO: PackageInfo
+declare const PKG_INFO: PackageInfo
 
 let _pkginfo: PackageInfo
 if (typeof PKG_INFO !== 'undefined' && PKG_INFO !== null) {
-  _pkginfo = PKG_INFO;
+  _pkginfo = PKG_INFO
 } else {
   /* This is a fallback incase the webpack DefinePlugin modules hasn't been initialized yet. */
   /* Developement mode only */
@@ -29,4 +29,5 @@ if (typeof PKG_INFO !== 'undefined' && PKG_INFO !== null) {
     readFileSync(join(rootPath, 'package.json'), { encoding: 'utf8' })
   )
 }
-export const pkginfo = _pkginfo;
+
+export const pkginfo = _pkginfo
