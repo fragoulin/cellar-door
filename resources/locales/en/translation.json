@@ -12,7 +12,11 @@
   },
   "emulatorsList": {
     "title": "Emulators list",
-    "removeEmulator": "Remove emulator"
+    "removeEmulator": {
+      "label": "Remove emulator",
+      "confirmation": "Are you sure you want to remove emulator {{name}} ?",
+      "confirmationDetail": "You will have the possibility to undo this operation"
+    }
   },
   "emulatorSelect": {
     "label": "Emulator",
@@ -34,7 +38,9 @@
   "common": {
     "confirm": "Confirm",
     "back": "Back",
-    "backToCellar": "Back to cellar"
+    "backToCellar": "Back to cellar",
+    "yes": "Yes",
+    "no": "No"
   },
   "menu": {
     "system": {
