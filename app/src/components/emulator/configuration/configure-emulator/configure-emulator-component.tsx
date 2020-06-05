@@ -21,7 +21,7 @@ export interface ConfigureEmulatorComponentDispatchProperties {
 /**
  * Additional properties definition to retrieve emulator Id from URL parameters.
  */
-interface MatchParams {
+export interface MatchParams {
   id: string
 }
 
@@ -123,7 +123,7 @@ class ConfigureEmulator extends React.PureComponent<
    * @returns the newly created node.
    */
   public render(): React.ReactNode {
-    if (!this.state.emulator)
+    if (!this.state || !this.state.emulator)
       return <div>{this.props.t('configureEmulator.notFound')}</div>
     if (this.state.redirect) return <Redirect to="/create-emulator/" />
 
