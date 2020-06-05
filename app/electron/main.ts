@@ -2,13 +2,14 @@ import { app, BrowserWindow, Menu, session, ipcMain } from 'electron'
 import { registerListeners } from 'services/ipc-main-service'
 import * as i18nextBackend from 'i18next-electron-fs-backend'
 import fs from 'fs'
-import menuTemplate from './menu'
+import menuTemplate from './menu/menu'
 import { i18n as I18n } from 'i18next'
 import * as i18nConfig from 'localization/i18next.config'
 import { isDev } from 'services/app-service'
 import contextMenu from 'electron-context-menu'
-import { contextMenuOptions } from './context-menu'
+import { contextMenuOptions } from './menu/context-menu'
 import { UpdateLanguageChannel } from './constants'
+import { pkginfo } from "./package-info"
 
 /**
  * Path to main webpack entry.
@@ -81,10 +82,23 @@ function createMenus(i18n: I18n): void {
 }
 
 /**
+ * Customize about menu box.
+ */
+function customizeAboutMenu(): void {
+  app.setAboutPanelOptions({
+    applicationName: pkginfo.productName,
+    applicationVersion: `Version: ${pkginfo.version}`,
+    website: pkginfo.homepage,
+    copyright: `© ${pkginfo.author}`
+  })
+}
+
+/**
  * Create main window (set headers, load URL and initialize menu).
  */
 function createWindow(): void {
   setCspHeaders()
+  customizeAboutMenu()
 
   // Create the browser window.
   win = new BrowserWindow({

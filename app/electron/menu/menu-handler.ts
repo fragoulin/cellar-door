@@ -7,10 +7,10 @@ import {
   EnableMenuItem,
   ImportCellar,
   ExportCellar,
-} from './constants'
+} from '../constants'
 import { ActionCreators } from 'redux-undo'
 import { RootState } from 'redux/store'
-import { CellarWin } from './preload'
+import { CellarWin } from '../preload'
 
 /**
  * Handle menu click on renderer side.

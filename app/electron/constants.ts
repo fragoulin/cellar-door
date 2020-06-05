@@ -1,3 +1,5 @@
+// This file is imported by main and renderer processes
+
 // Channel constants
 export const DialogSyncChannel = 'dialogSync'
 export const UpdateLanguageChannel = 'updateLanguage'

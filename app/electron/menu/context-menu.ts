@@ -1,7 +1,7 @@
 import { Options } from 'electron-context-menu'
 import { BrowserWindow, MenuItemConstructorOptions } from 'electron'
 import { i18n as I18n } from 'i18next'
-import { MenuClickChannel, RemoveEmulatorId } from './constants'
+import { MenuClickChannel, RemoveEmulatorId } from '../constants'
 
 /**
  * Build context menu options.

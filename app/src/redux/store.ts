@@ -7,7 +7,7 @@ import cellarReducer, {
 } from './modules/cellar'
 import undoable from 'redux-undo'
 import * as localStorage from 'services/local-storage-service'
-import { handleMenuAfterStateUpdate } from 'electron/menu-handler'
+import { handleMenuAfterStateUpdate } from 'electron/menu/menu-handler'
 import {
   getStateBeforeStoringToStorage,
   getStateAfterGetingFromStorage,

@@ -16,7 +16,7 @@ import {
   EnableMenuItem,
   ImportCellar,
   ExportCellar,
-} from './constants'
+} from '../constants'
 
 const isMac = process.platform === 'darwin'
 
