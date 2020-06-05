@@ -6,7 +6,6 @@ import { Cellar } from 'models/cellar'
 import { Emulator } from 'models/emulator/types'
 import configureMockStore from 'redux-mock-store'
 import { testComponents } from 'components/cellar/fresh-installation/fresh-installation-component.test'
-import Emulators from 'models/emulator/emulators/index'
 
 const mockStore = configureMockStore()
 

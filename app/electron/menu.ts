@@ -11,10 +11,11 @@ import Whitelist from 'localization/whitelist'
 import { i18n as I18n } from 'i18next'
 import {
   MenuClickChannel,
-  NewCellarId,
   UndoId,
   RedoId,
   EnableMenuItem,
+  ImportCellar,
+  ExportCellar,
 } from './constants'
 
 const isMac = process.platform === 'darwin'
@@ -67,19 +68,15 @@ function cellarMenuFragment(i18n: I18n): MenuItemConstructorOptions {
     label: i18n.t('menu.cellar.label'),
     submenu: [
       {
-        id: NewCellarId,
-        label: i18n.t('menu.cellar.newCellar'),
+        id: ImportCellar,
+        label: i18n.t('menu.cellar.import'),
         click: handleClick,
       },
-      { label: i18n.t('menu.cellar.newEmulator'), click: handleClick },
-      { type: 'separator' },
-      { label: i18n.t('menu.cellar.open'), click: handleClick },
-      { label: i18n.t('menu.cellar.openRecent'), click: handleClick },
-      { type: 'separator' },
-      { label: i18n.t('menu.cellar.save'), click: handleClick },
-      { label: i18n.t('menu.cellar.saveAs'), click: handleClick },
-      { type: 'separator' },
-      { label: i18n.t('menu.cellar.closeEmulator'), click: handleClick },
+      {
+        id: ExportCellar,
+        label: i18n.t('menu.cellar.export'),
+        click: handleClick,
+      },
       { type: 'separator' },
       ...(isMac
         ? [

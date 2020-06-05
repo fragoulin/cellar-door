@@ -46,13 +46,8 @@
     },
     "cellar": {
       "label": "Cellar",
-      "newCellar": "New cellar",
-      "newEmulator": "New emulator",
-      "open": "Open",
-      "openRecent": "Open recent",
-      "save": "Save",
-      "saveAs": "Save as",
-      "closeEmulator": "Close emulator",
+      "import": "Import a cellar",
+      "export": "Export your cellar",
       "close": "Close",
       "quit": "Quit"
     },
