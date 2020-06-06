@@ -58,6 +58,12 @@ const cellarSlice = createSlice({
         (emulator) => emulator.Id !== action.payload
       )
     },
+    emulatorsReordered(state, action): void {
+      const emulatorIds = action.payload as EmulatorId[]
+      state.emulatorsInCellar.sort((e1, e2): number => {
+        return emulatorIds.indexOf(e1.Id) - emulatorIds.indexOf(e2.Id)
+      })
+    },
   },
 })
 
@@ -70,6 +76,7 @@ export const {
   currentLocaleSet,
   emulatorAddedToCellar,
   emulatorRemovedFromCellar,
+  emulatorsReordered,
 } = cellarSlice.actions
 
 /**

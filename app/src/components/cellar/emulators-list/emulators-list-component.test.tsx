@@ -8,7 +8,10 @@ it('should have correct heading', () => {
   const emulatorsInCellar: Emulator[] = []
 
   createComponentWithRouter(
-    <EmulatorsList emulatorsInCellar={emulatorsInCellar} />
+    <EmulatorsList
+      emulatorsInCellar={emulatorsInCellar}
+      emulatorsReordered={jest.fn()}
+    />
   )
 
   expect(screen.getByRole('heading').textContent).toEqual('emulatorsList.title')

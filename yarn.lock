@@ -1771,6 +1771,11 @@
   dependencies:
     redux "^4.0.5"
 
+"@types/sortablejs@^1.10.4":
+  version "1.10.4"
+  resolved "https://registry.yarnpkg.com/@types/sortablejs/-/sortablejs-1.10.4.tgz#1be9681f6c9a405146644f52d76b74c7beb0dbd6"
+  integrity sha512-iXdJUEM09Hc0RacStDvkEi5BBdHuuwdys0L5/GtsRiEht69Df4hapA3FwFIeXn2STicqJjBAkowyD1OA3jGgwA==
+
 "@types/source-list-map@*":
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/@types/source-list-map/-/source-list-map-0.1.2.tgz#0078836063ffaf17412349bba364087e0ac02ec9"
@@ -9609,6 +9614,11 @@ sort-keys@^2.0.0:
   integrity sha1-ZYU1WEhh7JfXMNbPQYIuH1ZoQSg=
   dependencies:
     is-plain-obj "^1.0.0"
+
+sortablejs@^1.10.2:
+  version "1.10.2"
+  resolved "https://registry.yarnpkg.com/sortablejs/-/sortablejs-1.10.2.tgz#6e40364d913f98b85a14f6678f92b5c1221f5290"
+  integrity sha512-YkPGufevysvfwn5rfdlGyrGjt7/CRHwvRPogD/lC+TnvcN29jDpCifKP+rBqf+LRldfXSTh+0CGLcSg0VIxq3A==
 
 source-list-map@^2.0.0:
   version "2.0.1"
