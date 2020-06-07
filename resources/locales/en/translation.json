@@ -1,6 +1,6 @@
 {
   "welcome": {
-    "title": "Welcome to \"Cellar door!\""
+    "title": "Welcome to <q>Cellar door!</q>"
   },
   "freshInstallation": {
     "text": "Fresh installation detected. You can configure your first emulator by clicking on the following button:",
