@@ -1,11 +1,11 @@
 // This file is imported by main and renderer processes
 
 // Channel constants
-export const DialogOpenSyncChannel = 'dialogOpenSync'
+export const DialogSelectDirectoryChannel = 'dialogSelectDirectory'
 export const DialogSyncResultChannel = 'dialogSyncResult'
-export const DialogOpenChannel = 'dialogOpen'
+export const DialogImportCellarChannel = 'dialogImportCellar'
 export const DialogOpenResultChannel = 'dialogOpenResult'
-export const DialogSaveChannel = 'dialogSave'
+export const DialogExportCellarChannel = 'dialogExportCellar'
 export const UpdateLanguageChannel = 'updateLanguage'
 export const EnableMenuItem = 'enableMenuItem'
 export const getResourcesPathChannel = 'getResourcesPath'

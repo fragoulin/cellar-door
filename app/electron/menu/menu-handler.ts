@@ -7,8 +7,8 @@ import {
   EnableMenuItem,
   ImportCellar,
   ExportCellar,
-  DialogSaveChannel,
-  DialogOpenChannel,
+  DialogExportCellarChannel,
+  DialogImportCellarChannel,
 } from '../constants'
 import { ActionCreators } from 'redux-undo'
 import { RootState } from 'redux/store'
@@ -33,10 +33,10 @@ function handleMenuClick(
       store.dispatch(emulatorRemovedFromCellar(args[0]))
       break
     case ImportCellar:
-      win.api.send(DialogOpenChannel)
+      win.api.send(DialogImportCellarChannel)
       break
     case ExportCellar:
-      win.api.send(DialogSaveChannel, store.getState())
+      win.api.send(DialogExportCellarChannel, store.getState())
       break
     case UndoId:
       store.dispatch(ActionCreators.undo())

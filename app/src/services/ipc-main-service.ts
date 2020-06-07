@@ -1,12 +1,12 @@
 import { ipcMain, dialog, app } from 'electron'
 import { getResourcesPath } from 'services/app-service'
 import {
-  DialogOpenSyncChannel,
+  DialogSelectDirectoryChannel,
   getResourcesPathChannel,
   DialogSyncResultChannel,
   isDevChannel,
-  DialogSaveChannel,
-  DialogOpenChannel,
+  DialogExportCellarChannel,
+  DialogImportCellarChannel,
   DialogOpenResultChannel,
 } from 'electron/constants'
 import { RootState } from 'redux/store'
@@ -16,10 +16,10 @@ import { exportJSON, importJSON } from './import-export-service'
  * Registers listeners for IPC on main process.
  */
 function registerListeners(): void {
-  // Open dialog sync request
+  // Open dialog to select directory
   ipcMain
     .on(
-      DialogOpenSyncChannel,
+      DialogSelectDirectoryChannel,
       async (
         event,
         inputId: string,
@@ -30,15 +30,15 @@ function registerListeners(): void {
       }
     )
     .on(
-      // Save dialog request
-      DialogSaveChannel,
+      // Save dialog to export cellar
+      DialogExportCellarChannel,
       async (_event, state: RootState) => {
         exportJSON(state).catch(console.error)
       }
     )
     .on(
-      // Open dialog request
-      DialogOpenChannel,
+      // Open dialog to import cellar
+      DialogImportCellarChannel,
       async (event) => {
         importJSON()
           .then((state) => {

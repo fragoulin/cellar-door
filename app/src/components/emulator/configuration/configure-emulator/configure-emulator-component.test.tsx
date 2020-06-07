@@ -6,7 +6,7 @@ import configureMockStore from 'redux-mock-store'
 import Emulators from 'models/emulator/emulators/index'
 import userEvent from '@testing-library/user-event'
 import wrap from 'jest-wrap'
-import { DialogOpenSyncChannel } from 'electron/constants'
+import { DialogSelectDirectoryChannel } from 'electron/constants'
 import { mockWindow } from 'test/mock/window'
 import * as H from 'history'
 import { match } from 'react-router-dom'
@@ -134,7 +134,7 @@ wrap()
         _inputId: string,
         properties: { properties: ['openDirectory', 'dontAddToRecent'] }
       ): void => {
-        expect(type).toEqual(DialogOpenSyncChannel)
+        expect(type).toEqual(DialogSelectDirectoryChannel)
         expect(properties.properties[0]).toEqual('openDirectory')
         expect(properties.properties[1]).toEqual('dontAddToRecent')
         if (++sendCalls === mame.configuration.length) {

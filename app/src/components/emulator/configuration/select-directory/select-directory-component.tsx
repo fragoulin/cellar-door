@@ -6,7 +6,7 @@ import { v4 as uuidv4 } from 'uuid'
 import { CellarWin } from 'electron/preload'
 import { withTranslation, WithTranslation } from 'react-i18next'
 import {
-  DialogOpenSyncChannel,
+  DialogSelectDirectoryChannel,
   DialogSyncResultChannel,
 } from 'electron/constants'
 
@@ -68,7 +68,7 @@ class SelectDirectory extends React.PureComponent<
   private openDialog = (): void => {
     // Invoke dialog sync from main thread
     const properties = { properties: ['openDirectory', 'dontAddToRecent'] }
-    win.api.send(DialogOpenSyncChannel, this.state.inputId, properties)
+    win.api.send(DialogSelectDirectoryChannel, this.state.inputId, properties)
   }
 
   /*

@@ -1,15 +1,15 @@
 import { contextBridge, ipcRenderer } from 'electron'
 import * as backend from 'i18next-electron-fs-backend'
 import {
-  DialogOpenSyncChannel,
+  DialogSelectDirectoryChannel,
   UpdateLanguageChannel,
   getResourcesPathChannel,
   isDevChannel,
   DialogSyncResultChannel,
   MenuClickChannel,
   EnableMenuItem,
-  DialogSaveChannel,
-  DialogOpenChannel,
+  DialogExportCellarChannel,
+  DialogImportCellarChannel,
   DialogOpenResultChannel,
 } from './constants'
 
@@ -37,9 +37,9 @@ contextBridge.exposeInMainWorld('api', {
   send: (channel: string, ...args: unknown[]) => {
     // whitelist channels
     const validChannels = [
-      DialogOpenSyncChannel,
-      DialogOpenChannel,
-      DialogSaveChannel,
+      DialogSelectDirectoryChannel,
+      DialogImportCellarChannel,
+      DialogExportCellarChannel,
       UpdateLanguageChannel,
       EnableMenuItem,
     ]
