@@ -6,6 +6,7 @@ import { Provider } from 'react-redux'
 import { Router } from '../router/router-component'
 import { Store } from 'redux'
 import { i18n as I18n } from 'i18next'
+import { hot } from 'react-hot-loader'
 
 /**
  * Properties definition for this component.
@@ -18,7 +19,7 @@ interface RootComponentProperties {
 /**
  * Root component.
  */
-export class Root extends React.PureComponent<RootComponentProperties> {
+class Root extends React.PureComponent<RootComponentProperties> {
   render(): React.ReactNode {
     return (
       <section id="root">
@@ -38,3 +39,5 @@ export class Root extends React.PureComponent<RootComponentProperties> {
     )
   }
 }
+
+export default hot(module)(Root)

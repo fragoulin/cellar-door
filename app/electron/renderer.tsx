@@ -13,7 +13,8 @@ import {
   MenuClickChannel,
   DialogOpenResultChannel,
 } from './constants'
-import { Root } from 'components/main/root/root.component'
+import Root from 'components/main/root/root.component'
+import 'react-hot-loader'
 
 // Load required fonts for material. Required font weights are 300, 400, 500 and 700
 // https://material-ui.com/components/typography/#general
