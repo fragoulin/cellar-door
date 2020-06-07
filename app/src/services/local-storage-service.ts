@@ -4,13 +4,16 @@
  * @param key - key corresponding to value to store.
  * @param value - value to store.
  */
-function store<T>(key: string, value: T): void {
-  try {
-    const valueJson = JSON.stringify(value)
-    localStorage.setItem(key, valueJson)
-  } catch (error) {
-    console.error(error)
-  }
+function store<T>(key: string, value: T): Promise<void> {
+  return new Promise((resolve, reject) => {
+    try {
+      const valueJson = JSON.stringify(value)
+      localStorage.setItem(key, valueJson)
+      resolve()
+    } catch (error) {
+      reject(error)
+    }
+  })
 }
 
 /**

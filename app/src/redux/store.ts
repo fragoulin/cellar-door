@@ -10,7 +10,7 @@ import * as localStorage from 'services/local-storage-service'
 import { handleMenuAfterStateUpdate } from 'electron/menu/menu-handler'
 import {
   getStateBeforeStoringToStorage,
-  getStateAfterGetingFromStorage,
+  getStateAfterGettingFromStorage,
 } from '../storage/cellar-transformers'
 import { StateKey } from 'electron/constants'
 
@@ -38,7 +38,7 @@ export type RootState = ReturnType<typeof rootReducer>
 // Try to retrieve state from storage
 let preloadedState = localStorage.get<RootState>(StateKey)
 if (preloadedState) {
-  preloadedState = getStateAfterGetingFromStorage(preloadedState)
+  preloadedState = getStateAfterGettingFromStorage(preloadedState)
 }
 
 /**
@@ -55,9 +55,9 @@ store.subscribe(() => {
   // Update menu items
   handleMenuAfterStateUpdate(store.getState())
 
-  // Persist state
+  // Persist state when it is updated
   const storeToPersist = getStateBeforeStoringToStorage(store.getState())
-  localStorage.store(StateKey, storeToPersist)
+  localStorage.store(StateKey, storeToPersist).catch(console.error)
 })
 
 export default store

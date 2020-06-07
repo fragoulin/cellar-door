@@ -14,8 +14,15 @@ import { RootState } from 'redux/store'
 function getStateBeforeStoringToStorage(inboundState: RootState): RootState {
   const state = cloneDeep(inboundState)
 
+  // Reset undo/redo data
   state.cellar.past = []
   state.cellar.future = []
+  delete state.cellar._latestUnfiltered
+  delete state.cellar.index
+  delete state.cellar.limit
+  delete state.cellar.group
+
+  // Remove static properties for emulators
   state.cellar.present.emulatorsInCellar.forEach((emulator, i, array) => {
     array[i] = pick(emulator, ['Id', 'configuration']) as Emulator
   })
@@ -30,7 +37,7 @@ function getStateBeforeStoringToStorage(inboundState: RootState): RootState {
  * @param outboundState - state to alter after loading from storage.
  * @returns root state ready to be used as preloaded state for redux.
  */
-function getStateAfterGetingFromStorage(outboundState: RootState): RootState {
+function getStateAfterGettingFromStorage(outboundState: RootState): RootState {
   const state = cloneDeep(outboundState)
 
   if (state && state.cellar) {
@@ -46,4 +53,4 @@ function getStateAfterGetingFromStorage(outboundState: RootState): RootState {
   return state
 }
 
-export { getStateAfterGetingFromStorage, getStateBeforeStoringToStorage }
+export { getStateAfterGettingFromStorage, getStateBeforeStoringToStorage }

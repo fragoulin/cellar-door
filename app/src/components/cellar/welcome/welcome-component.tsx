@@ -11,7 +11,7 @@ import { withTranslation, WithTranslation } from 'react-i18next'
  */
 export interface WelcomeComponentStateProperties {
   cellar: Cellar | undefined
-  emulatorsInCellar: Emulator[]
+  emulatorsInCellar: Emulator[] | undefined
 }
 
 /**
@@ -48,6 +48,7 @@ class Welcome extends React.PureComponent<
         <h1>{this.props.t('welcome.title')}</h1>
         {
           // Check for cellar
+          this.props.emulatorsInCellar &&
           this.props.emulatorsInCellar.length > 0 ? (
             <EmulatorsList />
           ) : (

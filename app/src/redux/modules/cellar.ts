@@ -2,6 +2,7 @@ import { Cellar } from 'models/cellar'
 import { createSlice } from '@reduxjs/toolkit'
 import { Emulator, EmulatorId } from 'models/emulator/types'
 import { buildAvailableEmulatorNamesList } from 'services/emulators-service'
+import { RootState } from 'redux/store'
 
 /**
  * Maps emulator Ids to emulator names.
@@ -64,6 +65,17 @@ const cellarSlice = createSlice({
         return emulatorIds.indexOf(e1.Id) - emulatorIds.indexOf(e2.Id)
       })
     },
+    cellarImported(state, action): void {
+      const rootStateLoaded = action.payload as RootState
+      const present = (rootStateLoaded.cellar.present as unknown) as {
+        [key: string]: unknown
+      }
+      const s = state as { [key: string]: unknown }
+
+      Object.keys(state).forEach((key) => {
+        s[key] = present[key]
+      })
+    },
   },
 })
 
@@ -77,6 +89,7 @@ export const {
   emulatorAddedToCellar,
   emulatorRemovedFromCellar,
   emulatorsReordered,
+  cellarImported,
 } = cellarSlice.actions
 
 /**

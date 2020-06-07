@@ -70,11 +70,13 @@ function cellarMenuFragment(i18n: I18n): MenuItemConstructorOptions {
       {
         id: ImportCellar,
         label: i18n.t('menu.cellar.import'),
+        accelerator: 'CmdOrCtrl+O',
         click: handleClick,
       },
       {
         id: ExportCellar,
         label: i18n.t('menu.cellar.export'),
+        accelerator: 'CmdOrCtrl+S',
         click: handleClick,
       },
       { type: 'separator' },
@@ -83,14 +85,12 @@ function cellarMenuFragment(i18n: I18n): MenuItemConstructorOptions {
             {
               role: 'close',
               label: i18n.t('menu.cellar.close'),
-              click: handleClick,
             } as MenuItemConstructorOptions,
           ]
         : [
             {
               role: 'quit',
               label: i18n.t('menu.cellar.quit'),
-              click: handleClick,
             } as MenuItemConstructorOptions,
           ]),
     ],
@@ -169,9 +169,7 @@ function helpMenuFragment(i18n: I18n): MenuItemConstructorOptions {
   return {
     role: 'help',
     label: i18n.t('menu.help.label'),
-    submenu: [
-      { role: 'about', label: i18n.t('menu.help.about'), click: handleClick },
-    ],
+    submenu: [{ role: 'about', label: i18n.t('menu.help.about') }],
   }
 }
 

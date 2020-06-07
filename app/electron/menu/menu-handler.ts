@@ -7,10 +7,14 @@ import {
   EnableMenuItem,
   ImportCellar,
   ExportCellar,
+  DialogSaveChannel,
+  DialogOpenChannel,
 } from '../constants'
 import { ActionCreators } from 'redux-undo'
 import { RootState } from 'redux/store'
 import { CellarWin } from '../preload'
+
+const win = window as CellarWin
 
 /**
  * Handle menu click on renderer side.
@@ -29,10 +33,10 @@ function handleMenuClick(
       store.dispatch(emulatorRemovedFromCellar(args[0]))
       break
     case ImportCellar:
-      // TODO
+      win.api.send(DialogOpenChannel)
       break
     case ExportCellar:
-      // TODO
+      win.api.send(DialogSaveChannel, store.getState())
       break
     case UndoId:
       store.dispatch(ActionCreators.undo())
@@ -49,7 +53,6 @@ function handleMenuClick(
 function handleMenuAfterStateUpdate(state: RootState): void {
   const past = state.cellar.past
   const future = state.cellar.future
-  const win = window as CellarWin
 
   // Enable or disable undo
   win.api.send(EnableMenuItem, UndoId, past.length > 0)

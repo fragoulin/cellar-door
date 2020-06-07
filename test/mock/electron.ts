@@ -13,3 +13,7 @@ export const win = {
     receive: jest.fn(),
   },
 }
+
+export const BrowserWindow = {
+  getAllWindows: (): unknown => [jest.fn()],
+}

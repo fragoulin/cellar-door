@@ -6,7 +6,7 @@ import configureMockStore from 'redux-mock-store'
 import { CellarWin } from 'electron/preload'
 import userEvent from '@testing-library/user-event'
 import wrap from 'jest-wrap'
-import { DialogSyncChannel } from 'electron/constants'
+import { DialogOpenSyncChannel } from 'electron/constants'
 
 const mockStore = configureMockStore()
 const mockWindow = window as CellarWin
@@ -62,7 +62,7 @@ wrap()
         _inputId: string,
         properties: { properties: ['openDirectory', 'dontAddToRecent'] }
       ): void => {
-        expect(type).toEqual(DialogSyncChannel)
+        expect(type).toEqual(DialogOpenSyncChannel)
         expect(properties.properties[0]).toEqual('openDirectory')
         expect(properties.properties[1]).toEqual('dontAddToRecent')
         done()

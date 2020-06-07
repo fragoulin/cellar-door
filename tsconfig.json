@@ -30,6 +30,7 @@
       "models/*": ["./app/src/models/*"],
       "redux/*": ["./app/src/redux/*"],
       "services/*": ["./app/src/services/*"],
+      "storage/*": ["./app/src/storage/*"],
       "resources/*": ["./resources/*"],
       "test/*": ["./test/*"]
     },

@@ -1,13 +1,16 @@
 import { contextBridge, ipcRenderer } from 'electron'
 import * as backend from 'i18next-electron-fs-backend'
 import {
-  DialogSyncChannel,
+  DialogOpenSyncChannel,
   UpdateLanguageChannel,
   getResourcesPathChannel,
   isDevChannel,
   DialogSyncResultChannel,
   MenuClickChannel,
   EnableMenuItem,
+  DialogSaveChannel,
+  DialogOpenChannel,
+  DialogOpenResultChannel,
 } from './constants'
 
 /**
@@ -34,7 +37,9 @@ contextBridge.exposeInMainWorld('api', {
   send: (channel: string, ...args: unknown[]) => {
     // whitelist channels
     const validChannels = [
-      DialogSyncChannel,
+      DialogOpenSyncChannel,
+      DialogOpenChannel,
+      DialogSaveChannel,
       UpdateLanguageChannel,
       EnableMenuItem,
     ]
@@ -57,7 +62,11 @@ contextBridge.exposeInMainWorld('api', {
   },
   // Send asynchronous messages from main to renderer process
   receive: (channel: string, func: Function) => {
-    const validChannels = [DialogSyncResultChannel, MenuClickChannel]
+    const validChannels = [
+      DialogSyncResultChannel,
+      DialogOpenResultChannel,
+      MenuClickChannel,
+    ]
     if (validChannels.includes(channel)) {
       // Deliberately strip event as it includes `sender`
       ipcRenderer.on(channel, (_event, ...args) => func(...args))

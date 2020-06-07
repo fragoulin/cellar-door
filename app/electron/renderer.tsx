@@ -6,13 +6,17 @@ import { Store } from '@reduxjs/toolkit'
 import { I18nextProvider } from 'react-i18next'
 import * as i18nConfig from 'localization/i18next.config'
 import { i18n as I18n } from 'i18next'
-import { currentLocaleSet } from 'redux/modules/cellar'
+import { currentLocaleSet, cellarImported } from 'redux/modules/cellar'
 import { CellarWin } from './preload'
 import WebFont from 'webfontloader'
 import { handleMenuClick } from './menu/menu-handler'
 import { Provider } from 'react-redux'
-import store from 'redux/store'
-import { UpdateLanguageChannel, MenuClickChannel } from './constants'
+import store, { RootState } from 'redux/store'
+import {
+  UpdateLanguageChannel,
+  MenuClickChannel,
+  DialogOpenResultChannel,
+} from './constants'
 
 // Load required fonts for material. Required font weights are 300, 400, 500 and 700
 // https://material-ui.com/components/typography/#general
@@ -23,6 +27,11 @@ WebFont.load({ google: { families: ['Roboto:300,400,500,700'] } })
  */
 const main = document.createElement('main')
 document.body.appendChild(main)
+
+/**
+ * Typed window with cellar properties.
+ */
+const win = window as CellarWin
 
 /**
  * Create root element of cellar application.
@@ -69,12 +78,18 @@ function listenForLanguageUpdate(store: Store, i18n: I18n): void {
  * @param store - redux store.
  */
 function listenForMenuClick(store: Store): void {
-  ;(window as CellarWin).api.receive(
-    MenuClickChannel,
-    (menuId: string, ...args: unknown[]) => {
-      handleMenuClick(store, menuId, ...args)
-    }
-  )
+  win.api.receive(MenuClickChannel, (menuId: string, ...args: unknown[]) => {
+    handleMenuClick(store, menuId, ...args)
+  })
+}
+
+/**
+ * Listen for import state from main process.
+ */
+function listenForImport(store: Store): void {
+  win.api.receive(DialogOpenResultChannel, (state: RootState) => {
+    store.dispatch(cellarImported(state))
+  })
 }
 
 /**
@@ -83,7 +98,7 @@ function listenForMenuClick(store: Store): void {
  * @param language - language retrieved from persisted state.
  */
 function notifyMainProcess(language: string): void {
-  ;(window as CellarWin).api.send(UpdateLanguageChannel, language)
+  win.api.send(UpdateLanguageChannel, language)
 }
 
 // Wait for i18next initialization before creating root element.
@@ -95,6 +110,7 @@ i18nConfig
     notifyMainProcess(language)
     listenForLanguageUpdate(store, i18n)
     listenForMenuClick(store)
+    listenForImport(store)
     createRoot(store, i18n)
   })
   .catch(console.error)
