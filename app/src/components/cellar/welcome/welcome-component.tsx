@@ -45,7 +45,9 @@ class Welcome extends React.PureComponent<
   render(): React.ReactNode {
     return (
       <div className="Welcome">
-        <h1 dangerouslySetInnerHTML={{__html: this.props.t('welcome.title')}}></h1>
+        <h1
+          dangerouslySetInnerHTML={{ __html: this.props.t('welcome.title') }}
+        ></h1>
         {
           // Check for cellar
           this.props.emulatorsInCellar &&
