@@ -1,5 +1,8 @@
 import { app, BrowserWindow, Menu, session, ipcMain } from 'electron'
-import { registerListeners } from 'services/ipc-main-service'
+import {
+  registerListeners,
+  registerListenersWithLocalization,
+} from 'services/ipc-main-service'
 import * as i18nextBackend from 'i18next-electron-fs-backend'
 import fs from 'fs'
 import menuTemplate from './menu/menu'
@@ -168,6 +171,8 @@ ipcMain.on(UpdateLanguageChannel, (_event, language: string) => {
       })
       // Create menu immediately when language is available from renderer process.
       createMenus(i18n)
+      // Register IPC listeners requiring i18n for main process.
+      registerListenersWithLocalization(i18n)
     })
     .catch(console.error)
 })

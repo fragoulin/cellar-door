@@ -35,6 +35,16 @@
     "title": "{{name}} emulator successfully created",
     "addAnother": "Add another emulator"
   },
+  "import": {
+    "title": "Import cellar",
+    "message": "Import a cellar",
+    "button": "Import"
+  },
+  "export": {
+    "title": "Export cellar",
+    "message": "Export your cellar",
+    "button": "Export"
+  },
   "common": {
     "confirm": "Confirm",
     "back": "Back",

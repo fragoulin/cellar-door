@@ -35,6 +35,16 @@
     "title": "L'émulateur {{name}} a été créé avec succès",
     "addAnother": "Ajouter un autre émulateur"
   },
+  "import": {
+    "title": "Importer cellier",
+    "message": "Importer un cellier",
+    "button": "Importer"
+  },
+  "export": {
+    "title": "Exporter cellier",
+    "message": "Exporter votre cellier",
+    "button": "Exporter"
+  },
   "common": {
     "confirm": "Confirmer",
     "back": "Retour",

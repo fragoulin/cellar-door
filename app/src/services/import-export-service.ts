@@ -5,6 +5,7 @@ import {
   getStateBeforeStoringToStorage,
   getStateAfterGettingFromStorage,
 } from 'storage/cellar-transformers'
+import { i18n as I18n } from 'i18next'
 
 // This service can only be used in main process
 
@@ -15,13 +16,13 @@ const win = BrowserWindow.getAllWindows()[0]
  *
  * @param state - redux state to export.
  */
-function exportJSON(state: RootState): Promise<void> {
+function exportJSON(state: RootState, i18n: I18n): Promise<void> {
   return new Promise((resolve, reject) => {
     dialog
       .showSaveDialog(win, {
-        title: 'Export cellar',
-        message: 'Save your cellar',
-        buttonLabel: 'Save',
+        title: i18n.t('export.title'),
+        message: i18n.t('export.message'),
+        buttonLabel: i18n.t('export.button'),
         defaultPath: 'cellar.json',
         properties: ['createDirectory', 'showOverwriteConfirmation'],
       })
@@ -42,13 +43,13 @@ function exportJSON(state: RootState): Promise<void> {
 /**
  * Open dialog to load state from JSON.
  */
-function importJSON(): Promise<RootState> {
+function importJSON(i18n: I18n): Promise<RootState> {
   return new Promise((resolve, reject) => {
     dialog
       .showOpenDialog(win, {
-        title: 'Import cellar',
-        message: 'Import a cellar',
-        buttonLabel: 'Load',
+        title: i18n.t('import.title'),
+        message: i18n.t('import.message'),
+        buttonLabel: i18n.t('import.button'),
         defaultPath: 'cellar.json',
         properties: ['openFile'],
       })
