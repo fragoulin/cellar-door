@@ -5,7 +5,9 @@ import AddEmulator from 'container/emulators/add-emulator'
 import ConfigureEmulator from 'container/emulators/configure-emulator'
 import CreateEmulator from 'container/emulators/create-emulator'
 
-// Router component
+/**
+ * This component handles routes.
+ */
 export class Router extends React.PureComponent {
   render(): React.ReactNode {
     return (

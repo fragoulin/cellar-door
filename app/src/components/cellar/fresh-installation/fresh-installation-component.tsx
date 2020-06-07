@@ -16,7 +16,12 @@ class FreshInstallation extends React.PureComponent<WithTranslation> {
     return (
       <>
         <p role="note">{this.props.t('freshInstallation.text')}</p>
-        <Button color="primary" component={Link} to="/add-emulator/">
+        <Button
+          color="primary"
+          component={Link}
+          to="/add-emulator/"
+          draggable={false}
+        >
           {this.props.t('freshInstallation.buttonText')}
         </Button>
       </>

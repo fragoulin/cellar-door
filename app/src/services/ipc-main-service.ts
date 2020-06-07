@@ -26,8 +26,9 @@ function registerListeners(): void {
         inputId: string,
         properties: Electron.OpenDialogSyncOptions
       ) => {
-        dialog.showOpenDialog(properties)
-          .then(result => {
+        dialog
+          .showOpenDialog(properties)
+          .then((result) => {
             if (!result.canceled) {
               event.reply(DialogSyncResultChannel, inputId, result.filePaths)
             }

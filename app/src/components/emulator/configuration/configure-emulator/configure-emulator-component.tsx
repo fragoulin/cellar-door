@@ -151,10 +151,15 @@ class ConfigureEmulator extends React.PureComponent<
             )}
           </FormControl>
         </div>
-        <Button color="secondary" component={Link} to="/add-emulator/">
+        <Button
+          color="secondary"
+          component={Link}
+          to="/add-emulator/"
+          draggable={false}
+        >
           {this.props.t('common.back')}
         </Button>
-        <Button color="primary" type="submit">
+        <Button color="primary" type="submit" draggable={false}>
           {this.props.t('common.confirm')}
         </Button>
       </form>

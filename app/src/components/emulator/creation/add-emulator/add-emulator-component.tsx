@@ -113,10 +113,10 @@ class AddEmulator extends React.PureComponent<
             />
           </FormControl>
         </div>
-        <Button color="secondary" component={Link} to="/">
+        <Button color="secondary" component={Link} to="/" draggable={false}>
           {this.props.t('common.back')}
         </Button>
-        <Button color="primary" type="submit">
+        <Button color="primary" type="submit" draggable={false}>
           {this.props.t('common.confirm')}
         </Button>
       </form>

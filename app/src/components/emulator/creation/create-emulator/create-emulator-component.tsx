@@ -39,10 +39,15 @@ class CreateEmulator extends React.PureComponent<
           </h1>
           <EmulatorSummary emulator={this.props.emulator} />
         </div>
-        <Button color="secondary" component={Link} to="/">
+        <Button color="secondary" component={Link} to="/" draggable={false}>
           {this.props.t('common.backToCellar')}
         </Button>
-        <Button color="primary" component={Link} to="/add-emulator/">
+        <Button
+          color="primary"
+          component={Link}
+          to="/add-emulator/"
+          draggable={false}
+        >
           {this.props.t('createEmulator.addAnother')}
         </Button>
       </div>

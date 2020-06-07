@@ -1,22 +1,19 @@
 import ReactDOM from 'react-dom'
-import React, { ReactElement, Suspense } from 'react'
-import CssBaseline from '@material-ui/core/CssBaseline'
-import { Router } from 'components/router/router-component'
+import React from 'react'
 import { Store } from '@reduxjs/toolkit'
-import { I18nextProvider } from 'react-i18next'
 import * as i18nConfig from 'localization/i18next.config'
 import { i18n as I18n } from 'i18next'
 import { currentLocaleSet, cellarImported } from 'redux/modules/cellar'
 import { CellarWin } from './preload'
 import WebFont from 'webfontloader'
 import { handleMenuClick } from './menu/menu-handler'
-import { Provider } from 'react-redux'
 import store, { RootState } from 'redux/store'
 import {
   UpdateLanguageChannel,
   MenuClickChannel,
   DialogOpenResultChannel,
 } from './constants'
+import { Root } from 'components/main/root/root.component'
 
 // Load required fonts for material. Required font weights are 300, 400, 500 and 700
 // https://material-ui.com/components/typography/#general
@@ -40,24 +37,7 @@ const win = window as CellarWin
  * @param i18n - i18next instance
  */
 function createRoot(store: Store, i18n: I18n): void {
-  const root: ReactElement = (
-    <section id="root">
-      <CssBaseline />
-      <React.StrictMode>
-        <I18nextProvider i18n={i18n}>
-          <Suspense fallback="loading">
-            <Provider store={store}>
-              <header></header>
-              <Router />
-              <footer></footer>
-            </Provider>
-          </Suspense>
-        </I18nextProvider>
-      </React.StrictMode>
-    </section>
-  )
-
-  ReactDOM.render(root, main)
+  ReactDOM.render(<Root i18n={i18n} store={store} />, main)
 }
 
 /**

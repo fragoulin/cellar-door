@@ -80,7 +80,12 @@ class EmulatorsList extends React.PureComponent<
             </Button>
           ))}
         </div>
-        <Button color="primary" component={Link} to="/add-emulator/">
+        <Button
+          color="primary"
+          component={Link}
+          to="/add-emulator/"
+          draggable={false}
+        >
           {this.props.t('freshInstallation.buttonText')}
         </Button>
       </>
