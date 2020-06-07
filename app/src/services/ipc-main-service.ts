@@ -26,8 +26,13 @@ function registerListeners(): void {
         inputId: string,
         properties: Electron.OpenDialogSyncOptions
       ) => {
-        const files = dialog.showOpenDialogSync(properties)
-        event.reply(DialogSyncResultChannel, inputId, files)
+        dialog.showOpenDialog(properties)
+          .then(result => {
+            if (!result.canceled) {
+              event.reply(DialogSyncResultChannel, inputId, result.filePaths)
+            }
+          })
+          .catch(console.error)
       }
     )
     .on(getResourcesPathChannel, async (event) => {
