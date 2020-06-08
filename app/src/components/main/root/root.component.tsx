@@ -6,7 +6,7 @@ import { Provider } from 'react-redux'
 import { Router } from '../router/router-component'
 import { Store } from 'redux'
 import { i18n as I18n } from 'i18next'
-import { hot } from 'react-hot-loader'
+import { hot, setConfig } from 'react-hot-loader'
 
 /**
  * Properties definition for this component.
@@ -39,5 +39,9 @@ class Root extends React.PureComponent<RootComponentProperties> {
     )
   }
 }
+
+setConfig({
+  showReactDomPatchNotification: false,
+})
 
 export default hot(module)(Root)
