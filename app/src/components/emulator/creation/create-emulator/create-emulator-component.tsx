@@ -30,7 +30,7 @@ class CreateEmulator extends React.PureComponent<
     }
 
     return (
-      <div className="CreateEmulator">
+      <div className="create-emulator">
         <div>
           <h1>
             {this.props.t('createEmulator.title', {

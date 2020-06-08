@@ -78,7 +78,7 @@ class EmulatorsSelect extends React.PureComponent<
         <Select
           native
           name="emulator"
-          className="EmulatorsList"
+          className="emulators-list"
           value={this.state.selectedEmulatorId}
           onChange={this.handleChange}
         >

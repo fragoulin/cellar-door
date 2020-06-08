@@ -1,4 +1,3 @@
-import './emulators-list.scss'
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { Button } from '@material-ui/core'
@@ -50,13 +49,12 @@ class EmulatorsList extends React.PureComponent<
    * @param componentBackingInstance - container for draggable elements.
    */
   private dndDecorator = (componentBackingInstance: HTMLDivElement): void => {
-    if (componentBackingInstance) {
-      Sortable.create(componentBackingInstance, {
-        onEnd: () => {
-          this.persistEmulatorsOrder()
-        },
-      })
-    }
+    if (!componentBackingInstance) return
+    Sortable.create(componentBackingInstance, {
+      onEnd: () => {
+        this.persistEmulatorsOrder()
+      },
+    })
   }
 
   /**

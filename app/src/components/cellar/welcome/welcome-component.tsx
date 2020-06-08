@@ -44,7 +44,7 @@ class Welcome extends React.PureComponent<
    */
   render(): React.ReactNode {
     return (
-      <div className="Welcome">
+      <div className="welcome">
         <h1
           dangerouslySetInnerHTML={{ __html: this.props.t('welcome.title') }}
         ></h1>

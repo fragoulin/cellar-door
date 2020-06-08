@@ -128,7 +128,7 @@ class ConfigureEmulator extends React.PureComponent<
     if (this.state.redirect) return <Redirect to="/create-emulator/" />
 
     return (
-      <form className="ConfigureEmulator" onSubmit={this.handleSubmit}>
+      <form className="configure-emulator" onSubmit={this.handleSubmit}>
         <h1>
           {this.props.t('configureEmulator.title', {
             name: this.state.emulator.shortName,

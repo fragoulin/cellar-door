@@ -101,7 +101,7 @@ class SelectDirectory extends React.PureComponent<
       <div>
         <TextField
           required={this.props.mandatory}
-          className="DirectoryName"
+          className="directory-name"
           label={this.props.name}
           value={this.state.directoryName}
           InputProps={{

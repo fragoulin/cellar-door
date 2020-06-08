@@ -101,7 +101,7 @@ class AddEmulator extends React.PureComponent<
    */
   public render(): React.ReactNode {
     return !this.state.redirect ? (
-      <form className="AddEmulator" onSubmit={this.handleSubmit}>
+      <form className="add-emulator" onSubmit={this.handleSubmit}>
         <h1>{this.props.t('addEmulator.title')}</h1>
         <p>{this.props.t('addEmulator.text')}</p>
         <div>
