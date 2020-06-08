@@ -28,9 +28,7 @@ class Root extends React.PureComponent<RootComponentProperties> {
           <I18nextProvider i18n={this.props.i18n}>
             <Suspense fallback="loading">
               <Provider store={this.props.store}>
-                <header></header>
                 <Router />
-                <footer></footer>
               </Provider>
             </Suspense>
           </I18nextProvider>

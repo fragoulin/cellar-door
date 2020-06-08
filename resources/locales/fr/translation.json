@@ -80,5 +80,11 @@
       "label": "Aide",
       "about": "A propos"
     }
+  },
+  "breadcrumb": {
+    "home": "Accueil",
+    "add-emulator": "Ajouter un émulateur",
+    "configure-emulator": "Configurer l'emulateur",
+    "create-emulator": "Emulateur créé"
   }
 }

@@ -80,5 +80,11 @@
       "label": "Help",
       "about": "About"
     }
+  },
+  "breadcrumb": {
+    "home": "Home",
+    "add-emulator": "Add emulator",
+    "configure-emulator": "Configure emulator",
+    "create-emulator": "Emulator created"
   }
 }

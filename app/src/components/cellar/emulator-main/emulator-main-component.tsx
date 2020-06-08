@@ -1,9 +1,8 @@
 import React from 'react'
-import { RouteComponentProps, Link } from 'react-router-dom'
+import { RouteComponentProps } from 'react-router-dom'
 import { WithTranslation, withTranslation } from 'react-i18next'
 import { getEmulator } from 'services/emulators-service'
 import { EmulatorId, Emulator } from 'models/emulator/types'
-import { Button } from '@material-ui/core'
 import EmulatorLogoComponent from '../emulator-logo/emulator-logo-component'
 import ReactDOM from 'react-dom'
 
@@ -73,9 +72,6 @@ class EmulatorMain extends React.PureComponent<
           <EmulatorLogoComponent emulator={this.state.emulator} />
         </h1>
         <div ref={this.renderEmulator}></div>
-        <Button color="secondary" component={Link} to="/" draggable={false}>
-          {this.props.t('common.back')}
-        </Button>
       </div>
     )
   }

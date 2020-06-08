@@ -1,5 +1,5 @@
 import React from 'react'
-import EmulatorConfigurationSummary from './emulator-configuration-summary'
+import EmulatorConfigurationSummary from './emulator-configuration-summary-component'
 import { screen } from '@testing-library/react'
 import { createComponentWithRouter } from 'test/createComponentsHelpers'
 import Emulators from 'models/emulator/emulators/index'
