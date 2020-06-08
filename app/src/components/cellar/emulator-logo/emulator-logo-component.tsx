@@ -25,7 +25,13 @@ class EmulatorLogoComponent extends React.PureComponent<
     return (
       <>
         {this.props.emulator.logo ? (
-          <img className="logo" role="link" src={this.props.emulator.logo} />
+          <img
+            className="logo"
+            role="link"
+            src={this.props.emulator.logo}
+            alt={this.props.emulator.shortName}
+            draggable={false}
+          />
         ) : (
           <span className="text" role="link">
             {this.props.emulator.shortName}
