@@ -12,6 +12,7 @@ export interface EmulatorSelectComponentProperties {
   hasError: boolean
   errorMessage?: string
   onEmulatorSelected: (emulatorId: EmulatorId) => void
+  selectedEmulatorId?: EmulatorId
 }
 
 /**
@@ -22,20 +23,12 @@ export interface EmulatorsSelectComponentStateProperties {
 }
 
 /**
- * State definition for this component.
- */
-interface EmulatorSelectComponentState {
-  selectedEmulatorId: EmulatorId | ''
-}
-
-/**
  * Emulators select component displays a list of selectable emulators.
  */
 class EmulatorsSelect extends React.PureComponent<
   EmulatorSelectComponentProperties &
     EmulatorsSelectComponentStateProperties &
-    WithTranslation,
-  EmulatorSelectComponentState
+    WithTranslation
 > {
   /**
    * Set the initial state of this component.
@@ -79,7 +72,7 @@ class EmulatorsSelect extends React.PureComponent<
           native
           name="emulator"
           className="emulators-list"
-          value={this.state.selectedEmulatorId}
+          value={this.props.selectedEmulatorId}
           onChange={this.handleChange}
         >
           <option aria-label="None" value="" />

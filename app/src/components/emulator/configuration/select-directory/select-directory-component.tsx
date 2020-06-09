@@ -1,6 +1,6 @@
 import './select-directory.scss'
 import React from 'react'
-import { IconButton, TextField, FormHelperText } from '@material-ui/core'
+import { IconButton, TextField } from '@material-ui/core'
 import FolderIcon from '@material-ui/icons/Folder'
 import { v4 as uuidv4 } from 'uuid'
 import { CellarWin } from 'electron/preload'
@@ -22,14 +22,15 @@ interface ComponentProperties extends WithTranslation {
     mandatory: boolean
   ): void
   hasError: boolean
+  value?: string
 }
 
 /**
  * State definition for this component.
  */
 interface ComponentState {
-  directoryName: string
   inputId: string
+  value?: string
 }
 
 /**
@@ -53,8 +54,8 @@ class SelectDirectory extends React.PureComponent<
     super(props)
 
     this.state = {
-      directoryName: '',
       inputId: uuidv4(),
+      value: this.props.value,
     }
   }
 
@@ -78,15 +79,13 @@ class SelectDirectory extends React.PureComponent<
     if (this.state.inputId !== inputId) return
     if (!files || files.length !== 1) return
 
-    const directoryName = files[0]
-
     this.setState({
-      directoryName: directoryName,
+      value: files[0],
     })
 
     this.props.onDirectorySelected(
       this.props.name,
-      directoryName,
+      files[0],
       this.props.mandatory
     )
   }
@@ -103,7 +102,7 @@ class SelectDirectory extends React.PureComponent<
           required={this.props.mandatory}
           className="directory-name"
           label={this.props.name}
-          value={this.state.directoryName}
+          value={this.state.value}
           InputProps={{
             readOnly: true,
           }}
@@ -120,11 +119,6 @@ class SelectDirectory extends React.PureComponent<
             <FolderIcon />
           </IconButton>
         </label>
-        {this.props.mandatory && this.props.hasError && (
-          <FormHelperText error={true} role="alert">
-            {this.props.t('selectDirectory.errorRequired')}
-          </FormHelperText>
-        )}
       </div>
     )
   }

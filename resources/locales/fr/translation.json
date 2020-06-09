@@ -48,9 +48,11 @@
   "common": {
     "confirm": "Confirmer",
     "back": "Retour",
+    "next": "Suivant",
     "backToCellar": "Retour au cellier",
     "yes": "Oui",
-    "no": "Non"
+    "no": "Non",
+    "ok": "OK"
   },
   "menu": {
     "system": {

@@ -1,7 +1,6 @@
 import './add-emulator.scss'
 import * as React from 'react'
-import { Button, FormControl } from '@material-ui/core'
-import { Link, Redirect } from 'react-router-dom'
+import { FormControl } from '@material-ui/core'
 import EmulatorsSelect from 'container/emulators/emulators-select'
 import { EmulatorId, Emulator } from 'models/emulator/types'
 import { withTranslation, WithTranslation } from 'react-i18next'
@@ -14,13 +13,20 @@ export interface AddEmulatorComponentStateProperties {
 }
 
 /**
+ * Properties definition for this component.
+ */
+interface AddEmulatorComponentProperties {
+  onSelectedEmulatorId: (emulatorId: EmulatorId) => void
+  onError: (hasError: boolean, message?: string) => void
+  selectedEmulatorId?: EmulatorId
+}
+
+/**
  * State definition for this component.
  */
 interface AddEmulatorComponentState {
-  redirect: boolean
   hasError: boolean
   errorMessage?: string
-  selectedEmulatorId?: EmulatorId
 }
 
 /**
@@ -28,7 +34,9 @@ interface AddEmulatorComponentState {
  * It displays the list of available emulators and back/submit buttons.
  */
 class AddEmulator extends React.PureComponent<
-  AddEmulatorComponentStateProperties & WithTranslation,
+  AddEmulatorComponentProperties &
+    AddEmulatorComponentStateProperties &
+    WithTranslation,
   AddEmulatorComponentState
 > {
   /**
@@ -36,38 +44,16 @@ class AddEmulator extends React.PureComponent<
    *
    * @param props - component properties.
    */
-  constructor(props: AddEmulatorComponentStateProperties & WithTranslation) {
+  constructor(
+    props: AddEmulatorComponentProperties &
+      AddEmulatorComponentStateProperties &
+      WithTranslation
+  ) {
     super(props)
 
     this.state = {
-      redirect: false,
       hasError: false,
     }
-  }
-
-  private handleSubmit = (e: React.SyntheticEvent): void => {
-    e.preventDefault()
-
-    let errorMessage: string | undefined
-
-    // Check if an emulator has been selected
-    const emulatorIdDefined = this.state.selectedEmulatorId !== undefined
-    if (!emulatorIdDefined)
-      errorMessage = this.props.t('emulatorSelect.errorRequired')
-
-    // Check if emulator is already configured
-    const emulatorAlreadyConfigured = this.emulatorAlreadyPresentInCellar()
-    if (emulatorAlreadyConfigured)
-      errorMessage = this.props.t('emulatorSelect.errorAlreadyConfigured')
-
-    // Form is in error is no emulator has been selected or if selected emulator is already configured
-    const error = !emulatorIdDefined || emulatorAlreadyConfigured
-
-    this.setState({
-      redirect: !error,
-      hasError: error,
-      errorMessage: errorMessage,
-    })
   }
 
   /**
@@ -76,9 +62,9 @@ class AddEmulator extends React.PureComponent<
    * @param emulatorId - emulator Id to verify.
    * @returns true if emulator Id is part of cellar, otherwise false.
    */
-  private emulatorAlreadyPresentInCellar(): boolean {
+  private isEmulatorAlreadyPresentInCellar(emulatorId: EmulatorId): boolean {
     return !!this.props.emulatorsInCellar.find(
-      (emulator) => this.state.selectedEmulatorId === emulator.Id
+      (emulator) => emulatorId === emulator.Id
     )
   }
 
@@ -88,9 +74,31 @@ class AddEmulator extends React.PureComponent<
    * @param emulatorId - selected emulator Id.
    */
   private handleEmulatorSelection = (emulatorId: EmulatorId): void => {
+    let errorMessage: string | undefined
+
+    // Check if an emulator has been selected
+    const emulatorIdDefined =
+      emulatorId !== undefined && emulatorId !== EmulatorId.Unknown
+    if (!emulatorIdDefined)
+      errorMessage = this.props.t('emulatorSelect.errorRequired')
+
+    // Check if emulator is already configured
+    const emulatorAlreadyConfigured = this.isEmulatorAlreadyPresentInCellar(
+      emulatorId
+    )
+    if (emulatorAlreadyConfigured)
+      errorMessage = this.props.t('emulatorSelect.errorAlreadyConfigured')
+
+    // Form is in error is no emulator has been selected or if selected emulator is already configured
+    const error = !emulatorIdDefined || emulatorAlreadyConfigured
+
     this.setState({
-      selectedEmulatorId: emulatorId,
+      hasError: error,
+      errorMessage: errorMessage,
     })
+
+    this.props.onSelectedEmulatorId(emulatorId)
+    this.props.onError(error, errorMessage)
   }
 
   /**
@@ -100,28 +108,20 @@ class AddEmulator extends React.PureComponent<
    * @returns the newly created node.
    */
   public render(): React.ReactNode {
-    return !this.state.redirect ? (
-      <form className="add-emulator" onSubmit={this.handleSubmit}>
-        <h1>{this.props.t('addEmulator.title')}</h1>
-        <p>{this.props.t('addEmulator.text')}</p>
+    return (
+      <form className="add-emulator">
+        <span>{this.props.t('addEmulator.text')}</span>
         <div>
           <FormControl required error={this.state.hasError}>
             <EmulatorsSelect
+              selectedEmulatorId={this.props.selectedEmulatorId}
               hasError={this.state.hasError}
               errorMessage={this.state.errorMessage}
               onEmulatorSelected={this.handleEmulatorSelection}
             />
           </FormControl>
         </div>
-        <Button color="secondary" component={Link} to="/" draggable={false}>
-          {this.props.t('common.back')}
-        </Button>
-        <Button color="primary" type="submit" draggable={false}>
-          {this.props.t('common.confirm')}
-        </Button>
       </form>
-    ) : (
-      <Redirect to={`/configure-emulator/${this.state.selectedEmulatorId}`} />
     )
   }
 }

@@ -1,23 +1,18 @@
 import { connect } from 'react-redux'
-import { RootState } from 'redux/store'
 import CreateEmulator, {
-  CreateEmulatorComponentStateProperties,
+  CreateEmulatorComponentDispatchProperties,
 } from 'components/emulator/creation/create-emulator/create-emulator-component'
+import { Emulator } from 'models/emulator/types'
+import { emulatorAddedToCellar } from 'redux/modules/cellar'
 
 /**
- * Provides part of redux state to component properties.
- *
- * @param state - redux root state.
+ * Dispatch some functions to component properties.
  */
-const mapStateToProps = (
-  state: RootState
-): CreateEmulatorComponentStateProperties => {
-  return {
-    emulator: state.cellar.present.emulatorsInCellar.slice(-1).pop(),
-  }
+const mapDispatchToProps: CreateEmulatorComponentDispatchProperties = {
+  addEmulatorToCellar: (emulator: Emulator) => emulatorAddedToCellar(emulator),
 }
 
 /**
  * Connect this container to the component.
  */
-export default connect(mapStateToProps)(CreateEmulator)
+export default connect(null, mapDispatchToProps)(CreateEmulator)
