@@ -35,6 +35,7 @@ export interface Emulator {
   fullName?: string
   description: string
   logo?: string
+  icon: string
   URL: string
   licences?: EmulatorLicense[]
   configuration: EmulatorConfiguration[]

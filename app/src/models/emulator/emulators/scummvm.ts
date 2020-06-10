@@ -5,6 +5,7 @@ import {
   EmulatorConfiguration,
 } from 'models/emulator/types'
 import logo from 'resources/logos/scummvm.svg'
+import icon from 'resources/icons/emulators/scummvm.svg'
 
 /**
  * Directory containing ScummVM executable.
@@ -41,6 +42,7 @@ const ScummVm: Emulator = {
   description:
     'ScummVM is a program which allows you to run certain classic graphical point-and-click adventure games and role-playing games, provided you already have their data files. The clever part about this: ScummVM just replaces the executables shipped with the games, allowing you to play them on systems for which they were never designed!',
   logo: logo,
+  icon: icon,
   URL: 'https://www.scummvm.org/',
   configuration: [scummvmDirectory, gamesDirectory],
   licences: [gpl2],

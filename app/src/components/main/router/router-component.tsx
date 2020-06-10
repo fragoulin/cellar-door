@@ -5,17 +5,7 @@ import EmulatorStepper from 'components/emulator/stepper/emulator-stepper-compon
 import ConfigureEmulator from 'container/emulators/configure-emulator'
 import CreateEmulator from 'container/emulators/create-emulator'
 import EmulatorMain from 'components/cellar/emulator-main/emulator-main-component'
-import Breadcrumb from '../breadcrumb/breadcrumb-component'
-
-/**
- * Ignored paths in breadcrumb.
- */
-const breadcrumbIgnoredPaths: string[] = ['emulator']
-
-/**
- * Non-clickable paths in breadcrumb.
- */
-const breadcrumbNonClickablePaths: string[] = ['configure-emulator']
+import Appbar from 'container/main/appbar'
 
 /**
  * This component handles routes.
@@ -24,12 +14,7 @@ export class Router extends React.PureComponent {
   render(): React.ReactNode {
     return (
       <BrowserRouter>
-        <header>
-          <Breadcrumb
-            ignoredPaths={breadcrumbIgnoredPaths}
-            nonClickablePaths={breadcrumbNonClickablePaths}
-          />
-        </header>
+        <Appbar />
         <Switch>
           <Route path="/add-emulator/" component={EmulatorStepper} />
           <Route path="/configure-emulator/:id" component={ConfigureEmulator} />

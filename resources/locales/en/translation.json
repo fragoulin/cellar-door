@@ -83,10 +83,11 @@
       "about": "About"
     }
   },
-  "breadcrumb": {
+  "appbar": {
     "home": "Home",
     "add-emulator": "Add emulator",
     "configure-emulator": "Configure emulator",
-    "create-emulator": "Emulator created"
+    "create-emulator": "Emulator created",
+    "settings": "Settings"
   }
 }

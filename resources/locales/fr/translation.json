@@ -83,10 +83,11 @@
       "about": "A propos"
     }
   },
-  "breadcrumb": {
+  "appbar": {
     "home": "Accueil",
     "add-emulator": "Ajouter un émulateur",
     "configure-emulator": "Configurer l'emulateur",
-    "create-emulator": "Emulateur créé"
+    "create-emulator": "Emulateur créé",
+    "settings": "Paramètres"
   }
 }
