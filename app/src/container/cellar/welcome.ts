@@ -3,7 +3,7 @@ import { RootState } from 'redux/store'
 import Welcome, {
   WelcomeComponentStateProperties,
   WelcomeComponentDispatchProperties,
-} from 'components/cellar/welcome/welcome-component'
+} from 'components/cellar/welcome/welcome'
 import { cellarCreated } from 'redux/modules/cellar'
 
 /**

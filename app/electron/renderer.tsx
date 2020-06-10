@@ -13,7 +13,7 @@ import {
   MenuClickChannel,
   DialogOpenResultChannel,
 } from './constants'
-import Root from 'components/main/root/root-component'
+import Root from 'components/main/root/root'
 import 'react-hot-loader'
 
 // Load required fonts for material. Required font weights are 300, 400, 500 and 700

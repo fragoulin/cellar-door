@@ -3,7 +3,7 @@ import { RootState } from 'redux/store'
 import EmulatorsList, {
   EmulatorsListComponentStateProperties,
   EmulatorsListComponentDispatchProperties,
-} from 'components/cellar/emulators-list/emulators-list-component'
+} from 'components/cellar/emulators-list/emulators-list'
 import { emulatorsReordered } from 'redux/modules/cellar'
 import { EmulatorId } from 'models/emulator/types'
 

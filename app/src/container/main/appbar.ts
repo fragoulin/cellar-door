@@ -2,7 +2,7 @@ import { connect } from 'react-redux'
 import { RootState } from 'redux/store'
 import Appbar, {
   AppbarComponentStateProperties,
-} from 'components/main/appbar/appbar-component'
+} from 'components/main/appbar/appbar'
 
 /**
  * Provides part of redux state to component properties.

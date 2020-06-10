@@ -2,7 +2,7 @@ import { connect } from 'react-redux'
 import { RootState } from 'redux/store'
 import EmulatorsSelect, {
   EmulatorsSelectComponentStateProperties,
-} from 'components/emulator/configuration/emulators-select/emulators-select-component'
+} from 'components/emulator/configuration/emulators-select/emulators-select'
 
 /**
  * Provides part of redux state to component properties.

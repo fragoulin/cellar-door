@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 import AddEmulator, {
   AddEmulatorComponentStateProperties,
-} from 'components/emulator/creation/add-emulator/add-emulator-component'
+} from 'components/emulator/creation/add-emulator/add-emulator'
 import { RootState } from 'redux/store'
 
 /**
