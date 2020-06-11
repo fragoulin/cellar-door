@@ -10,6 +10,7 @@ import {
   ListItem,
   ListItemIcon,
   ListItemText,
+  InputBase,
 } from '@material-ui/core'
 import MenuIcon from '@material-ui/icons/Menu'
 import { withTranslation, WithTranslation } from 'react-i18next'
@@ -22,6 +23,8 @@ import HomeIcon from '@material-ui/icons/Home'
 import AddIcon from '@material-ui/icons/Add'
 import SettingsIcon from '@material-ui/icons/Settings'
 import { Emulator } from 'models/emulator/types'
+import useStyles from './appbar-styles'
+import SearchIcon from '@material-ui/icons/Search'
 
 /**
  * Properties for this component (from redux state).
@@ -37,6 +40,7 @@ function Appbar(
   props: AppbarComponentStateProperties & RouteComponentProps & WithTranslation
 ): React.ReactElement {
   const [opened, setOpened] = useState(false)
+  const classes = useStyles()
 
   /**
    * Build array of strings from current location.
@@ -92,7 +96,7 @@ function Appbar(
   }
 
   return (
-    <>
+    <div className={classes.root}>
       <AppBar>
         <Toolbar>
           <IconButton
@@ -100,12 +104,26 @@ function Appbar(
             color="inherit"
             aria-label="menu"
             onClick={toggleDrawer(true)}
+            className={classes.menuButton}
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap>
+          <Typography className={classes.title} variant="h6" noWrap>
             {getAppbarTitle()}
           </Typography>
+          <div className={classes.search}>
+            <div className={classes.searchIcon}>
+              <SearchIcon />
+            </div>
+            <InputBase
+              placeholder={props.i18n.t('appbar.search')}
+              classes={{
+                root: classes.inputRoot,
+                input: classes.inputInput,
+              }}
+              inputProps={{ 'aria-label': props.i18n.t('appbar.search') }}
+            />
+          </div>
         </Toolbar>
       </AppBar>
       <Drawer
@@ -176,7 +194,7 @@ function Appbar(
           </List>
         </div>
       </Drawer>
-    </>
+    </div>
   )
 }
 

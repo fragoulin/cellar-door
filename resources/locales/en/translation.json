@@ -88,6 +88,7 @@
     "add-emulator": "Add emulator",
     "configure-emulator": "Configure emulator",
     "create-emulator": "Emulator created",
-    "settings": "Settings"
+    "settings": "Settings",
+    "search": "Search"
   }
 }
