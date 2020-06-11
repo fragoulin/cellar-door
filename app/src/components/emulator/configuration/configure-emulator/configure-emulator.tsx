@@ -1,10 +1,10 @@
-import './configure-emulator.scss'
 import React, { useState } from 'react'
 import { FormControl } from '@material-ui/core'
 import { Emulator, EmulatorConfiguration } from 'models/emulator/types'
 import SelectDirectory from 'components/emulator/configuration/select-directory/select-directory'
 import { withTranslation, WithTranslation } from 'react-i18next'
 import { updateConfiguration } from 'services/emulators-service'
+import useStyles from './configure-emulator-styles'
 
 type ConfigureEmulatorProperties = {
   setConfigurationMissing: (configurationMissing: boolean) => void
@@ -17,6 +17,7 @@ type ConfigureEmulatorProperties = {
 function ConfigureEmulator(
   props: ConfigureEmulatorProperties & WithTranslation
 ): React.ReactElement {
+  const classes = useStyles()
   const [hasError] = useState(false)
 
   const isConfigurationValueSet = (name: string): boolean => {
@@ -55,7 +56,7 @@ function ConfigureEmulator(
   if (!props.emulator) return <div>{props.t('configureEmulator.notFound')}</div>
 
   return (
-    <form className="configure-emulator">
+    <form className={classes.configureEmulatorMain}>
       <h1>
         {props.t('configureEmulator.title', {
           name: props.emulator.shortName,

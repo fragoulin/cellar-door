@@ -1,4 +1,3 @@
-import './emulator-stepper.scss'
 import React, { useState } from 'react'
 import Stepper from '@material-ui/core/Stepper'
 import Step from '@material-ui/core/Step'
@@ -11,11 +10,13 @@ import { Button } from '@material-ui/core'
 import { EmulatorId, Emulator } from 'models/emulator/types'
 import { Redirect } from 'react-router-dom'
 import { getEmulator } from 'services/emulators-service'
+import useStyles from './stepper-styles'
 
 /**
  * This component handles the display of a stepper during emulator creation.
  */
 function EmulatorStepper(props: WithTranslation): React.ReactElement {
+  const classes = useStyles()
   const [activeStep, setActiveStep] = useState(0)
   const [hasError, setHasError] = useState(false)
   const [configurationMissing, setConfigurationMissing] = useState(true)
@@ -132,7 +133,7 @@ function EmulatorStepper(props: WithTranslation): React.ReactElement {
   const steps = getSteps()
 
   return (
-    <div className="stepper">
+    <div className={classes.stepperMain}>
       <Stepper activeStep={activeStep}>
         {steps.map((label) => {
           const stepProps: { completed?: boolean } = {}

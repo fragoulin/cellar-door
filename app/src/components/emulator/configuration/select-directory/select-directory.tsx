@@ -1,4 +1,3 @@
-import './select-directory.scss'
 import React, { useState, useEffect } from 'react'
 import { IconButton, TextField } from '@material-ui/core'
 import FolderIcon from '@material-ui/icons/Folder'
@@ -9,6 +8,7 @@ import {
   DialogSelectDirectoryChannel,
   DialogSyncResultChannel,
 } from 'electron/constants'
+import useStyles from './select-directory-styles'
 
 /**
  * Properties definition for this component.
@@ -36,6 +36,7 @@ const win = window as CellarWin
 function SelectDirectory(
   props: ComponentProperties & WithTranslation
 ): React.ReactElement {
+  const classes = useStyles()
   const [inputId] = useState(uuidv4())
   const [value, setValue] = useState(props.value)
 
@@ -68,7 +69,7 @@ function SelectDirectory(
     <div>
       <TextField
         required={props.mandatory}
-        className="directory-name"
+        className={classes.directoryName}
         label={props.name}
         value={value}
         InputProps={{

@@ -5,6 +5,7 @@ import { getEmulator } from 'services/emulators-service'
 import { EmulatorId } from 'models/emulator/types'
 import EmulatorLogoComponent from '../emulator-logo/emulator-logo'
 import ReactDOM from 'react-dom'
+import useStyles from './emulator-main-styles'
 
 /**
  * Additional properties definition to retrieve emulator Id from URL parameters.
@@ -20,6 +21,7 @@ export type MatchParams = {
 function EmulatorMain(
   props: WithTranslation & RouteComponentProps<MatchParams>
 ): React.ReactElement {
+  const classes = useStyles()
   const emulatorFromId = getEmulator(props.match.params.id as EmulatorId)
   const [emulator] = useState(emulatorFromId)
 
@@ -43,7 +45,7 @@ function EmulatorMain(
   }
 
   return (
-    <div className="emulator-main">
+    <div className={classes.emulatorMain}>
       <h1>
         <EmulatorLogoComponent emulator={emulator} />
       </h1>

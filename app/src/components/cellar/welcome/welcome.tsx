@@ -1,11 +1,11 @@
 import * as React from 'react'
-import './welcome.scss'
 import { Cellar } from 'models/cellar'
 import EmulatorsList from 'container/cellar/emulators-list'
 import FreshInstallation from 'container/cellar/fresh-installation'
 import { Emulator } from 'models/emulator/types'
 import { withTranslation, WithTranslation } from 'react-i18next'
 import { useEffect } from 'react'
+import useStyles from './welcome-styles'
 
 /**
  * Properties definition for this component (from redux state).
@@ -31,6 +31,8 @@ function Welcome(
     WelcomeComponentDispatchProperties &
     WithTranslation
 ): React.ReactElement {
+  const classes = useStyles()
+
   useEffect(() => {
     // Create cellar if needed
     if (undefined === props.cellar) {
@@ -39,7 +41,7 @@ function Welcome(
   })
 
   return (
-    <div className="welcome">
+    <div className={classes.welcomeMain}>
       <h1 dangerouslySetInnerHTML={{ __html: props.t('welcome.title') }}></h1>
       {
         // Check for cellar

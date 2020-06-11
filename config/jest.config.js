@@ -12,7 +12,7 @@ module.exports = {
     "^storage/(.*)": "<rootDir>/app/src/storage/$1",
     "^test/(.*)": "<rootDir>/test/$1",
     electron: '<rootDir>/test/mock/electron.ts',
-    '\\.(css|less|scss|sass|svg)$': 'identity-obj-proxy',
+    '\\.(svg)$': 'identity-obj-proxy',
   },
   setupFilesAfterEnv: ['<rootDir>/test/setupTests.ts'],
 }

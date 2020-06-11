@@ -9,7 +9,7 @@ module.exports = {
   },
   plugins: require('./webpack.plugins'),
   resolve: {
-    extensions: ['.js', '.ts', '.jsx', '.tsx', '.css', '.scss'],
+    extensions: ['.js', '.ts', '.jsx', '.tsx'],
     plugins: [
       new TsConfigPathsPlugin()
     ]

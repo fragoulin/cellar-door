@@ -1,10 +1,10 @@
-import './add-emulator.scss'
 import * as React from 'react'
 import { FormControl } from '@material-ui/core'
 import EmulatorsSelect from 'container/emulators/emulators-select'
 import { EmulatorId, Emulator } from 'models/emulator/types'
 import { withTranslation, WithTranslation } from 'react-i18next'
 import { useState } from 'react'
+import useStyles from './add-emulator-styles'
 
 /**
  * Properties definition for this component (from redux state).
@@ -31,6 +31,7 @@ function AddEmulator(
     AddEmulatorComponentStateProperties &
     WithTranslation
 ): React.ReactElement {
+  const classes = useStyles()
   const [hasError, setHasError] = useState(false)
   const [errorMessage, setErrorMessage] = useState<string | undefined>(
     undefined
@@ -82,7 +83,7 @@ function AddEmulator(
   }
 
   return (
-    <form className="add-emulator">
+    <form className={classes.addEmulatorMain}>
       <span>{props.t('addEmulator.text')}</span>
       <div>
         <FormControl required error={hasError}>

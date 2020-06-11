@@ -1,6 +1,6 @@
-import './emulator-logo.scss'
 import React from 'react'
 import { Emulator } from 'models/emulator/types'
+import useStyles from './emulator-logo-styles'
 
 /**
  * Properties definition for this component.
@@ -16,18 +16,20 @@ export type EmulatorLogoComponentStateProperties = {
 function EmulatorLogoComponent(
   props: EmulatorLogoComponentStateProperties
 ): React.ReactElement {
+  const classes = useStyles()
+
   return (
     <>
       {props.emulator.logo ? (
         <img
-          className="logo"
+          className={classes.logo}
           role="link"
           src={props.emulator.logo}
           alt={props.emulator.shortName}
           draggable={false}
         />
       ) : (
-        <span className="text" role="link">
+        <span className={classes.text} role="link">
           {props.emulator.shortName}
         </span>
       )}

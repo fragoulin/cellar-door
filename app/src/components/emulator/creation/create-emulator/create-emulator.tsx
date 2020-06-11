@@ -1,8 +1,8 @@
-import './create-emulator.scss'
 import React, { useEffect } from 'react'
 import { Emulator } from 'models/emulator/types'
 import EmulatorSummary from 'components/emulator/creation/emulator-summary/emulator-summary'
 import { withTranslation, WithTranslation } from 'react-i18next'
+import useStyles from './create-emulator-styles'
 
 /**
  * Properties definition for this component.
@@ -26,6 +26,8 @@ function CreateEmulator(
     CreateEmulatorComponentDispatchProperties &
     WithTranslation
 ): React.ReactElement {
+  const classes = useStyles()
+
   /**
    * Add emulator to cellar.
    */
@@ -38,7 +40,7 @@ function CreateEmulator(
   if (!props.emulator) return <div>No emulator found</div>
 
   return (
-    <div className="create-emulator">
+    <div className={classes.createEmulatorMain}>
       <div>
         <h1>
           {props.t('createEmulator.title', {

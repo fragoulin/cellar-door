@@ -1,10 +1,10 @@
-import './emulators-select.scss'
 import * as React from 'react'
 import { Select, InputLabel, FormHelperText } from '@material-ui/core'
 import { EmulatorId } from 'models/emulator/types'
 import { EmulatorIdsToName } from 'redux/modules/cellar'
 import { withTranslation, WithTranslation } from 'react-i18next'
 import { useState } from 'react'
+import useStyles from './emulator-select-styles'
 
 /**
  * Properties definition for this component.
@@ -31,6 +31,7 @@ function EmulatorsSelect(
     EmulatorsSelectComponentStateProperties &
     WithTranslation
 ): React.ReactElement {
+  const classes = useStyles()
   const [selectedEmulatorId, setSelectedEmulatorId] = useState('')
 
   const handleChange = (event: React.ChangeEvent<{ value: unknown }>): void => {
@@ -47,7 +48,7 @@ function EmulatorsSelect(
       <Select
         native
         name="emulator"
-        className="emulators-list"
+        className={classes.emulatorsList}
         value={selectedEmulatorId}
         onChange={handleChange}
       >
