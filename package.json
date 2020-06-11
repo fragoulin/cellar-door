@@ -121,7 +121,6 @@
     "@material-ui/icons": "^4.9.1",
     "@reduxjs/toolkit": "^1.3.6",
     "electron-context-menu": "^2.0.1",
-    "electron-root-path": "^1.0.16",
     "i18next": "^19.4.4",
     "i18next-electron-fs-backend": "https://github.com/fragoulin/i18next-electron-fs-backend",
     "lodash": "^4.17.15",

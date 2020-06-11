@@ -1,6 +1,5 @@
 import { join } from 'path'
 import { readFileSync } from 'fs'
-import { rootPath } from 'electron-root-path'
 
 // This file is only valid for the main process
 
@@ -26,7 +25,7 @@ if (typeof PKG_INFO !== 'undefined' && PKG_INFO !== null) {
   /* This is a fallback incase the webpack DefinePlugin modules hasn't been initialized yet. */
   /* Developement mode only */
   _pkginfo = JSON.parse(
-    readFileSync(join(rootPath, 'package.json'), { encoding: 'utf8' })
+    readFileSync(join(__dirname, '../../package.json'), { encoding: 'utf8' })
   )
 }
 

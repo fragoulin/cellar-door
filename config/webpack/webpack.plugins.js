@@ -1,7 +1,6 @@
 const webpack = require('webpack') 
 const path = require('path')
-const rootPath = require('electron-root-path').rootPath
-const pkg = require(path.join(rootPath, 'package.json'))
+const pkg = require(path.join(__dirname, '../../package.json'))
 
 const HardSourceWebpackPlugin = require('hard-source-webpack-plugin')
 
