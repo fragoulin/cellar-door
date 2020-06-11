@@ -14,9 +14,9 @@ import {
 } from './constants'
 
 /**
- * Custom interface to type Window object with IPC functionalities.
+ * Custom type for Window object with IPC functionalities.
  */
-interface Api {
+type Api = {
   api: {
     receive(name: string, ...args: unknown[]): void
     send(name: string, ...args: unknown[]): void

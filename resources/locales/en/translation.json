@@ -89,6 +89,7 @@
     "configure-emulator": "Configure emulator",
     "create-emulator": "Emulator created",
     "settings": "Settings",
-    "search": "Search"
+    "search": "Search",
+    "lightDarkMode": "Toggle light/dark mode"
   }
 }

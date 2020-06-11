@@ -7,7 +7,7 @@ import { RootState } from 'redux/store'
 /**
  * Maps emulator Ids to emulator names.
  */
-export interface EmulatorIdsToName {
+export type EmulatorIdsToName = {
   id: EmulatorId
   name: string
 }
@@ -15,9 +15,8 @@ export interface EmulatorIdsToName {
 /**
  * Cellar state definition.
  */
-export interface CellarState {
+export type CellarState = {
   currentCellar: Cellar | undefined
-  currentLocale: string
   emulatorsInCellar: Emulator[]
   availableEmulatorNames: EmulatorIdsToName[]
 }
@@ -27,7 +26,6 @@ export interface CellarState {
  */
 export const initialState: CellarState = {
   currentCellar: undefined,
-  currentLocale: 'en',
   emulatorsInCellar: [],
   availableEmulatorNames: [],
 }
@@ -47,9 +45,6 @@ const cellarSlice = createSlice({
     cellarClosed(state): void {
       state.currentCellar = undefined
       state.emulatorsInCellar = []
-    },
-    currentLocaleSet(state, action): void {
-      state.currentLocale = action.payload
     },
     emulatorAddedToCellar(state, action): void {
       state.emulatorsInCellar.push(action.payload)
@@ -85,7 +80,6 @@ const cellarSlice = createSlice({
 export const {
   cellarCreated,
   cellarClosed,
-  currentLocaleSet,
   emulatorAddedToCellar,
   emulatorRemovedFromCellar,
   emulatorsReordered,

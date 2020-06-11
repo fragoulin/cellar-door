@@ -3,7 +3,7 @@ import React from 'react'
 import { Store } from '@reduxjs/toolkit'
 import * as i18nConfig from 'localization/i18next.config'
 import { i18n as I18n } from 'i18next'
-import { currentLocaleSet, cellarImported } from 'redux/modules/cellar'
+import { cellarImported } from 'redux/modules/cellar'
 import { CellarWin } from './preload'
 import WebFont from 'webfontloader'
 import { handleMenuClick } from './menu/menu-handler'
@@ -13,8 +13,9 @@ import {
   MenuClickChannel,
   DialogOpenResultChannel,
 } from './constants'
-import Root from 'components/main/root/root'
+import Root from 'container/main/root'
 import 'react-hot-loader'
+import { currentLocaleSet } from 'redux/modules/preferences'
 
 // Load required fonts for material. Required font weights are 300, 400, 500 and 700
 // https://material-ui.com/components/typography/#general
@@ -84,7 +85,7 @@ function notifyMainProcess(language: string): void {
 
 // Wait for i18next initialization before creating root element.
 const state = store.getState()
-const language = state.cellar.present.currentLocale
+const language = state.preferences.present.currentLocale
 i18nConfig
   .whenReady(language)
   .then((i18n) => {

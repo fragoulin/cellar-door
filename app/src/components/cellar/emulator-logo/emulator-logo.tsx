@@ -1,6 +1,7 @@
 import React from 'react'
 import { Emulator } from 'models/emulator/types'
 import useStyles from './emulator-logo-styles'
+import { Typography } from '@material-ui/core'
 
 /**
  * Properties definition for this component.
@@ -29,9 +30,9 @@ function EmulatorLogoComponent(
           draggable={false}
         />
       ) : (
-        <span className={classes.text} role="link">
+        <Typography className={classes.text} role="link" draggable={false}>
           {props.emulator.shortName}
-        </span>
+        </Typography>
       )}
     </>
   )

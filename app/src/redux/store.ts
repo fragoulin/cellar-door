@@ -1,10 +1,7 @@
 import { combineReducers } from 'redux'
 import { configureStore } from '@reduxjs/toolkit'
 import logger from 'redux-logger'
-import cellarReducer, {
-  currentLocaleSet,
-  cellarCreated,
-} from './modules/cellar'
+import cellarReducer, { cellarCreated } from './modules/cellar'
 import undoable from 'redux-undo'
 import * as localStorage from 'services/local-storage-service'
 import { handleMenuAfterStateUpdate } from 'electron/menu/menu-handler'
@@ -13,6 +10,7 @@ import {
   getStateAfterGettingFromStorage,
 } from '../storage/cellar-transformers'
 import { StateKey } from 'electron/constants'
+import preferencesReducer, { currentLocaleSet } from './modules/preferences'
 
 /**
  * Reducers combined with undo.
@@ -20,12 +18,18 @@ import { StateKey } from 'electron/constants'
 const rootReducer = combineReducers({
   cellar: undoable(cellarReducer, {
     filter: function filterAction(action) {
-      // Ignore some actions in undo/redo history
+      // Ignore some actions for undo/redo history
       const actionTypesToIgnore = [cellarCreated.type, currentLocaleSet.type]
       return (
         actionTypesToIgnore.find((actionType) => actionType === action.type) ===
         undefined
       )
+    },
+  }),
+  preferences: undoable(preferencesReducer, {
+    filter: function filterAction() {
+      // Ignore all preferences actions for undo/redo history
+      return false
     },
   }),
 })

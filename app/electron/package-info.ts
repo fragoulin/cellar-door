@@ -4,7 +4,7 @@ import { rootPath } from 'electron-root-path'
 
 // This file is only valid for the main process
 
-export interface PackageInfo {
+export type PackageInfo = {
   name: string
   productName: string
   version: string

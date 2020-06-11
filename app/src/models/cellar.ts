@@ -1,6 +1,6 @@
 /**
  * Cellar definition.
  */
-export interface Cellar {
+export type Cellar = {
   name?: string
 }

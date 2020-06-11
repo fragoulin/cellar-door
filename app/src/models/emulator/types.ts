@@ -11,7 +11,7 @@ export enum EmulatorId {
 /**
  * Emulator configuration.
  */
-export interface EmulatorConfiguration {
+export type EmulatorConfiguration = {
   name: string
   value?: string
   mandatory: boolean
@@ -20,7 +20,7 @@ export interface EmulatorConfiguration {
 /**
  * Emulator license.
  */
-export interface EmulatorLicense {
+export type EmulatorLicense = {
   spdx: string
   name: string
   URL: string
@@ -29,7 +29,7 @@ export interface EmulatorLicense {
 /**
  * Emulator.
  */
-export interface Emulator {
+export type Emulator = {
   Id: EmulatorId
   shortName: string
   fullName?: string

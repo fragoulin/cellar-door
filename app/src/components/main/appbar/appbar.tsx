@@ -25,19 +25,32 @@ import SettingsIcon from '@material-ui/icons/Settings'
 import { Emulator } from 'models/emulator/types'
 import useStyles from './appbar-styles'
 import SearchIcon from '@material-ui/icons/Search'
+import Brightness4Icon from '@material-ui/icons/Brightness4'
+import BrightnessHighIcon from '@material-ui/icons/BrightnessHigh'
 
 /**
  * Properties for this component (from redux state).
  */
 export type AppbarComponentStateProperties = {
   emulatorsInCellar: Emulator[]
+  darkMode: boolean
+}
+
+/**
+ * Properties for this component (from redux dispatch).
+ */
+export type AppbarComponentDispatchProperties = {
+  toggleLightDarkMode: () => void
 }
 
 /**
  * Application navigation bar.
  */
 function Appbar(
-  props: AppbarComponentStateProperties & RouteComponentProps & WithTranslation
+  props: AppbarComponentStateProperties &
+    AppbarComponentDispatchProperties &
+    RouteComponentProps &
+    WithTranslation
 ): React.ReactElement {
   const [opened, setOpened] = useState(false)
   const classes = useStyles()
@@ -95,8 +108,15 @@ function Appbar(
     return ''
   }
 
+  /**
+   * Handle dark mode switch.
+   */
+  const handleDarkMode = (): void => {
+    props.toggleLightDarkMode()
+  }
+
   return (
-    <div className={classes.root}>
+    <div className={classes.grow}>
       <AppBar>
         <Toolbar>
           <IconButton
@@ -124,6 +144,16 @@ function Appbar(
               inputProps={{ 'aria-label': props.i18n.t('appbar.search') }}
             />
           </div>
+          <IconButton
+            edge="end"
+            aria-label={props.i18n.t('appbar.lightDarkMode')}
+            title={props.i18n.t('appbar.lightDarkMode')}
+            aria-haspopup="true"
+            onClick={handleDarkMode}
+            color="inherit"
+          >
+            {props.darkMode ? <Brightness4Icon /> : <BrightnessHighIcon />}
+          </IconButton>
         </Toolbar>
       </AppBar>
       <Drawer
