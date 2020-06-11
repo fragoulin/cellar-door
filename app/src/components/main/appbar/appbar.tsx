@@ -91,6 +91,9 @@ function Appbar(
   const getAppbarTitle = (): string => {
     const parts = getPathPartsFromLocation()
 
+    // For packaged version at startup, path contains full path to app.asar
+    if (parts.indexOf('app.asar') >= 0) return props.i18n.t('appbar.home')
+
     // Check for home
     if (parts.length === 0) return props.i18n.t('appbar.home')
 
