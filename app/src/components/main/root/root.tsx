@@ -2,7 +2,6 @@ import {
   CssBaseline,
   MuiThemeProvider,
   createMuiTheme,
-  ThemeOptions,
 } from '@material-ui/core'
 import React, { Suspense } from 'react'
 import { I18nextProvider } from 'react-i18next'
@@ -12,6 +11,7 @@ import { Store } from 'redux'
 import { i18n as I18n } from 'i18next'
 import { hot, setConfig } from 'react-hot-loader'
 import useStyles from './root-styles'
+import defaultTheme from 'themes/default'
 
 /**
  * Properties definition for this component.
@@ -36,11 +36,7 @@ function Root(
 ): React.ReactElement {
   const classes = useStyles()
 
-  const themeOptions: ThemeOptions = {
-    palette: {
-      type: props.darkMode ? 'dark' : 'light',
-    },
-  }
+  const themeOptions = defaultTheme(props.darkMode)
 
   const muiTheme = createMuiTheme(themeOptions)
 
