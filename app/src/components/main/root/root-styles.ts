@@ -5,6 +5,7 @@ const useStyles = makeStyles(() =>
     root: {
       WebkitUserSelect: 'none',
       userSelect: 'none',
+      height: '100vh'
     },
   })
 )

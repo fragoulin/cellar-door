@@ -45,7 +45,7 @@ function Root(
   const muiTheme = createMuiTheme(themeOptions)
 
   return (
-    <section id="root" className={classes.root}>
+    <div id="root" className={classes.root}>
       <CssBaseline />
       <React.StrictMode>
         <MuiThemeProvider theme={muiTheme}>
@@ -58,7 +58,7 @@ function Root(
           </I18nextProvider>
         </MuiThemeProvider>
       </React.StrictMode>
-    </section>
+    </div>
   )
 }
 

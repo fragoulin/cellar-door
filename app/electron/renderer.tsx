@@ -24,8 +24,7 @@ WebFont.load({ google: { families: ['Roboto:300,400,500,700'] } })
 /**
  * Main element is the entry point of HTML content.
  */
-const main = document.createElement('main')
-document.body.appendChild(main)
+const main = document.getElementsByTagName('div')[0]
 
 /**
  * Typed window with cellar properties.

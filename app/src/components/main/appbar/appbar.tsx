@@ -120,7 +120,7 @@ function Appbar(
 
   return (
     <div className={classes.grow}>
-      <AppBar>
+      <AppBar position="fixed">
         <Toolbar>
           <IconButton
             edge="start"
