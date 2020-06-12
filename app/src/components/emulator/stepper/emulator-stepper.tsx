@@ -32,9 +32,9 @@ function EmulatorStepper(props: WithTranslation): React.ReactElement {
    */
   const getSteps = (): string[] => {
     return [
-      props.i18n.t('breadcrumb.add-emulator'),
-      props.i18n.t('breadcrumb.configure-emulator'),
-      props.i18n.t('breadcrumb.create-emulator'),
+      props.i18n.t('appbar.add-emulator'),
+      props.i18n.t('appbar.configure-emulator'),
+      props.i18n.t('appbar.create-emulator'),
     ]
   }
 
