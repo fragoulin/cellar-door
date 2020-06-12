@@ -22,9 +22,9 @@ import { currentLocaleSet } from 'redux/modules/preferences'
 WebFont.load({ google: { families: ['Roboto:300,400,500,700'] } })
 
 /**
- * Main element is the entry point of HTML content.
+ * Main element is the entry point for HTML content.
  */
-const main = document.getElementsByTagName('div')[0]
+const main = document.querySelector('#root')
 
 /**
  * Typed window with cellar properties.
