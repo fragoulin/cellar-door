@@ -155,7 +155,7 @@ function Appbar(
             onClick={handleDarkMode}
             color="inherit"
           >
-            {props.darkMode ? <Brightness4Icon /> : <BrightnessHighIcon />}
+            {props.darkMode ? <BrightnessHighIcon /> : <Brightness4Icon />}
           </IconButton>
         </Toolbar>
       </AppBar>
