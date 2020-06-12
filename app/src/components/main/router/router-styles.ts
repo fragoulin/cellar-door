@@ -4,7 +4,7 @@ const useStyles = makeStyles(() =>
   createStyles({
     root: {
       height: '100%',
-      paddingTop: '64px'
+      paddingTop: '64px',
     },
   })
 )

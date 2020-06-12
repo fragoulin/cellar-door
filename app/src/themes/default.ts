@@ -1,4 +1,4 @@
-import { ThemeOptions } from "@material-ui/core";
+import { ThemeOptions } from '@material-ui/core'
 
 const theme = (darkMode: boolean): ThemeOptions => {
   return {
