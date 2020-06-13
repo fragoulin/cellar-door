@@ -13,6 +13,7 @@ import contextMenu from 'electron-context-menu'
 import { contextMenuOptions } from './menu/context-menu'
 import { UpdateLanguageChannel } from './constants'
 import { pkginfo } from './package-info'
+import windowStateKeeper from 'electron-window-state'
 
 /**
  * Path to main webpack entry.
@@ -103,10 +104,15 @@ function createWindow(): void {
   setCspHeaders()
   customizeAboutMenu()
 
+  const mainWindowState = windowStateKeeper({})
+
   // Create the browser window.
   win = new BrowserWindow({
-    width: 800,
-    height: 600,
+    x: mainWindowState.x,
+    y: mainWindowState.y,
+    width: mainWindowState.width,
+    height: mainWindowState.height,
+    fullscreen: mainWindowState.isFullScreen,
     title: 'Cellar door',
     webPreferences: {
       contextIsolation: true,
@@ -115,6 +121,9 @@ function createWindow(): void {
       preload: MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY,
     },
   })
+
+  // Handle window state update
+  mainWindowState.manage(win)
 
   // Configure backend for i18next
   i18nextBackend.mainBindings(ipcMain, win, fs)

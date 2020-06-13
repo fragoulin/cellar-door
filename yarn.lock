@@ -4036,6 +4036,14 @@ electron-to-chromium@^1.3.413:
   resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.470.tgz#07ccfd481b96709f4ac20bb74bccf59705a41ced"
   integrity sha512-SQzHdpUUmTSiIYwMFZ3P3271VdRxfdHqh2GoBA7sqeaz4SN3UlTA22fC+r9BHu8FpB0oI7f8pAxzm75O/kBc3w==
 
+electron-window-state@^5.0.3:
+  version "5.0.3"
+  resolved "https://registry.yarnpkg.com/electron-window-state/-/electron-window-state-5.0.3.tgz#4f36d09e3f953d87aff103bf010f460056050aa8"
+  integrity sha512-1mNTwCfkolXl3kMf50yW3vE2lZj0y92P/HYWFBrb+v2S/pCka5mdwN3cagKm458A7NjndSwijynXgcLWRodsVg==
+  dependencies:
+    jsonfile "^4.0.0"
+    mkdirp "^0.5.1"
+
 electron-winstaller@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/electron-winstaller/-/electron-winstaller-4.0.0.tgz#d2717eca6665724f922acd2ac7a94d6fd55dd5d7"
