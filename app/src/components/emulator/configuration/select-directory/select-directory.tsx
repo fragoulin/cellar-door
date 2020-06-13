@@ -38,7 +38,7 @@ function SelectDirectory(
 ): React.ReactElement {
   const classes = useStyles()
   const [inputId] = useState(uuidv4())
-  const [value, setValue] = useState(props.value)
+  const [value, setValue] = useState(props.value ? props.value : '')
 
   const openDialog = (): void => {
     // Invoke dialog sync from main thread
