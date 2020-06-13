@@ -35,7 +35,8 @@
         "react",
         "@typescript-eslint",
         "eslint-plugin-tsdoc",
-        "formatjs"
+        "formatjs",
+        "deprecate"
     ],
     "rules": {
         "tsdoc/syntax": "warn"
