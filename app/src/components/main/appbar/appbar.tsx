@@ -160,7 +160,6 @@ function Appbar(
         </Toolbar>
       </AppBar>
       <Drawer
-        variant="persistent"
         anchor="left"
         open={opened}
         onClose={toggleDrawer(false)}
