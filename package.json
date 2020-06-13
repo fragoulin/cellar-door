@@ -99,7 +99,6 @@
     "identity-obj-proxy": "^3.0.0",
     "jest": "^26.0.1",
     "jest-wrap": "^1.7.0",
-    "minimist": "^1.2.5",
     "node-loader": "^0.6.0",
     "prettier": "^2.0.5",
     "prettier-eslint": "^10.1.0",
