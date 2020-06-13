@@ -159,11 +159,7 @@ function Appbar(
           </IconButton>
         </Toolbar>
       </AppBar>
-      <Drawer
-        anchor="left"
-        open={opened}
-        onClose={toggleDrawer(false)}
-      >
+      <Drawer anchor="left" open={opened} onClose={toggleDrawer(false)}>
         <div onClick={toggleDrawer(false)} onKeyDown={toggleDrawer(false)}>
           <div>
             <IconButton onClick={toggleDrawer(false)}>
