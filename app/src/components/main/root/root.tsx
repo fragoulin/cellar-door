@@ -7,7 +7,7 @@ import { Store } from 'redux'
 import { i18n as I18n } from 'i18next'
 import { hot, setConfig } from 'react-hot-loader'
 import useStyles from './root-styles'
-import { getTheme } from 'theme/themes/base'
+import { getTheme } from 'themes/base'
 
 /**
  * Properties definition for this component.
