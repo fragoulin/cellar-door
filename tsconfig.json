@@ -31,7 +31,7 @@
       "redux/*": ["./app/src/redux/*"],
       "services/*": ["./app/src/services/*"],
       "storage/*": ["./app/src/storage/*"],
-      "themes/*": ["./app/src/themes/*"],
+      "theme/*": ["./app/src/theme/*"],
       "resources/*": ["./resources/*"],
       "test/*": ["./test/*"]
     },

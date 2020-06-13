@@ -1,8 +1,4 @@
-import {
-  CssBaseline,
-  MuiThemeProvider,
-  createMuiTheme,
-} from '@material-ui/core'
+import { CssBaseline, ThemeProvider } from '@material-ui/core'
 import React, { Suspense } from 'react'
 import { I18nextProvider } from 'react-i18next'
 import { Provider } from 'react-redux'
@@ -11,7 +7,7 @@ import { Store } from 'redux'
 import { i18n as I18n } from 'i18next'
 import { hot, setConfig } from 'react-hot-loader'
 import useStyles from './root-styles'
-import defaultTheme from 'themes/default'
+import { getTheme } from 'theme/themes/base'
 
 /**
  * Properties definition for this component.
@@ -36,24 +32,31 @@ function Root(
 ): React.ReactElement {
   const classes = useStyles()
 
-  const themeOptions = defaultTheme(props.darkMode)
-
-  const muiTheme = createMuiTheme(themeOptions)
+  // Retrieve initial theme
+  const themeName = props.darkMode ? 'darkTheme' : 'lightTheme'
+  const theme = getTheme(themeName)
 
   return (
     <div id="root" className={classes.root}>
-      <CssBaseline />
-      <React.StrictMode>
-        <MuiThemeProvider theme={muiTheme}>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <React.StrictMode>
           <I18nextProvider i18n={props.i18n}>
             <Suspense fallback="loading">
               <Provider store={props.store}>
-                <Router />
+                <ThemeProvider
+                  theme={(outerTheme): RootComponentStateProperties => ({
+                    darkMode: props.darkMode,
+                    ...outerTheme,
+                  })}
+                >
+                  <Router />
+                </ThemeProvider>
               </Provider>
             </Suspense>
           </I18nextProvider>
-        </MuiThemeProvider>
-      </React.StrictMode>
+        </React.StrictMode>
+      </ThemeProvider>
     </div>
   )
 }
