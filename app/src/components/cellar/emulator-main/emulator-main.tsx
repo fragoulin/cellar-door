@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { RouteComponentProps } from 'react-router-dom'
 import { WithTranslation, withTranslation } from 'react-i18next'
 import { getEmulator } from 'services/emulators-service'
@@ -22,8 +22,7 @@ function EmulatorMain(
   props: WithTranslation & RouteComponentProps<MatchParams>
 ): React.ReactElement {
   const classes = useStyles()
-  const emulatorFromId = getEmulator(props.match.params.id as EmulatorId)
-  const [emulator] = useState(emulatorFromId)
+  const emulator = getEmulator(props.match.params.id as EmulatorId)
 
   /**
    * Render specified emulator.
