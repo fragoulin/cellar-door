@@ -32,7 +32,9 @@ function EmulatorsSelect(
     WithTranslation
 ): React.ReactElement {
   const classes = useStyles()
-  const [selectedEmulatorId, setSelectedEmulatorId] = useState('')
+  const [selectedEmulatorId, setSelectedEmulatorId] = useState(
+    props.selectedEmulatorId ? props.selectedEmulatorId : ''
+  )
 
   const handleChange = (event: React.ChangeEvent<{ value: unknown }>): void => {
     const emulatorId = event.target.value as EmulatorId
