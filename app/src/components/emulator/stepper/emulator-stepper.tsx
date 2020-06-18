@@ -5,12 +5,13 @@ import StepLabel from '@material-ui/core/StepLabel'
 import { withTranslation, WithTranslation } from 'react-i18next'
 import AddEmulator from 'container/emulators/add-emulator'
 import ConfigureEmulator from 'container/emulators/configure-emulator'
-import CreateEmulator from 'container/emulators/create-emulator'
 import { Button } from '@material-ui/core'
 import { EmulatorId, Emulator } from 'models/emulator/types'
 import { Redirect } from 'react-router-dom'
 import { getEmulator } from 'services/emulators-service'
 import useStyles from './stepper-styles'
+import EmulatorCreated from 'container/emulators/emulator-created'
+import CreateEmulator from '../creation/create-emulator/create-emulator'
 
 /**
  * This component handles the display of a stepper during emulator creation.
@@ -32,9 +33,10 @@ function EmulatorStepper(props: WithTranslation): React.ReactElement {
    */
   const getSteps = (): string[] => {
     return [
-      props.i18n.t('appbar.add-emulator'),
+      props.i18n.t('appbar.select-emulator'),
       props.i18n.t('appbar.configure-emulator'),
       props.i18n.t('appbar.create-emulator'),
+      props.i18n.t('appbar.emulator-created'),
     ]
   }
 
@@ -93,6 +95,8 @@ function EmulatorStepper(props: WithTranslation): React.ReactElement {
         return <Redirect to="/" />
       case 2:
         return <CreateEmulator emulator={emulator} />
+      case 3:
+        return <EmulatorCreated emulator={emulator} />
       default:
         return <Redirect to="/" />
     }
@@ -113,6 +117,21 @@ function EmulatorStepper(props: WithTranslation): React.ReactElement {
   }
 
   /**
+   * Compute back button disabled status.
+   *
+   * @returns true to disable next button, else false.
+   */
+  const getBackButtonDisabledStatus = (): boolean => {
+    switch (activeStep) {
+      case 2:
+        // Create emulator
+        return true
+      default:
+        return false
+    }
+  }
+
+  /**
    * Compute next button disabled status.
    *
    * @returns true to disable next button, else false.
@@ -125,6 +144,9 @@ function EmulatorStepper(props: WithTranslation): React.ReactElement {
       case 1:
         // Configure emulator
         return configurationMissing
+      case 2:
+        // Create emulator
+        return true
       default:
         return false
     }
@@ -153,7 +175,11 @@ function EmulatorStepper(props: WithTranslation): React.ReactElement {
             {getStepContent(activeStep)}
             <div>
               {activeStep !== steps.length - 1 && (
-                <Button color="secondary" onClick={handleBack}>
+                <Button
+                  color="secondary"
+                  onClick={handleBack}
+                  disabled={getBackButtonDisabledStatus()}
+                >
                   {props.i18n.t('common.back')}
                 </Button>
               )}

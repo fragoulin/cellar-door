@@ -1,8 +1,8 @@
 import Emulators from 'models/emulator/emulators'
 import { EmulatorId, EmulatorConfiguration } from 'models/emulator/types'
-import MAME from 'models/emulator/emulators/mame'
-import ScummVM from 'models/emulator/emulators/scummvm'
-import ZiNc from 'models/emulator/emulators/zinc'
+import MAME from 'emulators/mame/model'
+import ScummVM from 'emulators/scummvm/model'
+import ZiNc from 'emulators/zinc/model'
 import {
   buildAvailableEmulatorNamesList,
   getEmulator,

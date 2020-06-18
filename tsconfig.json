@@ -26,6 +26,7 @@
       "electron/*": ["./app/electron/*"],
       "components/*": ["./app/src/components/*"],
       "container/*": ["./app/src/container/*"],
+      "emulators/*": ["./app/src/emulators/*"],
       "localization/*": ["./app/src/localization/*"],
       "models/*": ["./app/src/models/*"],
       "redux/*": ["./app/src/redux/*"],
@@ -39,9 +40,8 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "lib": [
-      "dom",
-      "dom.iterable",
-      "ES2019"
+      "ES2019",
+      "WebWorker"
     ],
     "types": ["jest", "node"],
     "allowSyntheticDefaultImports": true,

@@ -32,6 +32,9 @@
     "text": "Choisissez un émulateur"
   },
   "createEmulator": {
+    "title": "Création de l'émulateur {{name}}"
+  },
+  "emulatorCreated": {
     "title": "L'émulateur {{name}} a été créé avec succès",
     "addAnother": "Ajouter un autre émulateur"
   },
@@ -86,8 +89,10 @@
   "appbar": {
     "home": "Accueil",
     "add-emulator": "Ajouter un émulateur",
-    "configure-emulator": "Configurer l'emulateur",
-    "create-emulator": "Emulateur créé",
+    "select-emulator": "Selectionner un émulateur",
+    "configure-emulator": "Configurer l'émulateur",
+    "create-emulator": "Créer l'émulateur",
+    "emulator-created": "Emulateur créé",
     "settings": "Paramètres",
     "search": "Rechercher",
     "lightDarkMode": "Basculer le mode clair/sombre"

@@ -15,6 +15,10 @@ import { UpdateLanguageChannel } from './constants'
 import { pkginfo } from './package-info'
 import windowStateKeeper from 'electron-window-state'
 
+// Register IPC listeners for emulators
+// TODO find a way to dynamically register IPC listeners for emulators
+import { registerListeners as registerListenersForMame } from 'emulators/mame/ipc'
+
 /**
  * Path to main webpack entry.
  *
@@ -168,6 +172,7 @@ app.on('activate', () => {
 
 // Register IPC listeners for main process.
 registerListeners()
+registerListenersForMame()
 
 // Listen for 'updateLanguage' event from renderer in order to initialize menu with correct language.
 ipcMain.on(UpdateLanguageChannel, (_event, language: string) => {

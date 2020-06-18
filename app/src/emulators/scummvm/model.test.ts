@@ -1,5 +1,5 @@
 import { EmulatorId } from 'models/emulator/types'
-import ScummVm from './scummvm'
+import ScummVm from './model'
 
 it('should have correct Id', () => {
   expect(ScummVm.Id).toBe(EmulatorId.ScummVM)

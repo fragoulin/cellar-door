@@ -1,5 +1,5 @@
 import { EmulatorId } from 'models/emulator/types'
-import Zinc from './zinc'
+import Zinc from './model'
 
 it('should have correct Id', () => {
   expect(Zinc.Id).toBe(EmulatorId.ZiNc)

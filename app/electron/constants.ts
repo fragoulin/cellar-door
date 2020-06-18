@@ -11,6 +11,8 @@ export const EnableMenuItem = 'enableMenuItem'
 export const getResourcesPathChannel = 'getResourcesPath'
 export const isDevChannel = 'isDev'
 export const MenuClickChannel = 'menuClick'
+export const GetSnap = 'getSnap'
+export const SnapRetrieved = 'snapRetrieved'
 
 // Menu Ids
 export const RemoveEmulatorId = 'removeEmulator'
@@ -21,3 +23,7 @@ export const RedoId = 'redo'
 
 // Storage keys
 export const StateKey = 'state'
+
+// IndexedDb
+export const DatabaseName = 'cellar-door-db'
+export const DatabaseVersion = 1

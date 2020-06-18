@@ -38,7 +38,7 @@ function Welcome(
     if (undefined === props.cellar) {
       props.createCellar()
     }
-  })
+  }, [props])
 
   return (
     <div className={classes.welcomeMain}>

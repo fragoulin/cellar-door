@@ -11,7 +11,18 @@ import {
   DialogExportCellarChannel,
   DialogImportCellarChannel,
   DialogOpenResultChannel,
+  GetSnap,
+  SnapRetrieved,
 } from './constants'
+// TODO find a better way to include valid channels from emulators (use common channel names for all emulators)
+import {
+  ParseMameIni,
+  MameIniParsed,
+  GetRomsList,
+  RomsListRetrieved,
+} from 'emulators/mame/constants'
+
+// TODO function to remove listeners
 
 /**
  * Custom type for Window object with IPC functionalities.
@@ -42,6 +53,9 @@ contextBridge.exposeInMainWorld('api', {
       DialogExportCellarChannel,
       UpdateLanguageChannel,
       EnableMenuItem,
+      ParseMameIni,
+      GetRomsList,
+      GetSnap,
     ]
     if (validChannels.includes(channel)) {
       ipcRenderer.send(channel, ...args)
@@ -66,6 +80,9 @@ contextBridge.exposeInMainWorld('api', {
       DialogSyncResultChannel,
       DialogOpenResultChannel,
       MenuClickChannel,
+      MameIniParsed,
+      RomsListRetrieved,
+      SnapRetrieved,
     ]
     if (validChannels.includes(channel)) {
       // Deliberately strip event as it includes `sender`

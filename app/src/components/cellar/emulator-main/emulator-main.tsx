@@ -1,8 +1,7 @@
 import React from 'react'
 import { RouteComponentProps } from 'react-router-dom'
 import { WithTranslation, withTranslation } from 'react-i18next'
-import { getEmulator } from 'services/emulators-service'
-import { EmulatorId } from 'models/emulator/types'
+import { Emulator } from 'models/emulator/types'
 import EmulatorLogoComponent from '../emulator-logo/emulator-logo'
 import ReactDOM from 'react-dom'
 import useStyles from './emulator-main-styles'
@@ -15,32 +14,55 @@ export type MatchParams = {
 }
 
 /**
+ * Component properties from redux state.
+ */
+export type EmulatorMainComponentStateProperties = {
+  emulatorsInCellar: Emulator[]
+}
+
+/**
+ * Component properties definition for emulators components.
+ */
+export type EmulatorComponentProperties = {
+  emulator: Emulator
+}
+
+/**
  * The Emulator main component displays the main screen for the specified emulator.
  * This screen contains list of available games, extras resources, and buttons to configure/start emulator.
  */
 function EmulatorMain(
-  props: WithTranslation & RouteComponentProps<MatchParams>
+  props: WithTranslation &
+    RouteComponentProps<MatchParams> &
+    EmulatorMainComponentStateProperties
 ): React.ReactElement {
   const classes = useStyles()
-  const emulator = getEmulator(props.match.params.id as EmulatorId)
+
+  const emulator = props.emulatorsInCellar.find(
+    (emulator) => emulator.Id === props.match.params.id
+  )
+
+  if (!emulator) {
+    return <div>Emulator not found</div>
+  }
 
   /**
    * Render specified emulator.
    */
   const renderEmulator = (container: HTMLDivElement): void => {
-    if (!emulator || !container) return
+    if (!container) return
 
     const prefix = emulator.Id
-    import(`components/emulator/emulators/${prefix}/${prefix}`)
+    // Need to use relative path because dynamyc import doesn't seem to resolve paths from tsconfig
+    import(`../../../emulators/${prefix}/component`)
       .then((component) => {
-        const element = React.createElement(component.default)
+        const props: EmulatorComponentProperties = {
+          emulator: emulator,
+        }
+        const element = React.createElement(component.default, props)
         ReactDOM.render(element, container)
       })
       .catch(console.error)
-  }
-
-  if (!emulator) {
-    return <div>Emulator not found</div>
   }
 
   return (

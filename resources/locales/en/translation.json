@@ -32,6 +32,9 @@
     "text": "Choose an emulator"
   },
   "createEmulator": {
+    "title": "Create {{name}} emulator"
+  },
+  "emulatorCreated": {
     "title": "{{name}} emulator successfully created",
     "addAnother": "Add another emulator"
   },
@@ -86,8 +89,10 @@
   "appbar": {
     "home": "Home",
     "add-emulator": "Add emulator",
+    "select-emulator": "Select emulator",
     "configure-emulator": "Configure emulator",
-    "create-emulator": "Emulator created",
+    "create-emulator": "Create emulator",
+    "emulator-created": "Emulator created",
     "settings": "Settings",
     "search": "Search",
     "lightDarkMode": "Toggle light/dark mode"

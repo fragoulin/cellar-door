@@ -5,6 +5,7 @@ module.exports = {
   moduleNameMapper: {
     "^components/(.*)": "<rootDir>/app/src/components/$1",
     "^container/(.*)": "<rootDir>/app/src/container/$1",
+    "^emulators/(.*)": "<rootDir>/app/src/emulators/$1",
     "^localization/(.*)": "<rootDir>/app/src/localization/$1",
     "^models/(.*)": "<rootDir>/app/src/models/$1",
     "^redux/(.*)": "<rootDir>/app/src/redux/$1",

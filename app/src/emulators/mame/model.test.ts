@@ -1,4 +1,4 @@
-import Mame from './mame'
+import Mame from './model'
 import { EmulatorId } from 'models/emulator/types'
 
 it('should have correct Id', () => {

@@ -1,7 +1,7 @@
 import Emulators from './index'
-import Mame from './mame'
-import ScummVm from './scummvm'
-import Zinc from './zinc'
+import Mame from 'emulators/mame/model'
+import ScummVm from 'emulators/scummvm/model'
+import Zinc from 'emulators/zinc/model'
 
 it('should contains correct number of emulators', () => {
   expect(Emulators).toHaveLength(3)
