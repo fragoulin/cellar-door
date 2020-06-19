@@ -57,7 +57,7 @@ function EmulatorMain(
     if (!container) return
 
     const prefix = emulator.Id
-    // Need to use relative path because dynamyc import doesn't seem to resolve paths from tsconfig
+    // Need to use relative path because dynamic import doesn't seem to resolve paths from tsconfig
     import(`../../../emulators/${prefix}/component`)
       .then((component) => {
         const props: EmulatorComponentProperties = {
