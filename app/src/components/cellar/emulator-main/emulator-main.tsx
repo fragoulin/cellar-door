@@ -56,9 +56,8 @@ function EmulatorMain(
   const renderEmulator = (container: HTMLDivElement): void => {
     if (!container) return
 
-    const prefix = emulator.Id
     // Need to use relative path because dynamic import doesn't seem to resolve paths from tsconfig
-    import(`../../../emulators/${prefix}/component`)
+    import(`../../../emulators/${emulator.Id}/component`)
       .then((component) => {
         const props: EmulatorComponentProperties = {
           emulator: emulator,

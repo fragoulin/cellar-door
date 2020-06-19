@@ -4,7 +4,7 @@ import {
   AddSnapAction,
   DatabaseCreatedAction,
   SnapAddedAction,
-} from '../constants'
+} from './constants'
 import { DatabaseName, DatabaseVersion } from 'electron/constants'
 
 type Entry = {
