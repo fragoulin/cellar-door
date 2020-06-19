@@ -3,6 +3,8 @@ import { Emulator } from 'models/emulator/types'
 import EmulatorSummary from 'components/emulator/creation/emulator-summary/emulator-summary'
 import { withTranslation, WithTranslation } from 'react-i18next'
 import useStyles from './emulator-created-styles'
+import { useStore } from 'react-redux'
+import { emulatorAddedToCellar } from 'redux/modules/cellar'
 
 /**
  * Properties definition for this component.
@@ -12,30 +14,23 @@ type EmulatorCreatedComponentProperties = {
 }
 
 /**
- * Properties definition from redux.
- */
-export type EmulatorCreatedComponentDispatchProperties = {
-  addEmulatorToCellar: (emulator: Emulator) => void
-}
-
-/**
  * Create emulator component is the result page after an emulator has been created.
  */
 function EmulatorCreated(
-  props: EmulatorCreatedComponentProperties &
-    EmulatorCreatedComponentDispatchProperties &
-    WithTranslation
+  props: EmulatorCreatedComponentProperties & WithTranslation
 ): React.ReactElement {
   const classes = useStyles()
+  const store = useStore()
 
   /**
    * Add emulator to cellar.
    */
   useEffect(() => {
     if (props.emulator) {
-      props.addEmulatorToCellar(props.emulator)
+      console.log('DISPATCH (emulator created)')
+      store.dispatch(emulatorAddedToCellar(props.emulator))
     }
-  }, [props])
+  })
 
   if (!props.emulator) return <div>No emulator found</div>
 

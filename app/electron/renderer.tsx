@@ -13,9 +13,10 @@ import {
   MenuClickChannel,
   DialogOpenResultChannel,
 } from './constants'
-import Root from 'container/main/root'
+import Root from 'components/main/root/root'
 import 'react-hot-loader'
 import { currentLocaleSet } from 'redux/modules/preferences'
+import { Provider } from 'react-redux'
 
 // Load required fonts for material. Required font weights are 300, 400, 500 and 700
 // https://material-ui.com/components/typography/#general
@@ -38,7 +39,12 @@ const win = window as CellarWin
  * @param i18n - i18next instance
  */
 function createRoot(store: Store, i18n: I18n): void {
-  ReactDOM.render(<Root i18n={i18n} store={store} />, main)
+  ReactDOM.render(
+    <Provider store={store}>
+      <Root i18n={i18n} />
+    </Provider>,
+    main
+  )
 }
 
 /**

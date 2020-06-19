@@ -1,10 +1,11 @@
 import * as React from 'react'
 import { Select, InputLabel, FormHelperText } from '@material-ui/core'
 import { EmulatorId } from 'models/emulator/types'
-import { EmulatorIdsToName } from 'redux/modules/cellar'
 import { withTranslation, WithTranslation } from 'react-i18next'
 import { useState } from 'react'
 import useStyles from './emulator-select-styles'
+import { useStore } from 'react-redux'
+import { RootState } from 'redux/store'
 
 /**
  * Properties definition for this component.
@@ -17,21 +18,15 @@ export type EmulatorSelectComponentProperties = {
 }
 
 /**
- * Properties definition for this component (from redux state).
- */
-export type EmulatorsSelectComponentStateProperties = {
-  availableEmulatorNames: EmulatorIdsToName[]
-}
-
-/**
  * Emulators select component displays a list of selectable emulators.
  */
 function EmulatorsSelect(
-  props: EmulatorSelectComponentProperties &
-    EmulatorsSelectComponentStateProperties &
-    WithTranslation
+  props: EmulatorSelectComponentProperties & WithTranslation
 ): React.ReactElement {
   const classes = useStyles()
+  const store = useStore()
+  const state = store.getState() as RootState
+
   const [selectedEmulatorId, setSelectedEmulatorId] = useState(
     props.selectedEmulatorId ? props.selectedEmulatorId : ''
   )
@@ -55,7 +50,7 @@ function EmulatorsSelect(
         onChange={handleChange}
       >
         <option aria-label="None" value="" />
-        {props.availableEmulatorNames.map((e) => (
+        {state.cellar.present.availableEmulatorNames.map((e) => (
           <option key={e.id} value={e.id}>
             {e.name}
           </option>

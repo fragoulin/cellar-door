@@ -12,4 +12,4 @@ type MameCard = {
   snap?: string
 }
 
-export { MameIni, MameCard, IpcSnap }
+export { MameIni, MameCard }

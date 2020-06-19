@@ -1,13 +1,13 @@
 import React from 'react'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
-import Welcome from 'container/cellar/welcome'
+import Welcome from 'components/cellar/welcome/welcome'
 import EmulatorStepper from 'components/emulator/stepper/emulator-stepper'
-import ConfigureEmulator from 'container/emulators/configure-emulator'
-import EmulatorMain from 'container/cellar/emulator-main'
-import Appbar from 'container/main/appbar'
+import ConfigureEmulator from 'components/emulator/configuration/configure-emulator/configure-emulator'
+import EmulatorMain from 'components/cellar/emulator-main/emulator-main'
+import Appbar from 'components/main/appbar/appbar'
 import { Paper } from '@material-ui/core'
 import useStyles from './router-styles'
-import emulatorCreated from 'container/emulators/emulator-created'
+import emulatorCreated from 'components/emulator/creation/emulator-created/emulator-created'
 import CreateEmulator from 'components/emulator/creation/create-emulator/create-emulator'
 
 /**

@@ -1,17 +1,12 @@
 import * as React from 'react'
 import { FormControl } from '@material-ui/core'
-import EmulatorsSelect from 'container/emulators/emulators-select'
-import { EmulatorId, Emulator } from 'models/emulator/types'
+import EmulatorsSelect from 'components/emulator/configuration/emulators-select/emulators-select'
+import { EmulatorId } from 'models/emulator/types'
 import { withTranslation, WithTranslation } from 'react-i18next'
 import { useState } from 'react'
 import useStyles from './add-emulator-styles'
-
-/**
- * Properties definition for this component (from redux state).
- */
-export type AddEmulatorComponentStateProperties = {
-  emulatorsInCellar: Emulator[]
-}
+import { useStore } from 'react-redux'
+import { RootState } from 'redux/store'
 
 /**
  * Properties definition for this component.
@@ -27,11 +22,11 @@ type AddEmulatorComponentProperties = {
  * It displays the list of available emulators and back/submit buttons.
  */
 function AddEmulator(
-  props: AddEmulatorComponentProperties &
-    AddEmulatorComponentStateProperties &
-    WithTranslation
+  props: AddEmulatorComponentProperties & WithTranslation
 ): React.ReactElement {
   const classes = useStyles()
+  const store = useStore()
+  const state = store.getState() as RootState
   const [hasError, setHasError] = useState(false)
   const [errorMessage, setErrorMessage] = useState<string | undefined>(
     undefined
@@ -46,7 +41,7 @@ function AddEmulator(
   const isEmulatorAlreadyPresentInCellar = (
     emulatorId: EmulatorId
   ): boolean => {
-    return !!props.emulatorsInCellar.find(
+    return !!state.cellar.present.emulatorsInCellar.find(
       (emulator) => emulatorId === emulator.Id
     )
   }

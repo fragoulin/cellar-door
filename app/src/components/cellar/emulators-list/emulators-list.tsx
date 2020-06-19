@@ -2,32 +2,20 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { Button } from '@material-ui/core'
 import { withTranslation, WithTranslation } from 'react-i18next'
-import { Emulator, EmulatorId } from 'models/emulator/types'
+import { EmulatorId } from 'models/emulator/types'
 import EmulatorLogoComponent from 'components/cellar/emulator-logo/emulator-logo'
 import Sortable from 'sortablejs'
-
-/**
- * Properties definition for this component.
- */
-export type EmulatorsListComponentStateProperties = {
-  emulatorsInCellar: Emulator[]
-}
-
-/**
- * Properties definition for this component (from redux dispatch).
- */
-export type EmulatorsListComponentDispatchProperties = {
-  emulatorsReordered(emulatorIds: EmulatorId[]): void
-}
+import { useStore } from 'react-redux'
+import { RootState } from 'redux/store'
+import { emulatorsReordered } from 'redux/modules/cellar'
 
 /**
  * Emulators list component renders the list of emulators associated to the current cellar.
  */
-function EmulatorsList(
-  props: EmulatorsListComponentStateProperties &
-    WithTranslation &
-    EmulatorsListComponentDispatchProperties
-): React.ReactElement {
+function EmulatorsList(props: WithTranslation): React.ReactElement {
+  const store = useStore()
+  const state = store.getState() as RootState
+
   /**
    * Persist emulators order according to HTML rendering current emulators.
    *
@@ -40,7 +28,7 @@ function EmulatorsList(
       const emulatorId = e.getAttribute('data-emulator')
       emulatorIds.push(emulatorId as EmulatorId)
     })
-    props.emulatorsReordered(emulatorIds)
+    store.dispatch(emulatorsReordered(emulatorIds))
   }
 
   /**
@@ -61,7 +49,7 @@ function EmulatorsList(
     <>
       <h2>{props.t('emulatorsList.title')}</h2>
       <div className="emulators" ref={dndDecorator}>
-        {props.emulatorsInCellar.map((emulator) => (
+        {state.cellar.present.emulatorsInCellar.map((emulator) => (
           <Button
             key={emulator.Id}
             component={Link}

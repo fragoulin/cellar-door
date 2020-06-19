@@ -5,6 +5,8 @@ import { Emulator } from 'models/emulator/types'
 import EmulatorLogoComponent from '../emulator-logo/emulator-logo'
 import ReactDOM from 'react-dom'
 import useStyles from './emulator-main-styles'
+import { useStore } from 'react-redux'
+import { RootState } from 'redux/store'
 
 /**
  * Additional properties definition to retrieve emulator Id from URL parameters.
@@ -37,8 +39,10 @@ function EmulatorMain(
     EmulatorMainComponentStateProperties
 ): React.ReactElement {
   const classes = useStyles()
+  const store = useStore()
+  const state = store.getState() as RootState
 
-  const emulator = props.emulatorsInCellar.find(
+  const emulator = state.cellar.present.emulatorsInCellar.find(
     (emulator) => emulator.Id === props.match.params.id
   )
 
